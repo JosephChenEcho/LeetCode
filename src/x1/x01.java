@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package x1;
-
+import java.util.*;
 /**
  *
  * @author jochen
@@ -19,7 +19,7 @@ public class x01 {
     //1.Two Sum
     public static int[] twoSum(int[] nums, int target){
         int[] ret = new int[2];
-        for(int i = 0; i < nums.length; i++){
+        /*for(int i = 0; i < nums.length; i++){
             int next = target - nums[i];
             for(int j = i + 1; j < nums.length; j++){
                 if(nums[j] == next){
@@ -28,6 +28,17 @@ public class x01 {
                     return ret;
                 }
             }
+        }
+        */
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+        for(int i = 0; i < nums.length; i++){
+            
+            if(map.containsKey(nums[i]) && map.get(nums[i]) != i){
+                ret[0] = map.get(nums[i]);
+                ret[1] = i;
+                return ret;
+            }
+            map.put(target - nums[i], i);
         }
         
         return ret;
