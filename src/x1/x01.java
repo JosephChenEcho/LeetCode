@@ -11,9 +11,23 @@ import java.util.*;
  */
 public class x01 {
     public static void main(String[] args){
-        System.out.println();
-        int[] nums = {3,2,4};
-        twoSum(nums,6);
+        //[2,4,3] [5,6,4]
+        ListNode a = new ListNode(2);
+        ListNode b2 = a.next;
+        ListNode a1 = new ListNode(4);
+        a.next = a1;
+        a1.next = new ListNode(3);
+        ListNode b = new ListNode(5);
+        ListNode b1 = new ListNode(6);
+        b.next = b1;
+        b1.next = new ListNode(4);
+        
+        a = new ListNode(1);
+        a.next = new ListNode(8);
+        b = new ListNode(0);
+        
+        addTwoNumbers(b,a);
+        
     }
     
     //1.Two Sum
@@ -42,5 +56,36 @@ public class x01 {
         }
         
         return ret;
+    }
+    
+    //2.Add Two Numbers
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        ListNode retnode = l1;
+        ListNode prev = null;
+        while(l1 != null || l2 != null){
+            if(l1 == null){
+                l1 = new ListNode(0);
+                prev.next = l1;
+            }
+            if(l2 == null){
+                l2 = new ListNode(0);
+            }
+            l1.val += l2.val;
+            if(l1.val > 9){
+                l1.val -= 10;
+                if(l1.next == null){
+                    l1.next = new ListNode(1);
+                }
+                else{
+                    l1.next.val += 1;
+                }
+            }
+            prev = l1;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        return retnode;       
     }
 }
