@@ -11,22 +11,9 @@ import java.util.*;
  */
 public class x01 {
     public static void main(String[] args){
-        //[2,4,3] [5,6,4]
-        ListNode a = new ListNode(2);
-        ListNode b2 = a.next;
-        ListNode a1 = new ListNode(4);
-        a.next = a1;
-        a1.next = new ListNode(3);
-        ListNode b = new ListNode(5);
-        ListNode b1 = new ListNode(6);
-        b.next = b1;
-        b1.next = new ListNode(4);
+        System.out.println(convert("PAYPALISHIRINGfsafasfdasfasfdsafasfsdfasf", 5));
+        //convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
         
-        a = new ListNode(1);
-        a.next = new ListNode(8);
-        b = new ListNode(0);
-        
-        addTwoNumbers(b,a);
         
     }
     
@@ -87,5 +74,49 @@ public class x01 {
             l2 = l2.next;
         }
         return retnode;       
+    }
+    
+    //3. Longest Substring Without Repeating Characters
+    public int lengthOfLongestSubstring(String s) {    
+        return 0;
+    }
+    
+    //4. Median of Two Sorted Arrays
+    
+    //5. Longest Palindromic Substring
+    
+    //6. ZigZag Conversion
+    public static String convert(String s, int numRows) {
+        char[] chars = s.toCharArray();
+        int x = numRows;
+        int y = s.length()*2 / (2*numRows - 2) + 1;
+        int[][] map = new int[y][x];
+        Boolean reverse = false;
+        
+        for(int i = 0, index = 0; i < chars.length; index++){
+            if(reverse){
+                for(int j = numRows - 2; j > 0; j--){
+                    map[index][j] = i + 1;
+                    i++;
+                }            
+            }
+            else{
+                for(int j = 0; j < numRows; j++){
+                    map[index][j] = i + 1;
+                    i++;
+                }
+            }
+            reverse = !reverse;
+            
+        }
+        
+        for(int i = 0; i < map.length; i++){
+            for(int j = 0; j < map[i].length; j++){
+                System.out.print(map[i][j] + "\t");
+            }
+            System.out.println();
+        }
+        
+        return null;
     }
 }
