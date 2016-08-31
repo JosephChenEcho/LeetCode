@@ -87,36 +87,15 @@ public class x01 {
     
     //6. ZigZag Conversion
     public static String convert(String s, int numRows) {
-        char[] chars = s.toCharArray();
-        int x = numRows;
-        int y = s.length()*2 / (2*numRows - 2) + 1;
-        int[][] map = new int[y][x];
-        Boolean reverse = false;
-        
-        for(int i = 0, index = 0; i < chars.length; index++){
-            if(reverse){
-                for(int j = numRows - 2; j > 0; j--){
-                    map[index][j] = i + 1;
-                    i++;
-                }            
+        if (numRows == 1) return s;
+        int offset = 2 * numRows - 2;
+        StringBuffer result = new StringBuffer();
+        for (int i = 0; i < numRows; i ++) {
+            for (int j = 0; j*offset + i < s.length(); j ++) {
+                result.append(s.charAt(j*offset + i));
+                if (i != 0 && i != numRows - 1 && (j+1)*offset - i < s.length()) result.append(s.charAt((j+1)*offset - i));
             }
-            else{
-                for(int j = 0; j < numRows; j++){
-                    map[index][j] = i + 1;
-                    i++;
-                }
-            }
-            reverse = !reverse;
-            
         }
-        
-        for(int i = 0; i < map.length; i++){
-            for(int j = 0; j < map[i].length; j++){
-                System.out.print(map[i][j] + "\t");
-            }
-            System.out.println();
-        }
-        
-        return null;
+        return result.toString();
     }
 }
