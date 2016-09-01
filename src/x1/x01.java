@@ -11,8 +11,8 @@ import java.util.*;
  */
 public class x01 {
     public static void main(String[] args){
-        System.out.println(convert("PAYPALISHIRINGfsafasfdasfasfdsafasfsdfasf", 5));
-        //convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+        int[] input = {4,5,6,8,9};
+        System.out.println(lengthOfLongestSubstring("aaaabcdaaa"));
         
         
     }
@@ -77,11 +77,46 @@ public class x01 {
     }
     
     //3. Longest Substring Without Repeating Characters
-    public int lengthOfLongestSubstring(String s) {    
-        return 0;
+    public static int lengthOfLongestSubstring(String s) {    
+        int ret = 0;
+        char[] chararray = s.toCharArray();
+        int start = -1;
+        HashMap<Character,Integer> check = new HashMap<Character,Integer>();
+        for(int i=0;i<chararray.length;i++){
+            char current = chararray[i];
+            if(check.containsKey(current)){
+                start = Math.max(start, check.get(current));
+            }
+            ret = Math.max(i-start, ret);
+            check.put(current, i);
+        }
+        return ret;
     }
     
-    //4. Median of Two Sorted Arrays
+    //4. Median of Two Sorted Arrays Unsolved
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if(nums1 == null && nums2 == null) return 0;
+        
+        double res = 0.00;
+        int m = nums1.length;
+        int n = nums2.length;
+        int i = 0,j = 0;
+        int count = 0;
+        if((m + n) % 2 == 1){
+            while(count == (m + n) % 2){
+                if(nums1[i] < nums2[j]){
+                    i++;
+                    count++;
+                }
+                else{
+                    j++;
+                    count++;
+                }
+            }                    
+        }
+        
+        return res;    
+    }
     
     //5. Longest Palindromic Substring
     
