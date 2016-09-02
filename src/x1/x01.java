@@ -11,8 +11,9 @@ import java.util.*;
  */
 public class x01 {
     public static void main(String[] args){
-        int[] input = {4,5,6,8,9};
-        System.out.println(lengthOfLongestSubstring("aaaabcdaaa"));
+        int[] input1 = {1,3};
+        int[] input2 = {2};
+        findMedianSortedArrays(input1,input2);
         
         
     }
@@ -101,21 +102,35 @@ public class x01 {
         int m = nums1.length;
         int n = nums2.length;
         int i = 0,j = 0;
-        int count = 0;
-        if((m + n) % 2 == 1){
-            while(count == (m + n) % 2){
-                if(nums1[i] < nums2[j]){
-                    i++;
-                    count++;
-                }
-                else{
-                    j++;
-                    count++;
-                }
-            }                    
+        int index = 0;
+        int[] nums = new int[m+n];
+        while(i < m || j < n){
+            if(i == m){
+                nums[index] = nums2[j];
+                index++;
+                j++;
+            } else if(j == n){
+                nums[index] = nums1[i];
+                index++;
+                i++;
+            } else if (nums1[i] < nums2[j]){
+                nums[index] = nums1[i];
+                index++;
+                i++;
+            } else {
+                nums[index] = nums2[j];
+                index++;
+                j++;
+            }
         }
         
-        return res;    
+        if(nums.length % 2 == 1){
+            return nums[(m+n)/2];
+        }else{
+            return (double)(nums[(m+n)/2] + nums[(m+n)/2 - 1])/2;
+        }
+        
+ 
     }
     
     //5. Longest Palindromic Substring
