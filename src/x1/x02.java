@@ -17,8 +17,39 @@ public class x02 {
     
     //21 Merge Two Sorted Lists
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1 == null) return l2;
+        if(l2 == null) return l1;
         
-        return null;        
+        ListNode retlist = null;
+        ListNode curl1 = l1;
+        ListNode curl2 = l2;
+        ListNode current = null;
+        
+        while(curl1 == null && curl2 == null){
+            ListNode temp = null;
+            if(curl1.val > curl2.val){
+                temp.val = curl1.val;
+                curl1 = curl1.next;
+            }
+            else{
+                temp.val = curl2.val;
+                curl2 = curl2.next;
+            }
+            
+            if(retlist == null){
+                retlist = temp;
+                current = retlist;
+            }
+            else{
+                current.next = temp;
+                current = current.next;
+            }
+        }
+        
+        if(curl1 == null) current.next = curl2;
+        if(curl2 == null) current.next = curl1;
+        
+        return retlist;        
     }
     
     //29 Divide Two Integers
