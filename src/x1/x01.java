@@ -95,45 +95,54 @@ public class x01 {
     }
     
     //4. Median of Two Sorted Arrays Unsolved
-    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if(nums1 == null && nums2 == null) return 0;
-        
-        double res = 0.00;
-        int m = nums1.length;
-        int n = nums2.length;
-        int i = 0,j = 0;
-        int index = 0;
-        int[] nums = new int[m+n];
-        while(i < m || j < n){
-            if(i == m){
-                nums[index] = nums2[j];
-                index++;
-                j++;
-            } else if(j == n){
-                nums[index] = nums1[i];
-                index++;
-                i++;
-            } else if (nums1[i] < nums2[j]){
-                nums[index] = nums1[i];
-                index++;
-                i++;
-            } else {
-                nums[index] = nums2[j];
-                index++;
-                j++;
-            }
+        public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+            int leftMedian = (nums1.length+nums2.length+1)/2;
+            int rightMedian = (nums1.length+nums2.length+2)/2;
+            return (helper(nums1,0,nums2,0,leftMedian)+helper(nums1,0,nums2,0,rightMedian))/2.0;
         }
         
-        if(nums.length % 2 == 1){
-            return nums[(m+n)/2];
-        }else{
-            return (double)(nums[(m+n)/2] + nums[(m+n)/2 - 1])/2;
+        public static double helper(int[] nums1, int start1, int[]nums2, int start2, int topK){
+            if(start1 > nums1.length-1) return nums2[start2+topK-1];
+            if(start2 > nums2.length-1) return nums1[start1+topK-1];
+            if(topK == 1) return Math.min(nums1[start1],nums2[start2]);
+         
+            if(start2+topK/2-1 > nums2.length-1) return helper(nums1,start1+topK/2,nums2,start2,topK-topK/2);
+            if(start1+topK/2-1 > nums1.length-1) return helper(nums1,start1,nums2,start2+topK/2,topK-topK/2);
+    
+            if(nums1[start1+topK/2-1] < nums2[start2+topK/2-1]) return helper(nums1,start1+topK/2,nums2,start2,topK-topK/2);
+            else return helper(nums1,start1,nums2,start2+topK/2,topK-topK/2);  
         }
-        
- 
-    }
     
     //5. Longest Palindromic Substring
+        public static String longestPalindrome(String s){
+            int start=0, end=0;
+            int maxLen = 1;
+            for(int i = 0; i < s.length(); i++){
+                int left = i;
+                int right = i;
+                while(left>-1 && right<s.length() && s.charAt(left) == s.charAt(right)){
+                    left--;
+                    right++;
+                }
+                if(maxLen<right-left+1){
+                    maxLen = right - left + 1;
+                    start = left+1;
+                    end = right-1;
+                }
+                left = i;
+                right = i+1;
+                while(left>-1 && right<s.length() && s.charAt(left) == s.charAt(right)){
+                    left--;
+                    right++;
+                }
+                if(maxLen<right-left+1){
+                    maxLen = right - left + 1;
+                    start = left+1;
+                    end = right-1;
+                }              
+            }
+            return s.substring(start,end+1);
+        }
     
     //6. ZigZag Conversion
     public static String convert(String s, int numRows) {
