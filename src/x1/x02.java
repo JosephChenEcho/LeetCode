@@ -12,7 +12,18 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        divide(-2147483648,-1);
+        ListNode input = new ListNode(1);
+        ListNode input2 = new ListNode(2);
+        input.next = input2;
+        ListNode input3 = new ListNode(3);
+        input2.next = input3;
+        ListNode input4 = new ListNode(4);
+        input3.next = input4;
+        ListNode input5 = new ListNode(5);
+        input4.next = input5;
+        input5.next = new ListNode(6);
+        ListNode output = swapPairs(input);
+        System.out.println(output.toString());
     }
     
     //21 Merge Two Sorted Lists
@@ -50,6 +61,30 @@ public class x02 {
         if(curl2 == null) current.next = curl1;
         
         return retlist;        
+    }
+    
+    //24 Swap nodes in pairs
+    public static ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode node1 = head;
+        ListNode node2;
+        ListNode temp;
+        ListNode pre = null;
+        while(node1 != null){
+            node2 = node1.next;
+            if(node2 == null) return head;
+            temp = node2.next;
+            node2.next = node1;
+            node1.next = temp;
+            if(pre != null){
+                pre.next = node2;
+            }else{
+                head = node2;
+            }
+            pre = node1;
+            node1 = pre.next;
+        }
+        return head;
     }
     
     //29 Divide Two Integers
