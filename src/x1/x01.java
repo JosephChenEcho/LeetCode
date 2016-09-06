@@ -5,15 +5,14 @@
  */
 package x1;
 import java.util.*;
+import java.math.*;
 /**
  *
  * @author jochen
  */
 public class x01 {
     public static void main(String[] args){
-        int[] input1 = {1,3};
-        int[] input2 = {2};
-        findMedianSortedArrays(input1,input2);
+        System.out.println(reverse(Integer.MIN_VALUE));
         
         
     }
@@ -157,4 +156,23 @@ public class x01 {
         }
         return result.toString();
     }
+    
+    //7. Reverse Integer
+    public static int reverse(int x){
+        boolean isPos = x>0;
+    	if(!isPos)
+    		x = x* -1;
+    	int ans = 0, tmp = 0;
+    	while(x>0){
+    	    if( (ans) > (Integer.MAX_VALUE/10)) return 0;// overflows
+    	    ans = ans* 10 + x % 10;
+            x /=10;
+    	}
+    	return isPos? ans: -1*ans;
+    }
+    //8. String to Integer(atoi)
+    
+    //9. Palindrome Number
+    
+    //10. Regular Expression Matching
 }
