@@ -12,7 +12,7 @@ import java.math.*;
  */
 public class x01 {
     public static void main(String[] args){
-        System.out.println(reverse(Integer.MIN_VALUE));
+        myAtoi("+123");
         
         
     }
@@ -162,7 +162,7 @@ public class x01 {
         boolean isPos = x>0;
     	if(!isPos)
     		x = x* -1;
-    	int ans = 0, tmp = 0;
+    	int ans = 0;
     	while(x>0){
     	    if( (ans) > (Integer.MAX_VALUE/10)) return 0;// overflows
     	    ans = ans* 10 + x % 10;
@@ -171,6 +171,39 @@ public class x01 {
     	return isPos? ans: -1*ans;
     }
     //8. String to Integer(atoi)
+    public static int myAtoi(String str){
+        if(str==null || str.length()<=0) return 0;
+	int res=0;
+	int index=0; 
+	while(str.charAt(index)==' '){  //find the first non-whitespace
+		index++;
+	}
+	
+	int sign=0; //the count of signal.
+	boolean isNegative=false;   //the negative signal
+	for(;index<str.length() && (sign<2);index++){
+		char ch=str.charAt(index);
+		int val=ch-48;
+		if((ch=='+' || ch=='-')){
+			sign++;
+			if(ch=='-') isNegative=true;
+			continue;
+		}
+		if((val>9 || val<0))    //if there is other char , it it illegal.
+			break;
+		if(!isNegative && res>(Integer.MAX_VALUE-val)/10)
+			return Integer.MAX_VALUE;
+		
+		if(isNegative && ( res> (Integer.MAX_VALUE-val)/10))
+			return Integer.MIN_VALUE;
+		
+		res=10*res+val;  //the result of number
+	}
+	
+	if(isNegative)
+		return res*-1;
+	return res;
+    }
     
     //9. Palindrome Number
     
