@@ -12,7 +12,7 @@ import java.math.*;
  */
 public class x01 {
     public static void main(String[] args){
-        myAtoi("+123");
+        isPalindrome(1000110001);
         
         
     }
@@ -206,6 +206,42 @@ public class x01 {
     }
     
     //9. Palindrome Number
+    public static boolean isPalindrome(int x) {
+        if(x < 0) return false;
+        if(x == 0) return true;
+        
+        int input = x;
+        int tmp = 0;
+        
+        while(x > 0){
+            tmp = 10 * tmp + x%10;
+            x = x/10;
+            
+        }
+        return tmp == input;        
+    }
     
     //10. Regular Expression Matching
+    
+    //11. Container With Most Water
+    public int maxArea(int[] height) {
+        int i = 0;
+        int j = height.length - 1;
+        int maxarea = 0;
+        while(i < j){
+            int h = Math.min(height[i],height[j]);
+            int w = j - i;
+            if(h * w > maxarea){
+                maxarea = h * w;
+            }
+            if(height[i] > height[j]){
+                j--;
+            }
+            else{
+                i++;
+            }
+        }
+        
+        return maxarea;        
+    }
 }
