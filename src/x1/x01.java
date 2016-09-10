@@ -12,9 +12,13 @@ import java.math.*;
  */
 public class x01 {
     public static void main(String[] args){
-        isPalindrome(1000110001);
-        
-        
+        List<Integer> itest = new ArrayList<>();
+        itest.add(1);
+        itest.add(1);
+        itest.add(2);
+        for(int i : itest){
+            System.out.print(i + "\t");
+        }
     }
     
     //1.Two Sum
@@ -267,10 +271,80 @@ public class x01 {
     public static int romanToInt(String s) {
         String[] preStrList = {"CM","CD","XC","XL","IX","IV"};
         int[] preIntList = {900, 400, 90, 40, 9, 4};
+        int ret = 0;
         
         for(int i = 0; i < preStrList.length; i++){
-        
+            if(s.indexOf(preStrList[i]) > -1){
+                int cutPoint = s.indexOf(preStrList[i]);
+                s = s.substring(0,cutPoint) + s.substring(cutPoint+2);
+                ret += preIntList[i];
+            }
         }
-        return 0;
+        
+        String[] strList = {"M","D","C","L","X","V","I"};
+        int[] intList = {1000,500,100,50,10,5,1};
+        for(int i = 0; i < strList.length; i++){
+            while(s.indexOf(strList[i]) > -1){
+                int cutPoint = s.indexOf(strList[i]);
+                s = s.substring(0,cutPoint) + s.substring(cutPoint + 1);
+                ret += intList[i];
+            }
+        }
+        return ret;        
     }
+    //14. Longest Common Prefix
+        
+    //15. 3Sum
+    public static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        
+        List<List<Integer>> retList = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++){
+            int j = i + 1;
+            int k = nums.length - 1;
+            while(j < k){
+                if(nums[i] + nums[j] + nums[k] == 0){
+                    List<Integer> retint = new ArrayList<>();
+                    retint.add(nums[i]);
+                    retint.add(nums[j]);
+                    retint.add(nums[k]);
+                    if(!retList.contains(retint)){
+                        retList.add(retint);
+                    }
+                    j++;
+                    k--;
+                }
+                else if(nums[i] + nums[j] + nums[k] > 0){
+                    k--;
+                }
+                else {
+                    j++;
+                }
+            }
+        }        
+        return retList;        
+    }
+
+    
+    
+    //16. 3Sum Closest
+    
+    public static int threeSumClosest(int[] nums, int target) {
+        return 0;        
+    }
+    
+    public static void sort(int[] nums){
+        //Bubble Sort
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i + 1; j < nums.length; j++){
+                if(nums[i] > nums[j]){
+                    int tmp = 0;
+                    tmp = nums[j];
+                    nums[j] = nums[i];
+                    nums[i] = tmp;
+                }
+            }
+        }
+    }
+    
 }
