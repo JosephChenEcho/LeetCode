@@ -13,14 +13,14 @@ import java.math.*;
 public class x01 {
     public static void main(String[] args){
         ListNode input = new ListNode(1);
-        /*ListNode input1 = new ListNode(2);
+        ListNode input1 = new ListNode(2);
         ListNode input2 = new ListNode(3);
         ListNode input3 = new ListNode(4);
         ListNode input4 = new ListNode(5);
         input.next = input1;
         input1.next= input2;
         input2.next = input3;
-        input3.next = input4;*/
+        input3.next = input4;
         
         System.out.println(input.toString());
         
@@ -362,19 +362,26 @@ public class x01 {
     //19. Remove Nth Node From End of List
     
     public static ListNode removeNthFromEnd(ListNode head, int n) {
-        if(head == null) return null;
-        HashMap<Integer,ListNode> hashListMap = new HashMap<Integer,ListNode>();
-        ListNode current = head;
-        int i = 0;
-        while(current != null){
-            hashListMap.put(i, current);
-            current = current.next;
-            i++;
+        
+        if(head == null) return head;
+        
+        ListNode fast = head;
+        ListNode fake = new ListNode(0);
+        fake.next = head;
+        while(n > 0){
+            fast = fast.next;
+            n --;
+            //System.out.println(fast.toString());
         }
-        int target = i - n - 1;
-        ListNode cutNode = hashListMap.get(target);
-        cutNode.next = cutNode.next.next;
-        return head;        
+        ListNode cur = fake;
+        while(fast != null){
+            fast = fast.next;
+            cur = cur.next;
+            //System.out.println(fast.toString());
+           // System.out.println(cur.toString());
+        }
+        cur.next = cur.next.next;
+        return fake.next;
     }
     
     
