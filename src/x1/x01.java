@@ -12,19 +12,10 @@ import java.math.*;
  */
 public class x01 {
     public static void main(String[] args){
-        ListNode input = new ListNode(1);
-        ListNode input1 = new ListNode(2);
-        ListNode input2 = new ListNode(3);
-        ListNode input3 = new ListNode(4);
-        ListNode input4 = new ListNode(5);
-        input.next = input1;
-        input1.next= input2;
-        input2.next = input3;
-        input3.next = input4;
-        
-        System.out.println(input.toString());
-        
-        System.out.println(removeNthFromEnd(input,1).toString());
+        List<String> output = letterCombinations("23");
+        for(String str : output){
+            System.out.println(str);
+        }
     }
     
     //1.Two Sum
@@ -367,6 +358,59 @@ public class x01 {
             
         }
         return sum;        
+    }
+    //17. Letter Combinations of a Phone Number
+    public static List<String> letterCombinations(String digits) {
+        HashMap<Character, char[]> mapkey = new HashMap();        
+        mapkey.put('2', new char[] {'a','b','c'});
+        mapkey.put('3', new char[] {'d','e','f'});
+        mapkey.put('4', new char[] {'g','h','i'});
+        mapkey.put('5', new char[] {'j','k','l'});
+        mapkey.put('6', new char[] {'m','n','o'});
+        mapkey.put('7', new char[] {'p','q','r','s'});
+        mapkey.put('8', new char[] {'t','u','v'});
+        mapkey.put('9', new char[] {'w','x','y','z'});
+        List<String> retlist = new ArrayList<>();        
+        //retlist.addAll(letterComb(mapkey, digits, null));
+        for(int i = 0; i < digits.length(); i++){
+            if(retlist.size() == 0){
+                for(char c : mapkey.get(digits.charAt(i))){
+                    retlist.add(String.valueOf(c));
+                }
+            }
+            else{
+                List<String> tmp = new ArrayList<>();
+                for(String str: retlist){
+                    for(char c : mapkey.get(digits.charAt(i))){
+                        tmp.add(str + String.valueOf(c));
+                    }
+                }
+                retlist.clear();
+                retlist = tmp;
+            }
+        }
+        
+        
+        return retlist;        
+    }
+    
+    public static List<String> letterComb(HashMap<Character, char[]> _mapkey, String inputstr, List<String> input){
+        if (inputstr.length() == 0) return input;
+        List<String> output = new ArrayList<>();
+        char[] digset = _mapkey.get(inputstr.charAt(0));
+        if(input == null){
+            for(char c : digset){
+                output.add(String.valueOf(c));
+            }
+        }
+        else{
+            for(String str : input){
+                for(char c : digset){
+                    output.add(str + String.valueOf(c));
+                }
+            }
+        }
+        return letterComb(_mapkey,inputstr.substring(1),output);
     }
     
     //19. Remove Nth Node From End of List
