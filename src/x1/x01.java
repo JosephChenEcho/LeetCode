@@ -438,6 +438,24 @@ public class x01 {
         return fake.next;
     }
     
+    //20. Valid Parentheses
+    public static boolean isValid(String s){
+        if(s.length() == 0) return true;        
+
+        Stack<Character> stack = new Stack<Character>();
+        for(char ch : s.toCharArray()) {
+
+            if(ch==')' || ch==']' || ch=='}') {
+                if(stack.isEmpty()) return false;
+                if(ch==')' && stack.pop()!='(') return false;
+                if(ch==']' && stack.pop()!='[') return false;
+                if(ch=='}' && stack.pop()!='{') return false;
+            }
+            else stack.push(ch);
+        }
+       
+        return stack.isEmpty();
+    }
     
     public static void sort(int[] nums){
         //Bubble Sort
