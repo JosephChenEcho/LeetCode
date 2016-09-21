@@ -12,18 +12,7 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        ListNode input = new ListNode(1);
-        ListNode input2 = new ListNode(2);
-        input.next = input2;
-        ListNode input3 = new ListNode(3);
-        input2.next = input3;
-        ListNode input4 = new ListNode(4);
-        input3.next = input4;
-        ListNode input5 = new ListNode(5);
-        input4.next = input5;
-        input5.next = new ListNode(6);
-        ListNode output = swapPairs(input);
-        System.out.println(output.toString());
+        generateParenthesis(4);
     }
     
     //21 Merge Two Sorted Lists
@@ -63,25 +52,29 @@ public class x02 {
         return retlist;        
     }
     
-    //22. Generate Parentheses need improve!!!!!!
+    //22. Generate Parentheses 
     public static List<String> generateParenthesis(int n) {
-        List <String> retlist = new ArrayList<String>();
-        if (n==0){
-            retlist.add("");
-            return retlist;
-        }
-        for(String str: generateParenthesis(n-1)){
-            int i=1;
-            while(i<str.length()){
-                String temp = str.substring(0,i)+"()"+str.substring(i,str.length());
-                if(!retlist.contains(temp)) retlist.add(temp);
-                i++;
-            }
-            if(!retlist.contains("()"+str)) retlist.add("()"+str);
-            if(!retlist.contains(str+"()")) retlist.add(str+"()");
+        List<String> list = new ArrayList<String>();
+        backtrack(list, "", 0, 0, n);
+        return list;
+    }
+    
+    public static void backtrack(List<String> list, String str, int open, int close, int max){
+        
+        if(str.length() == max*2){
+            list.add(str);
+            System.out.println(str);
+            return;
         }
         
-        return retlist;
+        if(open < max){
+            backtrack(list, str+"(", open+1, close, max);
+            
+        }            
+        if(close < open){
+            backtrack(list, str+")", open, close+1, max);
+            
+        }
     }
     
     //24 Swap nodes in pairs
