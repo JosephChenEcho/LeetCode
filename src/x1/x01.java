@@ -8,7 +8,7 @@ import java.util.*;
 import java.math.*;
 /**
  *
- * @author jochen
+ * 10,19, didn't do yet
  */
 public class x01 {
     public static void main(String[] args){
