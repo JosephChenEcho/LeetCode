@@ -63,6 +63,27 @@ public class x02 {
         return retlist;        
     }
     
+    //22. Generate Parentheses need improve!!!!!!
+    public static List<String> generateParenthesis(int n) {
+        List <String> retlist = new ArrayList<String>();
+        if (n==0){
+            retlist.add("");
+            return retlist;
+        }
+        for(String str: generateParenthesis(n-1)){
+            int i=1;
+            while(i<str.length()){
+                String temp = str.substring(0,i)+"()"+str.substring(i,str.length());
+                if(!retlist.contains(temp)) retlist.add(temp);
+                i++;
+            }
+            if(!retlist.contains("()"+str)) retlist.add("()"+str);
+            if(!retlist.contains(str+"()")) retlist.add(str+"()");
+        }
+        
+        return retlist;
+    }
+    
     //24 Swap nodes in pairs
     public static ListNode swapPairs(ListNode head) {
         if(head == null || head.next == null) return head;
