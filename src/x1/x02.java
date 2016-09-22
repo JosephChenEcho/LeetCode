@@ -258,4 +258,15 @@ public class x02 {
         
         return true;
     }
+    
+    //37. Sudoku Solver
+    public static void solveSudoku(char[][] board) {
+        int len = board.length;
+        for(int i = 0; i < len; i++){
+            for(int j = 0; j < len; j++){
+                if(board[i][j] == '.'){
+                }
+            }
+        }
+    }
 }
