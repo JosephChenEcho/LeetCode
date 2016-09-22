@@ -12,7 +12,8 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        generateParenthesis(4);
+        int[] input = {1,2,4,3};
+        nextPermutation(input);
     }
     
     //21 Merge Two Sorted Lists
@@ -175,6 +176,32 @@ public class x02 {
     //31. Next Permutation
     public static void nextPermutation(int[] nums) {
         if(nums.length <= 1) return;
+        int i = nums.length - 1;
+
+        for(; i > 0; i--){
+            if(nums[i] > nums[i - 1]) break;
+        }
+
+        int right = nums.length - 1;
+        int left = i;
+        while (left < right) {
+            swap(nums, left, right);
+            ++left;
+            --right;
+        }
+        if (i != 0) {
+            int j = i;
+            while (nums[i - 1] >= nums[j]) {
+                ++j;
+            }
+            swap(nums, i - 1, j);
+        }
+    }
+    
+    public static void swap(int[] nums, int a, int b){
+        int tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
     }
     
     //36 Valid Sudoku
