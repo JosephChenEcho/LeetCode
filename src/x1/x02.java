@@ -204,6 +204,24 @@ public class x02 {
         nums[b] = tmp;
     }
     
+    //34. Search for a Range
+    public int[] searchRange(int[] nums, int target) {
+        int lt = 0;
+        int gt = nums.length - 1;
+        while(lt <= gt) {
+            int mid = (lt+gt)/2;
+            if (target < nums[mid]) gt = mid - 1;
+            else if (nums[mid] < target) lt = mid + 1;
+            else {
+                lt = gt = mid;
+                while(lt > 0 && nums[lt-1] == nums[mid]) lt--;
+                while(gt < nums.length - 1 && nums[gt + 1] == nums[mid]) gt++;
+                return new int[]{lt, gt};
+            }
+        }
+        return new int[]{-1, -1};
+    }
+    
     //36 Valid Sudoku
     public static boolean isValidSudoku(char[][] board) {
         HashSet<Character> nums = new HashSet<Character>();
