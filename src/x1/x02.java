@@ -101,6 +101,50 @@ public class x02 {
         return head;
     }
     
+    //26. Remove Duplicates from Sorted Array    
+    public static int removeDuplicates(int[] nums) {
+        if(nums.length == 0) return 0;
+        if(nums.length == 1) return 1;
+        int j = 1;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] != nums[i-1]){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        
+        return j;
+    }
+    
+    //27. Remove Element
+    public static int removeElement(int[] nums, int val) {
+        int j = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] != val){
+                nums[j] = nums[i];
+                j++;
+            }
+        }        
+        return j;
+    }
+    
+    //28. Implement strStr()
+    public static int strStr(String haystack, String needle) {
+        //if(haystack.length() == 0) return -1;
+        if(needle.length() == 0) return 0;
+        for(int i = 0; i < haystack.length() - needle.length() + 1; i++){
+            int j = 0;
+            int k = i;
+            while(j < needle.length() && haystack.charAt(k) == needle.charAt(j)){
+                k++;
+                j++;
+            }
+            if(j == needle.length()) return i;
+        }
+        
+        return -1;
+    }
+    
     //29 Divide Two Integers
     public static int divide(int dividend, int divisor) {
         int sign = 1;
