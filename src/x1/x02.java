@@ -172,6 +172,11 @@ public class x02 {
         return (int)result * sign;
     }
     
+    //31. Next Permutation
+    public static void nextPermutation(int[] nums) {
+        if(nums.length <= 1) return;
+    }
+    
     //36 Valid Sudoku
     public static boolean isValidSudoku(char[][] board) {
         HashSet<Character> nums = new HashSet<Character>();
