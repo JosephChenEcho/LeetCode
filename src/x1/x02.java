@@ -12,8 +12,24 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        int[] input = {1,2,4,3};
-        nextPermutation(input);
+        char[][] board = new char[9][9];
+        board[0] = "..9748...".toCharArray();
+        board[1] = "7........".toCharArray();
+        board[2] = ".2.1.9...".toCharArray();
+        board[3] = "..7...24.".toCharArray();
+        board[4] = ".64.1.59.".toCharArray();
+        board[5] = ".98...3..".toCharArray();
+        board[6] = "...8.3.2.".toCharArray();
+        board[7] = "........6".toCharArray();
+        board[8] = "...2759..".toCharArray();
+        solveSudoku(board);
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                System.out.print(board[i][j] + "\t");
+            }
+            System.out.println();
+        }
+        //board = {"..9748...","7........",".2.1.9...","..7...24.",".64.1.59.",".98...3..","...8.3.2.","........6","...2759.."};
     }
     
     //21 Merge Two Sorted Lists
@@ -261,12 +277,50 @@ public class x02 {
     
     //37. Sudoku Solver
     public static void solveSudoku(char[][] board) {
+        if(!isValidSudoku(board)) return;
         int len = board.length;
         for(int i = 0; i < len; i++){
             for(int j = 0; j < len; j++){
                 if(board[i][j] == '.'){
+                    int k = 1;
+                    for( k = 1; k < 10; k++){
+                        board[i][j] = (char)('0' + k);
+                        if(i == 8 && j == 8 && isValidSudoku(board)){
+                            for(int i1 = 0; i1 < 9; i1++){
+                                for(int j1 = 0; j1 < 9; j1++){
+                                    System.out.print(board[i1][j1] + "\t");
+                                }
+                                System.out.println();
+                            }
+                            return;
+                        }
+                        solveSudoku(board);
+                        
+                    }
+                    
+                    /*if(!isValidSudoku(board,i,j)) return;*/
+                    
+                    
+                    if(k == 10){
+                        board[i][j] = '.';
+                        return;
+                    }
                 }
             }
+
+        }        
+    }
+    
+    public static boolean isValidSudoku(char[][] board, int i, int j){
+        boolean output = isValidSudoku(board);
+        System.out.println("i = " + i + " j = " + j);
+        for(int i1 = 0; i1 < 9; i1++){
+            for(int j1 = 0; j1 < 9; j1++){
+                System.out.print(board[i1][j1] + "\t");
+            }
+            System.out.println();
         }
+        if(!output) board[i][j] = '.';
+        return output;
     }
 }
