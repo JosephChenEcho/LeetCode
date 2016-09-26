@@ -12,24 +12,8 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        char[][] board = new char[9][9];
-        board[0] = "..9748...".toCharArray();
-        board[1] = "7........".toCharArray();
-        board[2] = ".2.1.9...".toCharArray();
-        board[3] = "..7...24.".toCharArray();
-        board[4] = ".64.1.59.".toCharArray();
-        board[5] = ".98...3..".toCharArray();
-        board[6] = "...8.3.2.".toCharArray();
-        board[7] = "........6".toCharArray();
-        board[8] = "...2759..".toCharArray();
-        solveSudoku(board);
-        for(int i = 0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
-                System.out.print(board[i][j] + "\t");
-            }
-            System.out.println();
-        }
-        //board = {"..9748...","7........",".2.1.9...","..7...24.",".64.1.59.",".98...3..","...8.3.2.","........6","...2759.."};
+        for(int i = 0; i < 10; i ++)
+        System.out.println(countAndSay(i));
     }
     
     //21 Merge Two Sorted Lists
@@ -323,4 +307,43 @@ public class x02 {
         if(!output) board[i][j] = '.';
         return output;
     }
+    
+    //38. Count and Say
+    public static String countAndSay(int n) {
+        if(n == 0) return "";
+        String retstr = "1";
+        while(n > 1){
+            
+            retstr = strBuild(retstr);
+            n--;
+        }
+        return retstr;
+    }
+    
+    public static String strBuild(String n){
+        String retstr = "";
+        int last = -1;            
+        int count = 0;
+        for(Character c : n.toCharArray()){
+            int current = c - '0';
+            if(last == -1){
+                last = current;
+                count = 1;
+            }else if(last != current){
+                retstr += String.valueOf(count) + String.valueOf(last);
+                last = current;
+                count = 1;
+            }else{
+                count++;
+            }
+        }
+        
+        retstr += String.valueOf(count) + String.valueOf(last);
+        return retstr;
+    }
+    //39. Combination Sum
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        return null;
+    }
+    //40. Combination Sum II
 }
