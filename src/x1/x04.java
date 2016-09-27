@@ -8,8 +8,8 @@ package x1;
 import java.util.*;
 //import java.math.*;
 
-/**
- *
+/**Unsolved Hard:
+ * 41, 42, 44, 45, 51, 52, 56, 67 
  * @author Joseph
  */
 public class x04 {
@@ -17,7 +17,7 @@ public class x04 {
         System.out.println(multiply("999","000"));
     }
     
-    //41. Multiply Strings
+    //43. Multiply Strings
     public static String multiply(String num1, String num2) {
         int m = num1.length(), n = num2.length();
         int[] pos = new int[m + n];
@@ -38,5 +38,9 @@ public class x04 {
         return sb.length() == 0 ? "0" : sb.toString();
     }
     
-
+    //51. N-Queens
+    public List<List<String>> solveNQueens(int n) {
+        String[] board = new String[n];
+        return null;
+    }
 }

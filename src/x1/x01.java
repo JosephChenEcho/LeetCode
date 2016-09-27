@@ -7,8 +7,8 @@ package x1;
 import java.util.*;
 import java.math.*;
 /**
- *
- * 10,19, didn't do yet
+ * Unsolved Hard
+ * 10,19
  */
 public class x01 {
     public static void main(String[] args){
