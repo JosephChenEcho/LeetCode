@@ -6,14 +6,13 @@
 package x1;
 import java.util.*;
 /**
- *
+ * 23,25,30,32,33 Hard Level
  * @author Joseph
  */
 public class x02 {
     
     public static void main(String[] args){
-        for(int i = 0; i < 10; i ++)
-        System.out.println(countAndSay(i));
+        combinationSum(new int[]{2,3,6,7},7);
     }
     
     //21 Merge Two Sorted Lists
@@ -342,8 +341,34 @@ public class x02 {
         return retstr;
     }
     //39. Combination Sum
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        return null;
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        //if(target == 0) return null;
+        List<List<Integer>> retlist = new ArrayList();
+        for(int i = 0; i < candidates.length; i++){
+            List<Integer> tmplist = new ArrayList();
+            if(target == candidates[i]){
+                tmplist.add(candidates[i]);
+                retlist.add(tmplist);
+                //return retlist;
+            }else if(target > candidates[i]){
+                if(combinationSum(candidates,target - candidates[i]) != null){
+                    for(List<Integer> al : combinationSum(candidates,target - candidates[i])){
+                        al.add(candidates[i]);
+                        retlist.add(tmplist);
+                    }
+                    //return retlist;
+                }
+                else{
+                    //retlist = null;
+                }
+            }else{
+                //retlist = null;
+            }
+        }
+        return retlist;
     }
     //40. Combination Sum II
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        return null;
+    }
 }
