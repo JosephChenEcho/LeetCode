@@ -12,7 +12,8 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        combinationSum(new int[]{2,3,6,7},7);
+        List<List<Integer>> output = combinationSum(new int[]{2,3,6,7},7);
+        System.out.println("Done");
     }
     
     //21 Merge Two Sorted Lists
@@ -343,30 +344,26 @@ public class x02 {
     //39. Combination Sum
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         //if(target == 0) return null;
+        Arrays.sort(candidates);
         List<List<Integer>> retlist = new ArrayList();
-        for(int i = 0; i < candidates.length; i++){
-            List<Integer> tmplist = new ArrayList();
-            if(target == candidates[i]){
-                tmplist.add(candidates[i]);
-                retlist.add(tmplist);
-                //return retlist;
-            }else if(target > candidates[i]){
-                if(combinationSum(candidates,target - candidates[i]) != null){
-                    for(List<Integer> al : combinationSum(candidates,target - candidates[i])){
-                        al.add(candidates[i]);
-                        retlist.add(tmplist);
-                    }
-                    //return retlist;
-                }
-                else{
-                    //retlist = null;
-                }
-            }else{
-                //retlist = null;
-            }
-        }
+        combSum1Backtrack(retlist, new ArrayList<Integer>(), candidates, target, 0);        
         return retlist;
     }
+    
+    public static void combSum1Backtrack(List<List<Integer>> retlist, List<Integer> tmplist, int[] candidates, int target, int start){
+        List<Integer> curlist = new ArrayList<>(tmplist);        
+        for(int i = start; i < candidates.length; i++){
+            if(candidates[i] == target){
+                curlist.add(candidates[i]);
+                retlist.add(curlist);                
+            }else if(candidates[i] < target){
+                curlist.add(candidates[i]);
+                combSum1Backtrack(retlist, curlist, candidates, target - candidates[i],i);
+                curlist.remove(curlist.size() - 1);
+            }                 
+        }       
+    }
+    
     //40. Combination Sum II
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         return null;
