@@ -368,32 +368,21 @@ public class x02 {
     public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         List<List<Integer>> retlist = new ArrayList();
-        combSum2Backtrack(retlist, new ArrayList<Integer>(), candidates, target, 0);      
-        if(candidates.length == 2 && candidates[0] == 1 && candidates[1] == 1 && target == 1){
-            List<Integer> tmp = new ArrayList();
-            tmp.add(1);
-            retlist.clear();
-            retlist.add(tmp);
-        }
+        combSum2Backtrack(retlist, new ArrayList<Integer>(), candidates, target, 0, 0);      
         return retlist;
     }
     
-    public static void combSum2Backtrack(List<List<Integer>> retlist, List<Integer> tmplist, int[] candidates, int target, int start){
-        List<Integer> curlist = new ArrayList<>(tmplist);        
-        for(int i = start; i < candidates.length; i++){
-            System.out.println();
-            if(candidates[i] == target){
-                curlist.add(candidates[i]);
-                if(!retlist.contains(curlist)) retlist.add(curlist);      
-                return;
-            }else if(candidates[i] < target){
-                curlist.add(candidates[i]);
-                
-                combSum2Backtrack(retlist, curlist, candidates, target - candidates[i],i + 1);
-                curlist.remove(curlist.size() - 1);
-            }else{
-                return;
-            }              
-        }       
+    public static void combSum2Backtrack(List<List<Integer>> retlist, List<Integer> tmplist, int[] candidates, int target,int sum, int start){
+        if(sum == target){
+            if(!retlist.contains(tmplist)) retlist.add(new ArrayList(tmplist));
+        }else if(sum < target){
+            for(int i = start; i < candidates.length; i++){
+                sum += candidates[i];
+                tmplist.add(candidates[i]);
+                combSum2Backtrack(retlist, tmplist, candidates, target, sum, i+1);
+                sum -= candidates[i];
+                tmplist.remove(tmplist.size() - 1);
+            }
+        }               
     }
 }
