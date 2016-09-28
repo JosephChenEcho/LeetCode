@@ -14,7 +14,17 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        System.out.println(multiply("999","000"));
+        List<List<Integer>> input = new ArrayList();
+        int[] testinput = {1,2,3};
+        input = permute(testinput);
+        
+        for(int i = 0; i < input.size(); i++){
+            System.out.print("Set " + i +": ");
+            for(int ii : input.get(i)){
+                System.out.print(ii+",");
+            }
+            System.out.println();
+        }
     }
     
     //43. Multiply Strings
@@ -38,9 +48,49 @@ public class x04 {
         return sb.length() == 0 ? "0" : sb.toString();
     }
     
+    //46. Permutations
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> retlist = new ArrayList<>();
+        List<Integer> numlist = new ArrayList();
+        for(int i : nums){
+            numlist.add(i);
+        }                     
+        return permuteSet(retlist, numlist);
+    }
+    
+    public static List<List<Integer>> permuteSet(List<List<Integer>> inlist, List<Integer> innums){
+        List<List<Integer>> outlist = new ArrayList();
+        if (innums.size() == 0) return inlist;
+        if (inlist.size() == 0){
+            for(int i = 0; i < innums.size(); i++){
+                List<Integer> outnums = new ArrayList(innums);
+                List<Integer> tmplist = new ArrayList();
+                tmplist.add(innums.get(i));
+                outnums.remove(i);
+                List<List<Integer>> tlist = new ArrayList();
+                tlist.add(tmplist);
+                outlist.addAll(permuteSet( tlist,outnums));
+            }     
+            return outlist;
+        }
+        for(List<Integer> al : inlist){
+            for(int i = 0; i < innums.size(); i++){
+                List<Integer> outnums = new ArrayList(innums);
+                List<Integer> tmplist = new ArrayList(al);
+                tmplist.add(innums.get(i));
+                outnums.remove(i);
+                List<List<Integer>> tlist = new ArrayList();
+                tlist.add(tmplist);
+                outlist.addAll(permuteSet(tlist ,outnums));
+            }
+        }
+        return outlist;
+    }
+    
     //51. N-Queens
-    public List<List<String>> solveNQueens(int n) {
+    public static List<List<String>> solveNQueens(int n) {
         String[] board = new String[n];
         return null;
     }
+
 }
