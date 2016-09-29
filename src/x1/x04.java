@@ -14,16 +14,13 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        List<List<Integer>> input = new ArrayList();
-        int[] testinput = {1,2,3};
-        input = permute(testinput);
-        
-        for(int i = 0; i < input.size(); i++){
-            System.out.print("Set " + i +": ");
-            for(int ii : input.get(i)){
-                System.out.print(ii+",");
+        List<List<String>> output = solveNQueens(4);
+        for(List<String> al : output){
+            System.out.println("Solution : ");
+            for(String str : al){
+                System.out.println(str);
             }
-            System.out.println();
+            System.out.println("--------------");
         }
     }
     
@@ -87,10 +84,56 @@ public class x04 {
         return outlist;
     }
     
+    //48. Rotate Image
+    public void rotate(int[][] matrix) {
+        
+    }
+    
     //51. N-Queens
     public static List<List<String>> solveNQueens(int n) {
-        String[] board = new String[n];
-        return null;
+        List<List<String>> retlist = new ArrayList();        
+        int[] board = new int[n];
+        nQueenHelper(retlist, board, 0);        
+        return retlist;
+    }
+    
+    public static Boolean nQueenHelper(List<List<String>> retlist, int[] inboard,int idx){
+        if(idx >= inboard.length){
+            /*System.out.print("Solution : ");
+            for(int i : inboard){
+                System.out.print(i + ",");
+            }
+            System.out.println();*/
+            List<String> solutionlist = new ArrayList();
+            for(int iq : inboard){
+                char[] cstr = new char[inboard.length];
+                for(int i = 0; i < cstr.length; i++){
+                    cstr[i] = '.';                    
+                }
+                cstr[iq] = 'Q';
+                solutionlist.add(String.valueOf(cstr));
+            }
+            retlist.add(solutionlist);
+            return true;
+        }
+        
+        for(int i = 0; i < inboard.length; i++){
+            int[] outboard = inboard.clone();
+            outboard[idx] = i;
+            if(validBoard(outboard,idx)){
+                nQueenHelper(retlist,outboard,idx + 1);
+            }
+        }
+        
+        return false;
+    }
+    
+    public static Boolean validBoard(int[] board, int idx){
+        for(int i = 0; i < idx; i++){
+            if(board[i] == board[idx]) return false;
+            if(Math.abs(board[i] - board[idx]) == (idx - i) ) return false;
+        }        
+        return true;
     }
 
 }
