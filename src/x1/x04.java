@@ -15,11 +15,12 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        int[][] input = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-        rotate(input);
-        for(int[] ai : input){
-            for(int i : ai){
-                System.out.print(i + "\t");
+        int[] input = {1,2,1,2};
+        List<List<Integer>> output = permuteUnique(input);
+        for(List<Integer> al : output){
+            System.out.print("Set : ");
+            for(int i : al){
+                System.out.print(i+",");
             }
             System.out.println();
         }
@@ -67,7 +68,10 @@ public class x04 {
                 outnums.remove(i);
                 List<List<Integer>> tlist = new ArrayList();
                 tlist.add(tmplist);
-                outlist.addAll(permuteSet( tlist,outnums));
+                //outlist.addAll(permuteSet( tlist,outnums));
+                for(List<Integer> als : permuteSet(tlist ,outnums)){
+                    if(!outlist.contains(als)) outlist.add(als);
+                }
             }     
             return outlist;
         }
@@ -79,10 +83,53 @@ public class x04 {
                 outnums.remove(i);
                 List<List<Integer>> tlist = new ArrayList();
                 tlist.add(tmplist);
-                outlist.addAll(permuteSet(tlist ,outnums));
+                //outlist.addAll(permuteSet(tlist ,outnums));
+                for(List<Integer> als : permuteSet(tlist ,outnums)){
+                    if(!outlist.contains(als)) outlist.add(als);
+                }
             }
         }
         return outlist;
+    }
+    
+    //47. Permutations II
+    public static List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ret = new ArrayList<>();
+        if (nums == null || nums.length == 0) return ret;        
+        Arrays.sort(nums);
+        boolean[] used = new boolean[nums.length];        
+        permuteHelper(nums, 0, ret, used, new ArrayList<Integer>());        
+        return ret;
+    }
+    
+    private static void permuteHelper(int[] nums, int len, List<List<Integer>> ret, boolean[] used, List<Integer> curr) {
+        System.out.print("Set :");
+        for(int i : curr){
+            System.out.print(i + ",");
+        }
+        System.out.print("len = "+len);
+        for(boolean i : used){
+            System.out.print(i + ",");
+        }
+        System.out.println();
+        
+        if (len == nums.length) {
+            ret.add(new ArrayList<Integer>(curr));
+            return;
+        }
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (!used[i]) {
+                if (i > 0 && nums[i] == nums[i - 1] && used[i - 1]) {
+                    continue;
+                }
+                used[i] = true;
+                curr.add(nums[i]);
+                permuteHelper(nums, len + 1, ret, used, curr);
+                curr.remove(curr.size() - 1);
+                used[i] = false;
+            }
+        }
     }
     
     //48. Rotate Image
@@ -109,12 +156,8 @@ public class x04 {
                 matrix[leftbottomx + j][leftbottomy - i] = tmp;
             }
         }
-    }
-    
-    public void rotateByPoint(int[][] matrix){
-    
-    }
-    
+    }   
+
     //51. N-Queens
     public static List<List<String>> solveNQueens(int n) {
         List<List<String>> retlist = new ArrayList();        
