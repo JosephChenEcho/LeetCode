@@ -9,7 +9,8 @@ import java.util.*;
 //import java.math.*;
 
 /**Unsolved Hard:
- * 41, 42, 44, 45, 51, 52, 56, 67 
+ * 41, 42, 44, 45, 52(Can improve), 56, 67 
+ * Solved 51
  * @author Joseph
  */
 public class x04 {
@@ -135,5 +136,15 @@ public class x04 {
         }        
         return true;
     }
+    
+    //52. N-Queens II
+    public static int totalNQueens(int n) {        
+        List<List<String>> retlist = new ArrayList();        
+        int[] board = new int[n];
+        nQueenHelper(retlist, board, 0);        
+        return retlist.size();
+    }
+    
+    
 
 }
