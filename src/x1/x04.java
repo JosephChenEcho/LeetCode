@@ -15,13 +15,13 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        List<List<String>> output = solveNQueens(4);
-        for(List<String> al : output){
-            System.out.println("Solution : ");
-            for(String str : al){
-                System.out.println(str);
+        int[][] input = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+        rotate(input);
+        for(int[] ai : input){
+            for(int i : ai){
+                System.out.print(i + "\t");
             }
-            System.out.println("--------------");
+            System.out.println();
         }
     }
     
@@ -86,8 +86,33 @@ public class x04 {
     }
     
     //48. Rotate Image
-    public void rotate(int[][] matrix) {
+    public static void rotate(int[][] matrix) {
+        //if len =6 mid: 3/3
+        //if len = 7 mid 4/3
+        int limitx = (matrix.length + 1)/2;
+        int limity = matrix.length - limitx;
+        int lefttopx = 0;
+        int lefttopy = 0;
+        int righttopx = matrix.length - 1;
+        int righttopy = 0;
+        int leftbottomx = 0;
+        int leftbottomy = matrix.length - 1;
+        int rightbottomx = matrix.length - 1;
+        int rightbottomy = matrix.length - 1;
         
+        for(int i = 0; i < limitx; i++){
+            for(int j = 0; j < limity; j++){
+                int tmp = matrix[lefttopx + i][lefttopy + j];
+                matrix[lefttopx + i][lefttopy + j] = matrix[righttopx - j][righttopy + i];
+                matrix[righttopx - j][righttopy + i] = matrix[rightbottomx - i][rightbottomy - j];
+                matrix[rightbottomx - i][rightbottomy - j] = matrix[leftbottomx + j][leftbottomy - i];
+                matrix[leftbottomx + j][leftbottomy - i] = tmp;
+            }
+        }
+    }
+    
+    public void rotateByPoint(int[][] matrix){
+    
     }
     
     //51. N-Queens
