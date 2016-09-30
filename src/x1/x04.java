@@ -253,4 +253,30 @@ public class x04 {
         }
         return max_so_far;        
     }
+    
+    //54. Spiral Matrix
+    public static List<Integer> spiralOrder(int[][] matrix) {               
+        List<Integer> retlist = new ArrayList();
+        if(matrix.length == 0) return retlist;
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+        Boolean reverse = false;
+        while(bottom > top){
+            
+        }
+        
+        return null;
+    }
+    
+    //55. Jump Game
+    public boolean canJump(int[] nums) {
+        int i = 0;
+        for(;i < nums.length; i++){
+            if(nums[i] == 0) break;
+        }
+        if(i < nums.length - 1) return false;
+        return true;
+    }
 }
