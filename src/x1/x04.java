@@ -15,8 +15,8 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-
-        System.out.println(myPow(0.00001,2147483647));
+        int[] input = {-2,1,-3,4,-1,2,1,-5,4};
+        System.out.println(maxSubArray(input));
     }
     
     //43. Multiply Strings
@@ -95,7 +95,7 @@ public class x04 {
         return ret;
     }
     
-    private static void permuteHelper(int[] nums, int len, List<List<Integer>> ret, boolean[] used, List<Integer> curr) {
+    public static void permuteHelper(int[] nums, int len, List<List<Integer>> ret, boolean[] used, List<Integer> curr) {
         System.out.print("Set :");
         for(int i : curr){
             System.out.print(i + ",");
@@ -244,6 +244,13 @@ public class x04 {
         return retlist.size();
     }
     
-    
-
+    //53. Maximum Subarray
+    public static int maxSubArray(int[] nums) {
+        int max_so_far = nums[0], sum = nums[0];
+        for(int i=1; i<nums.length; i++){
+            sum = (nums[i] > sum+nums[i]) ? nums[i] : sum+nums[i];
+            if(sum > max_so_far) max_so_far = sum;
+        }
+        return max_so_far;        
+    }
 }
