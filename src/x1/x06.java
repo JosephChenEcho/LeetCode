@@ -31,36 +31,24 @@ public class x06 {
     //61. Rotate List
     public static ListNode rotateRight(ListNode head, int k) {
         if (head == null || head.next == null) return head;
-        
-        if(k == 0) return head;
-        ListNode p = head;
-        ListNode target = head;
-        for(int i = 0; i < k - 1; i++){
-            p = p.next;
-            if(p == null) p = head;
+        int len = 1;
+        ListNode last = head;
+        while(last.next != null){
+            last = last.next;
+            len++;
         }
+        k = k % len;
+        if(k == 0) return head;
         ListNode previous = new ListNode(0);
         previous.next = head;
-        
-        if(p.next == null) return head;
-        while(p.next != null){
-            p = p.next;
-            target = target.next;
+        ListNode target = head;
+        for(int i = 0; i < len - k; i++){
             previous = previous.next;
+            target = target.next;
         }
         previous.next = null;
-        p.next = head;
-        /*while(p.next != target){
-            p = p.next;
-        }
-        p.next = null;
-        p = target;
-        if(p == null) return head;
-        while(p.next != null){
-            p = p.next;
-        }
-        p.next = head;*/
-        
+        last.next = head;
+               
         return target;
     }
 }
