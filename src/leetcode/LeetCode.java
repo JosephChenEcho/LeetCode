@@ -17,7 +17,10 @@ public class LeetCode {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //removeInvalidParentheses(")(");
+        List<String> output = removeInvalidParentheses("()()))()");
+        for(String str : output){
+            System.out.println(str);
+        }
     }
     
     public void setZeroes(int[][] matrix) {
@@ -46,12 +49,12 @@ public class LeetCode {
         
     }
     
-    public List<String> removeInvalidParentheses(String s) {
+    public static List<String> removeInvalidParentheses(String s) {
         List<String> ans = new ArrayList<>();
         remove(s, ans, 0, 0, new char[]{'(', ')'});
         return ans;
     }
-    public void remove(String s, List<String> ans, int last_i, int last_j,  char[] par) {
+    public static void remove(String s, List<String> ans, int last_i, int last_j,  char[] par) {
         for (int stack = 0, i = last_i; i < s.length(); ++i) {
             if (s.charAt(i) == par[0]) stack++;
             if (s.charAt(i) == par[1]) stack--;

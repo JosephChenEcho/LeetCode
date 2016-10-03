@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        System.out.println(uniquePaths(4,4));
+        System.out.println(uniquePaths(23,12));
     }
     
     //61. Rotate List
@@ -42,12 +42,15 @@ public class x06 {
     
     //62. Unique Paths
     public static int uniquePaths(int m, int n) {
-        return uniquePathswithPoint(0, 0, m, n);
+        int[][] map = new int[m][n];
+        uniquePaths(0,0, map);
+        return map[0][0];
     }
     
-    public static int uniquePathswithPoint(int x, int y, int m, int n){
-        if(x == m - 1 || y == n - 1) return 1;        
-        return uniquePathswithPoint(x, y + 1, m, n) + uniquePathswithPoint(x + 1, y, m, n);
+    public static int uniquePaths(int m, int n, int[][] map) {
+        if (m == map.length - 1 || n == map[0].length - 1) return 1;
+        if (map[m][n] == 0) map[m][n] = uniquePaths(m + 1, n, map) + uniquePaths(m, n + 1, map);
+        return map[m][n];
     }
     
     //73. Set Matrix Zeroes
