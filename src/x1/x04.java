@@ -9,14 +9,14 @@ import java.util.*;
 //import java.math.*;
 
 /**Unsolved Hard:
- * 41, 42, 44, 45, 52(Can improve), 56, 67 
+ * 41, 42, 44, 45, 52(Can improve), 56, 57 
  * Solved 51
  * @author Joseph
  */
 public class x04 {
     public static void main(String[] args){
-        int[] input = {-2,1,-3,4,-1,2,1,-5,4};
-        System.out.println(maxSubArray(input));
+        int[] input = {2,0,0};
+        System.out.println(canJump(input));
     }
     
     //43. Multiply Strings
@@ -271,12 +271,29 @@ public class x04 {
     }
     
     //55. Jump Game
-    public boolean canJump(int[] nums) {
-        int i = 0;
-        for(;i < nums.length; i++){
-            if(nums[i] == 0) break;
+    public static boolean canJump(int[] nums) {
+        /*if(nums.length > 1 && nums[0] == 0) return false;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] != 0){
+                if(i + nums[i] >= nums.length) return true;
+            }else if(i == nums.length - 1){
+                return true;
+            }else{
+                int j = 1;
+                for(; j <= i; j++){
+                    if(nums[i - j] > j){
+                        break;
+                    }
+                }
+                if(j > i) return false;
+            }
+        }        
+        return false;*/
+        int reachable = 0;
+        for (int i=0; i<nums.length; i++) {
+            if (i > reachable) return false;
+            reachable = Math.max(reachable, i + nums[i]);
         }
-        if(i < nums.length - 1) return false;
         return true;
     }
 }
