@@ -5,6 +5,8 @@
  */
 package x1;
 
+import java.util.*;
+
 /**
  *
  * @author jochen
@@ -46,5 +48,29 @@ public class x06 {
     public static int uniquePathswithPoint(int x, int y, int m, int n){
         if(x == m - 1 || y == n - 1) return 1;        
         return uniquePathswithPoint(x, y + 1, m, n) + uniquePathswithPoint(x + 1, y, m, n);
+    }
+    
+    //73. Set Matrix Zeroes
+    public void setZeroes(int[][] matrix){
+        if(matrix == null) return;
+        HashSet<Integer> col = new HashSet();
+        HashSet<Integer> row = new HashSet();
+        
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(matrix[i][j] == 0){
+                    col.add(i);
+                    row.add(j);
+                }
+            }
+        }
+        
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j ++){
+                if(col.contains(i) || row.contains(j)){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
     }
 }
