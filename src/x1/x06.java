@@ -11,21 +11,7 @@ package x1;
  */
 public class x06 {
     public static void main(String[] args){
-        ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(2);
-        ListNode input3 = new ListNode(3);
-        ListNode input4 = new ListNode(4);
-        ListNode input5 = new ListNode(5);
-        
-        input1.next = input2;
-        input2.next = input3;
-        input3.next = input4;
-        input4.next = input5;
-        
-        ListNode output = rotateRight(input1,5);
-        System.out.println(output.toString());
-        
-    
+        System.out.println(uniquePaths(4,4));
     }
     
     //61. Rotate List
@@ -50,5 +36,15 @@ public class x06 {
         last.next = head;
                
         return target;
+    }
+    
+    //62. Unique Paths
+    public static int uniquePaths(int m, int n) {
+        return uniquePathswithPoint(0, 0, m, n);
+    }
+    
+    public static int uniquePathswithPoint(int x, int y, int m, int n){
+        if(x == m - 1 || y == n - 1) return 1;        
+        return uniquePathswithPoint(x, y + 1, m, n) + uniquePathswithPoint(x + 1, y, m, n);
     }
 }

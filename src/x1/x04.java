@@ -15,8 +15,7 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        int[] input = {2,0,0};
-        System.out.println(canJump(input));
+        System.out.println(lengthOfLastWord("HelloWorld!"));
     }
     
     //43. Multiply Strings
@@ -295,5 +294,29 @@ public class x04 {
             reachable = Math.max(reachable, i + nums[i]);
         }
         return true;
+    }
+    
+    //58. Length of Last Word
+    public static int lengthOfLastWord(String s) {
+        s = s.trim();
+        char[] chars = s.toCharArray();
+        int last = 0;
+        for(int i = 0; i < chars.length; i++){
+            if(chars[i] == ' '){
+                last = 0;
+            }else{
+                last++;
+            }
+        }        
+        return last;
+    }
+    
+    //60. Permutation Sequence
+    public static String getPermutation(int n, int k) {
+        char[] retchar = new char[n];
+        for(int i = 0; i < retchar.length; i++){
+            
+        }
+        return null;
     }
 }
