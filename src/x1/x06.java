@@ -13,7 +13,9 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        System.out.println(uniquePaths(23,12));
+        int[][] input = {{0,1}};
+        uniquePathsWithObstacles(input);
+        //System.out.println(uniquePaths(23,12));
     }
     
     //61. Rotate List
@@ -42,17 +44,42 @@ public class x06 {
     
     //62. Unique Paths
     public static int uniquePaths(int m, int n) {
-        int[][] map = new int[m][n];
-        uniquePaths(0,0, map);
-        return map[0][0];
+        int[][] map = new int[m][n];        
+        return uniquePaths(m - 1,n - 1, map);
     }
     
     public static int uniquePaths(int m, int n, int[][] map) {
-        if (m == map.length - 1 || n == map[0].length - 1) return 1;
-        if (map[m][n] == 0) map[m][n] = uniquePaths(m + 1, n, map) + uniquePaths(m, n + 1, map);
+        if (m == 0 || n == 0) return 1;
+        if (map[m][n] == 0) map[m][n] = uniquePaths(m - 1, n, map) + uniquePaths(m, n - 1, map);
         return map[m][n];
     }
     
+    //63. Unique Paths II
+    public static int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        if(obstacleGrid == null || obstacleGrid[0][0]==1) return 0;
+        final int n = obstacleGrid.length, m = obstacleGrid[0].length;
+        int[][] dp = new int[n][m];
+        int init = 1;
+        for(int i=n-1; i>=0; i--){
+            if(obstacleGrid[i][m-1]==1)
+                init = 0;
+            dp[i][m-1] = init;
+        }
+        init = 1;
+        for(int j=m-1; j>=0; j--){
+            if(obstacleGrid[n-1][j]==1)
+                init = 0;
+            dp[n-1][j] = init;
+        }
+        
+        for(int i=n-2; i>=0; i--){
+            for(int j=m-2; j>=0; j--){
+                if(obstacleGrid[i][j]==0)
+                    dp[i][j] = dp[i+1][j] + dp[i][j+1];
+            }
+        }
+        return dp[0][0];
+    }
     //73. Set Matrix Zeroes
     public void setZeroes(int[][] matrix){
         if(matrix == null) return;
