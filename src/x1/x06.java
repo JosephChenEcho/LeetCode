@@ -80,6 +80,28 @@ public class x06 {
         }
         return dp[0][0];
     }
+    
+    //66. Plus One
+    public static int[] plusOne(int[] digits) {
+        int carry = 1;
+        for(int i = digits.length-1;i>=0;i--){
+            digits[i] += carry;
+            if(digits[i] > 9){
+                carry = digits[i]/10;
+                digits[i] %= 10;
+            }
+            else{
+                return digits;
+            }
+        }
+        int[] retarr = new int[digits.length+1];
+        int[] cararr = new int[1];
+        cararr[0] = carry;
+        System.arraycopy(cararr, 0, retarr, 0, 1);
+        System.arraycopy(digits, 0, retarr, 1, digits.length);
+        
+        return retarr;
+    }
     //73. Set Matrix Zeroes
     public void setZeroes(int[][] matrix){
         if(matrix == null) return;
