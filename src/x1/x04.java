@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        System.out.println(lengthOfLastWord("HelloWorld!"));
+        System.out.println(getPermutation(3,3));
     }
     
     //43. Multiply Strings
@@ -255,18 +255,33 @@ public class x04 {
     
     //54. Spiral Matrix
     public static List<Integer> spiralOrder(int[][] matrix) {               
-        List<Integer> retlist = new ArrayList();
-        if(matrix.length == 0) return retlist;
+        List<Integer> res = new ArrayList<Integer>();
+        if(matrix.length == 0 || matrix[0].length == 0) return res;
+        
         int top = 0;
-        int bottom = matrix.length - 1;
+        int bottom = matrix.length-1;
         int left = 0;
-        int right = matrix[0].length - 1;
-        Boolean reverse = false;
-        while(bottom > top){
+        int right = matrix[0].length-1;
+        
+        while(true){
+            for(int i = left; i <= right; i++) res.add(matrix[top][i]);
+            top++;
+            if(left > right || top > bottom) break;
             
+            for(int i = top; i <= bottom; i++) res.add(matrix[i][right]);
+            right--;
+            if(left > right || top > bottom) break;
+            
+            for(int i = right; i >= left; i--) res.add(matrix[bottom][i]);
+            bottom--;
+            if(left > right || top > bottom) break;
+            
+            for(int i = bottom; i >= top; i--) res.add(matrix[i][left]);
+            left++;
+            if(left > right || top > bottom) break;
         }
         
-        return null;
+        return res;
     }
     
     //55. Jump Game
@@ -313,10 +328,25 @@ public class x04 {
     
     //60. Permutation Sequence
     public static String getPermutation(int n, int k) {
-        char[] retchar = new char[n];
-        for(int i = 0; i < retchar.length; i++){
-            
-        }
-        return null;
+        if(n == 0 || k == 0) return null;
+        int max = 1;               
+        List<Integer> intal = new ArrayList();
+        for(int i = 1; i <= n; i++){
+            intal.add(i);
+            max *= i;
+        }        
+        if(k > max) return null;
+        return getPermutation(intal, k, max);
+    }
+    
+    public static String getPermutation(List<Integer> intal, int k, int max){        
+        String retstr = "";
+        if(intal.size() == 0) return "";
+        max = max/(intal.size());              
+        int idx = (k - 1)/max;
+        k = k - idx * max;        
+        retstr = String.valueOf(intal.get(idx));
+        intal.remove(idx);        
+        return retstr + getPermutation(intal, k, max);
     }
 }
