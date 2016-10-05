@@ -15,7 +15,13 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        System.out.println(getPermutation(3,3));
+        int[][] output = generateMatrix(5);
+        for(int[] ia : output){
+            for(int i : ia){
+                System.out.print(i + "\t");
+            }
+            System.out.println();
+        }
     }
     
     //43. Multiply Strings
@@ -324,6 +330,32 @@ public class x04 {
             }
         }        
         return last;
+    }
+    
+    //59. Spiral Matrix II
+    public static int[][] generateMatrix(int n) {
+        int[][] retint = new int[n][n];
+        int v = 1;
+        int top = 0, bottom = n - 1, left = 0, right = n - 1;
+        while(v <= n*n){
+            for(int i = left; i <= right; i++){
+                retint[top][i] = v++;
+            }
+            top++;
+            for(int i = top; i <= bottom; i++){
+                retint[i][right] = v++;
+            }
+            right--;
+            for(int i = right; i >= left; i--){
+                retint[bottom][i] = v++;
+            }
+            bottom--;
+            for(int i = bottom; i >= top; i--){
+                retint[i][left] = v++;
+            }
+            left++;
+        }
+        return retint;
     }
     
     //60. Permutation Sequence
