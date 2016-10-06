@@ -137,6 +137,20 @@ public class x06 {
         }
     }
     
+    //70. Climbing Stairs
+    public static int climbStairs(int n) {
+        if(n == 0) return 1;      
+        if(n == 1) return 1;
+        int ret = 0;
+        int a = 1, b = 1;
+        for(int i = 1; i < n; i++){
+            ret = a + b;
+            b = a;
+            a = ret;
+        }
+        return ret;
+    }
+    
     //73. Set Matrix Zeroes
     public void setZeroes(int[][] matrix){
         if(matrix == null) return;
