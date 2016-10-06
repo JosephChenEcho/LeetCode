@@ -151,8 +151,26 @@ public class x06 {
         return ret;
     }
     
+    //71. Simplify Path
+    public String simplifyPath(String path) {
+        /*String[] strarr = path.split("/");
+        if(strarr.length == 0) return "/";
+        if(strarr[strarr.length - 1].equals(".")) return "/";
+        if(strarr[strarr.length - 1].equals("..")) return "/";
+        return "/" + strarr[strarr.length - 1];*/
+        Stack<String> stack = new Stack();
+        Set<String> skip = new HashSet<>(Arrays.asList("..",".",""));
+        for (String dir : path.split("/")) {
+            if (dir.equals("..") && !stack.isEmpty()) stack.pop();
+            else if (!skip.contains(dir)) stack.push(dir);
+        }
+        String res = "";
+        while(!stack.isEmpty()) res = "/" + stack.pop() + res;
+        return res.isEmpty() ? "/" : res;    
+    }
+    
     //73. Set Matrix Zeroes
-    public void setZeroes(int[][] matrix){
+    public static void setZeroes(int[][] matrix){
         if(matrix == null) return;
         HashSet<Integer> col = new HashSet();
         HashSet<Integer> row = new HashSet();
