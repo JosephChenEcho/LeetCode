@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        int[][] input = {{1,2},{5,6},{1,1}};
-        minPathSum(input);
-        //System.out.println(uniquePaths(23,12));
+        for(int i = 46340; i < 46440; i++){
+            System.out.println(i + " = " + i * i +"=" + mySqrt(i*i));
+        }
     }
     
     //61. Rotate List
@@ -120,6 +120,23 @@ public class x06 {
         
         return retarr;
     }
+    
+    //69. Sqrt(x)
+    public static int mySqrt(int x) {
+        if (x == 0) return 0;
+        int left = 1, right = Integer.MAX_VALUE;
+        while (true) {
+            int mid = left + (right - left)/2;
+            if (mid > x/mid) {
+                right = mid - 1;
+            } else {
+                if (mid + 1 > x/(mid + 1))
+                    return mid;
+                left = mid + 1;
+            }
+        }
+    }
+    
     //73. Set Matrix Zeroes
     public void setZeroes(int[][] matrix){
         if(matrix == null) return;
