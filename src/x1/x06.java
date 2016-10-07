@@ -17,7 +17,7 @@ public class x06 {
     public static void main(String[] args){
         
         //System.out.println(addBinaryOne("11011",0));      
-        System.out.println(addBinary("11","1"));
+        sortColors(new int[]{1,0,2,0,1,1,2,0,2,2,2,1,1,2,2,0,2});
     }
     
     //61. Rotate List
@@ -277,6 +277,51 @@ public class x06 {
         return target == matrix[mid][midd];
     }
     
+    //75. Sort Colors
+    public static void sortColors(int[] nums) {
+        /*int red = 0, white = 0, blue = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] == 0) red++;
+            if(nums[i] == 1) white++;
+            if(nums[i] == 2) blue++;
+        }
+        for(int i = 0; i < nums.length; i++){
+            if(i < red) nums[i] = 0;
+            else if(i < red + white) nums[i] = 1;
+            else nums[i] = 2;
+        }*/
+        int begin = 0, end = nums.length - 1;
+        for(int i = 0; i <= end; i++){
+            while(nums[i] == 2 && i < end){
+                nums[i] = nums[end];
+                nums[end] = 2;
+                end--;
+                System.out.println("Begin: " + begin + "End: " +end);
+                for(int ii : nums){
+                    System.out.print(ii);
+                }
+                System.out.println();
+            }
+            while(nums[i] == 0 && i > begin){
+                nums[i] = nums[begin];
+                nums[begin] = 0;
+                begin++;
+                System.out.println("Begin: " + begin + "End: " +end);
+                for(int ii : nums){
+                    System.out.print(ii);
+                }
+                System.out.println();
+            }
+            System.out.println("Out of While");
+            System.out.println("Begin: " + begin + "End: " +end);
+            for(int ii : nums){
+                System.out.print(ii);
+            }
+            System.out.println();
+        }
+    }
+    //77
+    
     //78. Subsets
     public static List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> retlist = new ArrayList();
@@ -323,5 +368,7 @@ public class x06 {
         used[x][y] = false;
         return result;
     }
+    
+    //80
     
 }
