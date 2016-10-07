@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-    
-        char[][] input = new char[][]{"b".toCharArray(),"a".toCharArray(),"b".toCharArray()};
-        exist(input,"bbabab");
+        
+        //System.out.println(addBinaryOne("11011",0));      
+        System.out.println(addBinary("11","1"));
     }
     
     //61. Rotate List
@@ -119,6 +119,42 @@ public class x06 {
         System.arraycopy(digits, 0, retarr, 1, digits.length);
         
         return retarr;
+    }
+    
+    //67. Add Binary
+    public static String addBinary(String a, String b) {
+        if(a.length() > b.length()){
+            String tmp = a;
+            a = b;
+            b = tmp;
+        }
+        char[] acarr = a.toCharArray();
+        for(int i = 0; i < a.length(); i++){
+            if(acarr[a.length() - 1 - i] == '1'){
+                b = addBinaryOne(b,i);
+            }
+        }
+        return b;
+    }
+    public static String addBinaryOne(String b, int idx){
+        char[] bcarr = b.toCharArray();
+        int car = 1;
+        for(int i = idx; i < b.length(); i++){
+            if(bcarr[b.length() - 1 - i] == '0'){
+                bcarr[b.length() - 1 - i] = '1';
+                return String.valueOf(bcarr);
+            }else{
+                if(car == 0){
+                    bcarr[b.length() - 1 - i] = '1';
+                    car = 0;
+                }else{
+                    bcarr[b.length() - 1 - i] = '0';
+                    car = 1;
+                }
+            }
+        }
+        
+        return car == 1? "1" + String.valueOf(bcarr) : String.valueOf(bcarr);
     }
     
     //69. Sqrt(x)
