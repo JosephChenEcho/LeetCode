@@ -15,9 +15,8 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        for(int i = 46340; i < 46440; i++){
-            System.out.println(i + " = " + i * i +"=" + mySqrt(i*i));
-        }
+        int[][] input = {{1,3,5}};
+        searchMatrix(input,5);
     }
     
     //61. Rotate List
@@ -191,5 +190,53 @@ public class x06 {
                 }
             }
         }
+    }
+    
+    //74. Search a 2D Matrix
+    public static boolean searchMatrix(int[][] matrix, int target) {
+        /*int i = 0, j = matrix[0].length - 1;
+        while (i < matrix.length && j >= 0) {
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] > target) {
+                j--;
+            } else {
+                i++;
+            }
+        }       
+        return false;*/
+        int start = 0, end = matrix.length - 1;
+        int mid = (start + end) / 2;
+        while(matrix.length > 1){
+            mid = (start + end) / 2;
+            if(target < matrix[mid][0]){
+                if(mid == 0) break;
+                end = mid;
+            }
+            else{
+                if((mid + 1) >= matrix.length) break;
+                if(target < matrix[mid + 1][0]) break;
+                start = mid + 1;
+            }
+        }
+        
+        start = 0;
+        end = matrix[mid].length - 1;
+        int midd = (start + end) / 2;
+        
+        while(matrix[mid].length > 1){
+            midd = (start + end) / 2;
+            if(target < matrix[mid][midd]){
+                if(midd == 0) break;
+                end = midd;
+            }
+            else{
+                if((midd + 1) >= matrix[mid].length) break;
+                if(target < matrix[mid][midd + 1]) break;
+                start = midd + 1;
+            }
+        }
+        
+        return target == matrix[mid][midd];
     }
 }
