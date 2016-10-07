@@ -15,8 +15,9 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        int[][] input = {{1,3,5}};
-        searchMatrix(input,5);
+    
+        char[][] input = new char[][]{"b".toCharArray(),"a".toCharArray(),"b".toCharArray()};
+        exist(input,"bbabab");
     }
     
     //61. Rotate List
@@ -151,7 +152,7 @@ public class x06 {
     }
     
     //71. Simplify Path
-    public String simplifyPath(String path) {
+    public static String simplifyPath(String path) {
         /*String[] strarr = path.split("/");
         if(strarr.length == 0) return "/";
         if(strarr[strarr.length - 1].equals(".")) return "/";
@@ -239,4 +240,52 @@ public class x06 {
         
         return target == matrix[mid][midd];
     }
+    
+    //78. Subsets
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> retlist = new ArrayList();
+        Arrays.sort(nums);
+        List<Integer> empty = new ArrayList();
+        retlist.add(empty);
+        for(int i = 0; i < nums.length; i++){
+            List<List<Integer>> tmp = new ArrayList();
+            for(List<Integer> ial : retlist){
+                List<Integer> tmpal = new ArrayList(ial);
+                tmpal.add(nums[i]);
+                tmp.add(tmpal);
+            }
+            retlist.addAll(tmp);
+        }        
+        return retlist;
+    }
+    
+    //79. Word Search
+    public static boolean exist(char[][] board, String word) {
+        int len = board.length;
+        int wid = board[0].length;
+        boolean[][] used = new boolean[len][wid];
+        for(int i = 0; i < len; i++){
+            for(int j = 0; j < wid; j++){
+                if(exist(board,i,j,0,word,used)) return true;
+            }
+        }        
+        return false;
+    }
+    
+    public static boolean exist(char[][] board, int x, int y, int idx, String word, boolean[][] used){
+        if(idx == word.length()) return true;
+        int len = board.length;
+        int wid = board[0].length;
+        if(x < 0 || x == len || y < 0 || y == wid) return false;
+        if(used[x][y]) return false;
+        if(board[x][y] != word.charAt(idx)) return false;
+        used[x][y] = true;
+        boolean result = exist(board, x-1, y, idx + 1, word, used)||
+                exist(board, x+1, y, idx + 1, word, used)||
+                exist(board, x, y-1, idx + 1, word, used)||
+                exist(board, x, y+1, idx + 1, word, used);
+        used[x][y] = false;
+        return result;
+    }
+    
 }
