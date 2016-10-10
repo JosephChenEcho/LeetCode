@@ -15,9 +15,13 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        
-        //System.out.println(addBinaryOne("11011",0));      
-        sortColors(new int[]{1,0,2,0,1,1,2,0,2,2,2,1,1,2,2,0,2});
+        List<List<Integer>> output = combine(4,2);
+        for(List<Integer> al : output){
+            for(int i : al){
+                System.out.print(i + ", ");
+            }
+            System.out.println();
+        }        
     }
     
     //61. Rotate List
@@ -320,7 +324,24 @@ public class x06 {
             System.out.println();
         }
     }
-    //77
+    
+    //77. Combinations
+    public static List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> result = new ArrayList();
+        if (k > n || k < 0) {
+            return result;
+        }
+        if (k == 0) {
+            result.add(new ArrayList());
+            return result;
+        }
+        result = combine(n - 1, k - 1);
+        for (List<Integer> list : result) {
+            list.add(n);
+        }
+        result.addAll(combine(n - 1, k));
+        return result;    
+    }
     
     //78. Subsets
     public static List<List<Integer>> subsets(int[] nums) {
