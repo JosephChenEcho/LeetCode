@@ -15,13 +15,9 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        List<List<Integer>> output = combine(4,2);
-        for(List<Integer> al : output){
-            for(int i : al){
-                System.out.print(i + ", ");
-            }
-            System.out.println();
-        }        
+        int[] input = {1,1,1,2,2,3};
+        removeDuplicates(input);
+        
     }
     
     //61. Rotate List
@@ -390,6 +386,20 @@ public class x06 {
         return result;
     }
     
-    //80
-    
+    //80. Remove Duplicates from Sorted Array II
+    public static int removeDuplicates(int[] nums) {
+        if (nums.length == 0) {return 0;}
+        int pointer = 0, flag = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1] && flag == 0) {
+                flag = 1;
+                pointer++;
+            } else if (nums[i] != nums[i - 1]) {
+                flag = 0;
+                pointer++;
+            }
+            nums[pointer] = nums[i];
+        }
+        return pointer + 1;
+    }
 }
