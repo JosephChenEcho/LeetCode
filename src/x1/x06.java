@@ -388,18 +388,23 @@ public class x06 {
     
     //80. Remove Duplicates from Sorted Array II
     public static int removeDuplicates(int[] nums) {
-        if (nums.length == 0) {return 0;}
-        int pointer = 0, flag = 0;
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] == nums[i - 1] && flag == 0) {
-                flag = 1;
-                pointer++;
-            } else if (nums[i] != nums[i - 1]) {
-                flag = 0;
-                pointer++;
+        if(nums.length == 0) return 0;
+        if(nums.length == 1) return 1;
+        int j = 1;
+        boolean dup = false;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] == nums[i-1] && !dup){
+                dup = true;
+                nums[j] = nums[i];
+                j++;
             }
-            nums[pointer] = nums[i];
+            else if(nums[i] != nums[i-1]){
+                dup = false;
+                nums[j] = nums[i];
+                j++;
+            }
         }
-        return pointer + 1;
+        
+        return j;
     }
 }
