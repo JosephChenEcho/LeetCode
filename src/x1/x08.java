@@ -13,16 +13,18 @@ package x1;
 public class x08 {
     public static void main(String[] args){
         ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(1);
-        ListNode input3 = new ListNode(2);
+        ListNode input2 = new ListNode(4);
+        ListNode input3 = new ListNode(3);
         ListNode input4 = new ListNode(2);
-        ListNode input5 = new ListNode(2);
+        ListNode input5 = new ListNode(5);
+        ListNode input6 = new ListNode(2);
         input1.next = input2;
         input2.next = input3;
         input3.next = input4;
         input4.next = input5;
+        input5.next = input6;
         System.out.println(input1.toString());
-        System.out.println(deleteDuplicates(input1).toString());
+        System.out.println(partition(input1,3));
     }
     
     //81. Search in Rotated Sorted Array II
@@ -47,4 +49,27 @@ public class x08 {
         }        
         return head;
     }
+    
+    //86. Partition List
+    public static ListNode partition(ListNode head, int x) {         
+        ListNode current = head;
+        ListNode before = new ListNode(-1);
+        ListNode befcur = before;
+        ListNode after = new ListNode(-1);
+        ListNode aftcur = after;
+        while(current != null){
+            if(current.val < x){
+                befcur.next = current;
+                befcur =befcur.next;
+            }else{
+                aftcur.next = current;
+                aftcur = aftcur.next;
+            }            
+            current = current.next;
+        }
+        aftcur.next = null;
+        befcur.next = after.next;
+        
+        return before.next;
+    }       
 }
