@@ -204,6 +204,13 @@ public class x02 {
         nums[b] = tmp;
     }
     
+    //33. Search in Rotated Sorted Array
+    public int search(int[] nums, int target) {
+        int start = 0;
+        int end =
+        return 0;
+    }
+    
     //34. Search for a Range
     public int[] searchRange(int[] nums, int target) {
         int lt = 0;
