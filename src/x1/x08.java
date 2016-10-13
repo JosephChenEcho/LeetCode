@@ -5,6 +5,8 @@
  */
 package x1;
 
+import java.util.*;
+
 /**
  * Unsolved Hard:
  * 84, 85, 97, 99
@@ -12,19 +14,13 @@ package x1;
  */
 public class x08 {
     public static void main(String[] args){
-        ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(4);
-        ListNode input3 = new ListNode(3);
-        ListNode input4 = new ListNode(2);
-        ListNode input5 = new ListNode(5);
-        ListNode input6 = new ListNode(2);
-        input1.next = input2;
-        input2.next = input3;
-        input3.next = input4;
-        input4.next = input5;
-        input5.next = input6;
-        System.out.println(input1.toString());
-        System.out.println(partition(input1,3));
+        List<List<Integer>> output = subsetsWithDup(new int[]{1,2,2});
+        for(List<Integer> al : output){
+            for(int i : al){
+                System.out.print(i + ",");
+            }
+            System.out.println();
+        }
     }
     
     //81. Search in Rotated Sorted Array II
@@ -72,4 +68,71 @@ public class x08 {
         
         return before.next;
     }       
+    
+    //88. Merge Sorted Array
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int k = m + n - 1;
+        int i = m - 1;
+        int j = n - 1;
+        while(k >= 0){
+            if(j < 0 || (i >= 0 && nums1[i] > nums2[j])){
+                nums1[k] = nums1[i];
+                i--;
+            }else{
+                nums1[k] = nums2[j];
+                j--;
+            }       
+            k--;
+        }
+    }
+    
+    //89. Gray Code
+    public static List<Integer> grayCode(int n) {
+        /*List<Integer> retal = new ArrayList();
+        if(n == 0){
+            retal.add(0);
+            return retal;
+        }
+        List<Integer> tmp = grayCode(n - 1);
+        List<Integer> revtmp = new ArrayList();
+        int add = (int)Math.pow(2, n - 1);
+        for(int i = tmp.size() - 1; i >=0; i--){
+            revtmp.add(add + tmp.get(i));
+        }
+        tmp.addAll(revtmp);
+        return tmp;*/
+        List<Integer> retlist = new ArrayList();
+        retlist.add(0);
+        for(int i = 0; i < n; i++){
+            int add = (int)Math.pow(2, i);
+            for(int j = retlist.size() - 1; j >=0; j--){
+                retlist.add(add + retlist.get(j));
+            }
+        }
+        return retlist;         
+    }
+    
+    //90. Subsets II
+    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> retlist = new ArrayList();
+        Arrays.sort(nums);
+        List<Integer> empty = new ArrayList();
+        retlist.add(empty);
+        int last = 0;
+        for(int i = 0; i < nums.length; i++){
+            int start = 0;
+            if(i != 0 && nums[i] == nums[i-1]){
+                start = retlist.size() - last;
+            }
+            List<List<Integer>> tmp = new ArrayList();      
+            for(int j = start; j < retlist.size(); j++){
+                List<Integer> tmpal = new ArrayList(retlist.get(j));
+                tmpal.add(nums[i]);
+                tmp.add(tmpal);
+            }           
+            last = tmp.size();
+            retlist.addAll(tmp);
+        }        
+        return retlist;
+    }
 }
