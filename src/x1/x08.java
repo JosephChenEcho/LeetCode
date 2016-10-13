@@ -14,13 +14,18 @@ import java.util.*;
  */
 public class x08 {
     public static void main(String[] args){
-        List<List<Integer>> output = subsetsWithDup(new int[]{1,2,2});
-        for(List<Integer> al : output){
-            for(int i : al){
-                System.out.print(i + ",");
-            }
-            System.out.println();
-        }
+        ListNode input1 = new ListNode(1);
+        ListNode input2 = new ListNode(2);
+        ListNode input3 = new ListNode(3);
+        ListNode input4 = new ListNode(4);
+        ListNode input5 = new ListNode(5);
+        input1.next = input2;
+        input2.next = input3;
+        input3.next = input4;
+        input4.next = input5;
+        System.out.println(input1.toString());
+        ListNode output = reverseBetween(input1,2,4);
+        System.out.println(output.toString());
     }
     
     //81. Search in Rotated Sorted Array II
@@ -134,5 +139,90 @@ public class x08 {
             retlist.addAll(tmp);
         }        
         return retlist;
+    }
+    
+    //91. Decode Ways
+    public static int numDecodings(String s) {
+        int n = s.length();
+        if(n == 0) return 0;
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        if(s.charAt(0) - '0' == 0){
+            dp[1] = 0;
+        }
+        for(int i = 2; i <= n; i++){
+            int oneDigit = Integer.parseInt(s.substring(i-1,i));
+            int twoDigit = Integer.parseInt(s.substring(i-2,i));
+            if(oneDigit != 0){
+                dp[i] += dp[i-1];
+            }
+            if(twoDigit >= 10 && twoDigit <=26){
+                dp[i] += dp[i-2];
+            }
+        }        
+        return dp[n];
+    }
+    
+    //92. Reverse Linked List II
+    public static ListNode reverseBetween(ListNode head, int m, int n) {
+        /*ListNode retlist = new ListNode(-1);
+        retlist.next = head;
+        ListNode current = retlist;        
+        int i = 1;
+        while(i < m){
+            current = current.next;
+            i++;
+        }
+        ListNode beforem = current;
+        
+        ListNode tmplist = new ListNode(-1);
+        current = tmplist;
+        int end = n;
+        ListNode aftern = getNode(head,end + 1);
+        while(n + 1 > m){
+            current.next = getNode(head, n);
+            current = current.next;
+            n--;
+        }
+        current.next = aftern;
+        beforem.next = tmplist.next;
+        
+        
+        return retlist.next;*/
+        if(head == null) return head;
+        ListNode fake_head = new ListNode(0);
+        fake_head.next = head;
+        
+        //move to the start point
+        ListNode pre = fake_head;
+        for(int i = 0; i < m - 1; i ++){
+            pre = pre.next;
+        }
+        
+        //do the reverse
+        ListNode cur = pre.next;
+        ListNode new_head = null;
+        for(int i = 0; i <= n - m; i ++){
+            ListNode next = cur.next;
+            cur.next = new_head;
+            new_head = cur;
+            cur = next;
+        }
+        
+        //reconnect
+        pre.next.next = cur;
+        pre.next = new_head;
+        
+        return fake_head.next;
+    }
+    
+    public static ListNode getNode(ListNode head, int n){
+        ListNode tmp = head;
+        while(n > 1){
+            tmp = tmp.next;
+            n--;
+        }
+        return tmp;
     }
 }
