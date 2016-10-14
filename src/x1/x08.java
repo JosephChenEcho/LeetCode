@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * Unsolved Hard:
- * 84, 85, 97, 99
+ * 84, 85, 87, 97, 99
  * @author jochen
  */
 public class x08 {
@@ -288,7 +288,89 @@ public class x08 {
     }
     
     //93. Restore IP Addresses
-    public List<String> restoreIpAddresses(String s) {
-        return null;
+    public static List<String> restoreIpAddresses(String s) {
+        /*List<String> retlist = new ArrayList();
+        String[] strip = new String[4];
+        parseIpAddresses(retlist, s, strip, 0);
+        return retlist;*/
+        ArrayList<String> res = new ArrayList<String>();
+        for(int i = 0; i < 3 && i + 3 < s.length(); i++) {
+            String a = s.substring(0, i + 1);
+            if(!valid(a)) continue;
+            
+            for(int j = i + 1; j < i + 4 && j < s.length(); j++) {
+                String b = s.substring(i + 1, j + 1);
+                if(!valid(b)) continue;
+                
+                for(int k = j + 1; k < j + 4 && k < s.length() && s.length() - k - 1 > 0; k++) {
+                    String c = s.substring(j + 1, k + 1);
+                    if(!valid(c)) continue;
+                    
+                    String d = s.substring(k + 1, s.length());
+                    if(!valid(d)) continue;
+                    
+                    res.add(a + "." + b + "." + c + "." + d);
+                }
+            }
+        }
+        
+        return res;
     }
+    
+    private static boolean valid(String s) {
+        if(s.charAt(0) == '0' && s.length() > 1) {
+            return false;
+        }
+        
+        if(s.length() > 3) {
+            return false;
+        }
+        return Integer.parseInt(s) < 256;
+    }
+    
+    public static void parseIpAddresses(List<String> retlist, String s, String[] strip, int idx){
+        if(idx < 4 && s.length() == 0) return;
+        if(idx == 4 && s.length() > 0) return;
+        if(idx == 4 && s.length() == 0){
+            String outstr = strip[0] + "." + strip[1] + "." + strip[2] + "." + strip[3];
+            retlist.add(outstr);
+        }        
+
+        if(s.length() >= 1){
+            int iip = Integer.parseInt(s.substring(0,1));
+            String[] outstrip = strip.clone();
+            if(iip >= 0 && iip <= 9){
+                outstrip[idx] = String.valueOf(iip);
+                parseIpAddresses(retlist, s.substring(1), outstrip, idx + 1);
+            }
+        }
+        
+        if(s.length() >= 2){
+            int iip = Integer.parseInt(s.substring(0,2));
+            String[] outstrip = strip.clone();
+            if(iip >= 10 && iip <= 99){
+                outstrip[idx] = String.valueOf(iip);
+                parseIpAddresses(retlist, s.substring(2), outstrip, idx + 1);
+            }
+        }
+        
+        if(s.length() >= 3){
+            int iip = Integer.parseInt(s.substring(0,3));
+            String[] outstrip = strip.clone();
+            if(iip >= 100 && iip <= 255){
+                outstrip[idx] = String.valueOf(iip);
+                parseIpAddresses(retlist, s.substring(3), outstrip, idx + 1);
+            }
+        }
+    }
+    
+    //94
+    
+    //95
+    
+    //96
+    
+    //98
+    
+    //100
 }
