@@ -15,27 +15,88 @@ import java.util.*;
 public class x08 {
     public static void main(String[] args){
         ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(2);
-        ListNode input3 = new ListNode(3);
-        ListNode input4 = new ListNode(4);
-        ListNode input5 = new ListNode(5);
+        ListNode input2 = new ListNode(1);
+        ListNode input3 = new ListNode(2);
+        ListNode input4 = new ListNode(2);
+        ListNode input5 = new ListNode(3);
         input1.next = input2;
         input2.next = input3;
         input3.next = input4;
         input4.next = input5;
         System.out.println(input1.toString());
-        ListNode output = reverseBetween(input1,2,4);
+        ListNode output = deleteDuplicates2(input1);
         System.out.println(output.toString());
     }
     
     //81. Search in Rotated Sorted Array II
-    public boolean search(int[] nums, int target) {
+    public static boolean search(int[] nums, int target) {
+        /*Arrays.sort(nums);
+        int start = 0;
+        int end = nums.length - 1;
+        while(start <= end){
+            int mid = (start + end) / 2;
+            if(nums[mid] == target) return true;
+            if(target < nums[mid]) end = mid - 1;
+            if(target > nums[mid]) start = mid + 1;
+        }
+        return false;
+        */
+ 
+        int start = 0, end = nums.length;
+        while (start < end) {
+            int mid = (start + end) / 2;
+            if (nums[mid] == target) return true;
+            if (nums[mid] > nums[start]) { // nums[start..mid] is sorted
+                // check if target in left half
+                if (target < nums[mid] && target >= nums[start]) end = mid;
+                else start = mid + 1;
+            } else if (nums[mid] < nums[start]) { // nums[mid..end] is sorted
+                // check if target in right half
+                if (target > nums[mid] && target < nums[start]) start = mid + 1;
+                else end = mid;
+            } else { // have no idea about the array, but we can exclude nums[start] because nums[start] == nums[mid]
+                start++;
+            }
+        }
         return false;
     }
     
     //82. Remove Duplicates from Sorted List II
-    public ListNode deleteDuplicates2(ListNode head) {
-        return null;
+    public static ListNode deleteDuplicates2(ListNode head) {
+        /*ListNode retlist = new ListNode(-1);
+        retlist.next = head;
+        ListNode current = retlist;
+        
+        while(current.next != null){
+            boolean removeFlag = false;            
+            while(current.next.next != null && current.next.next.val == current.next.val){
+                current.next.next = current.next.next.next;
+                removeFlag = true;
+            }
+            if(removeFlag){
+                current.next = current.next.next;
+            }
+            if(current.next != null) current = current.next;            
+        }        
+        return retlist.next;*/
+        if(head==null) return null;
+        ListNode retlist = new ListNode(-1);
+        retlist.next=head;
+        ListNode pre=retlist;
+        ListNode cur=retlist.next;
+        while(cur!=null){
+            while(cur.next!=null&&cur.val==cur.next.val){
+                cur=cur.next;
+            }
+            if(pre.next==cur){
+                pre=pre.next;
+            }
+            else{
+                pre.next=cur.next;
+            }
+            cur=cur.next;
+        }
+        return retlist.next;
     }
     
     //83. Remove Duplicates from Sorted List
