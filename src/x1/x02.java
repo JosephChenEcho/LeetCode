@@ -12,8 +12,7 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        List<List<Integer>> output = combinationSum(new int[]{2,3,6,7},7);
-        System.out.println("Done");
+        search(new int[]{1,2,3,4,5,6,7,8,9},5);
     }
     
     //21 Merge Two Sorted Lists
@@ -205,10 +204,29 @@ public class x02 {
     }
     
     //33. Search in Rotated Sorted Array
-    public int search(int[] nums, int target) {
+    public static int search(int[] nums, int target) {               
         int start = 0;
-        int end =
-        return 0;
+        int end = nums.length - 1;
+        while (start <= end){
+            int mid = (start + end) / 2;
+            if (nums[mid] == target)
+                return mid;
+        
+            if (nums[start] <= nums[mid]){
+                 if (target < nums[mid] && target >= nums[start]) 
+                    end = mid - 1;
+                 else
+                    start = mid + 1;
+            } 
+        
+            if (nums[mid] <= nums[end]){
+                if (target > nums[mid] && target <= nums[end])
+                    start = mid + 1;
+                 else
+                    end = mid - 1;
+            }
+        }
+        return -1;
     }
     
     //34. Search for a Range
