@@ -364,7 +364,16 @@ public class x08 {
         }
     }
     
-    //94
+    //94. Binary Tree Inorder Traversal
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> retlist = new ArrayList();
+        if(root == null) return retlist;
+        retlist.addAll(inorderTraversal(root.left));
+        retlist.add(root.val);
+        retlist.addAll(inorderTraversal(root.right));      
+        
+        return retlist;
+    }
     
     //95
     
