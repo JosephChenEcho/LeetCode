@@ -406,7 +406,7 @@ public class x08 {
             TreeNode tmp = current.right;
             current.right = new TreeNode(i);
             current.right.left = tmp;
-            TreeNode tmpaddTree = addTree;
+            TreeNode tmpaddTree = newTree(addTree);
             retlist.add(tmpaddTree);
             //roll back;
             current.right = tmp;
@@ -414,6 +414,50 @@ public class x08 {
         }
         return retlist;
     }
+    
+    public static TreeNode newTree(TreeNode in){
+        int val = in.val;
+        TreeNode out = new TreeNode(val);
+        if(in.right != null) out.right = newTree(in.right);
+        if(in.left != null) out.left = newTree(in.left);
+        return out;
+    }
+    
+    /*
+    public static List<TreeNode> generateTrees(int n) {
+    List<TreeNode>[] result = new List[n + 1];
+    result[0] = new ArrayList<TreeNode>();
+    if (n == 0) {
+        return result[0];
+    }
+
+    result[0].add(null);
+    for (int len = 1; len <= n; len++) {
+        result[len] = new ArrayList<TreeNode>();
+        for (int j = 0; j < len; j++) {
+            for (TreeNode nodeL : result[j]) {
+                for (TreeNode nodeR : result[len - j - 1]) {
+                    TreeNode node = new TreeNode(j + 1);
+                    node.left = nodeL;
+                    node.right = clone(nodeR, j + 1);
+                    result[len].add(node);
+                }
+            }
+        }
+    }
+    return result[n];
+}
+
+private static TreeNode clone(TreeNode n, int offset) {
+    if (n == null) {
+        return null;
+    }
+    TreeNode node = new TreeNode(n.val + offset);
+    node.left = clone(n.left, offset);
+    node.right = clone(n.right, offset);
+    return node;
+}
+    */
     
     //96. Unique Binary Search Trees
     public static int numTrees(int n) {
