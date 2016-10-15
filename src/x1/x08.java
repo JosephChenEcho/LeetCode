@@ -14,7 +14,8 @@ import java.util.*;
  */
 public class x08 {
     public static void main(String[] args){
-        ListNode input1 = new ListNode(1);
+        generateTrees(2);
+        /*ListNode input1 = new ListNode(1);
         ListNode input2 = new ListNode(1);
         ListNode input3 = new ListNode(2);
         ListNode input4 = new ListNode(2);
@@ -25,7 +26,7 @@ public class x08 {
         input4.next = input5;
         System.out.println(input1.toString());
         ListNode output = deleteDuplicates2(input1);
-        System.out.println(output.toString());
+        System.out.println(output.toString());*/
     }
     
     //81. Search in Rotated Sorted Array II
@@ -365,7 +366,7 @@ public class x08 {
     }
     
     //94. Binary Tree Inorder Traversal
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public static List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> retlist = new ArrayList();
         if(root == null) return retlist;
         retlist.addAll(inorderTraversal(root.left));
@@ -375,9 +376,53 @@ public class x08 {
         return retlist;
     }
     
-    //95
+    //95. Unique Binary Search Trees II
+    public static List<TreeNode> generateTrees(int n) {
+        List<TreeNode> retlist = new ArrayList();
+        
+        retlist.add(new TreeNode(1));        
+        int i = 2;
+        while(i <= n){
+            List<TreeNode> tmp = new ArrayList();
+                for(TreeNode t : retlist){
+                    tmp.addAll(generateTrees(t, i));
+                }
+                retlist = tmp;                     
+            i++;
+        }        
+        return retlist;
+    }
     
-    //96
+    public static List<TreeNode> generateTrees(TreeNode tree, int i){
+        List<TreeNode> retlist = new ArrayList();
+        // Set i as top
+        TreeNode addTree = new TreeNode(i);
+        addTree.left = tree;
+        retlist.add(addTree);
+        // Insert i into left or right root
+        addTree = tree;
+        TreeNode current = addTree;
+        while(current != null){
+            TreeNode tmp = current.right;
+            current.right = new TreeNode(i);
+            current.right.left = tmp;
+            TreeNode tmpaddTree = addTree;
+            retlist.add(tmpaddTree);
+            //roll back;
+            current.right = tmp;
+            current = current.right;
+        }
+        return retlist;
+    }
+    
+    //96. Unique Binary Search Trees
+    public static int numTrees(int n) {
+        int[] dp = new int[n + 1];
+        for(int i = 1; i <= n; i++){
+        
+        }        
+        return dp[n];
+    }
     
     //98
     
