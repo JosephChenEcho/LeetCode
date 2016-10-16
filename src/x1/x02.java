@@ -6,7 +6,8 @@
 package x1;
 import java.util.*;
 /**
- * 23,25,30,32,33 Hard Level
+ * 23,25,30,32 Hard Level
+ * Solved 33
  * @author Joseph
  */
 public class x02 {
