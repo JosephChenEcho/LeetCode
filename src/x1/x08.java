@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class x08 {
     public static void main(String[] args){
-        generateTrees(2);
+        //generateTrees(2);
         /*ListNode input1 = new ListNode(1);
         ListNode input2 = new ListNode(1);
         ListNode input3 = new ListNode(2);
@@ -27,6 +27,9 @@ public class x08 {
         System.out.println(input1.toString());
         ListNode output = deleteDuplicates2(input1);
         System.out.println(output.toString());*/
+        for(int i = 0 ; i < 10 ; i++){
+            System.out.println(i + ":" + numTrees(i));
+        }
     }
     
     //81. Search in Rotated Sorted Array II
@@ -461,9 +464,16 @@ private static TreeNode clone(TreeNode n, int offset) {
     
     //96. Unique Binary Search Trees
     public static int numTrees(int n) {
+        if(n == 0) return 0;
         int[] dp = new int[n + 1];
-        for(int i = 1; i <= n; i++){
+        dp[0] = 1;
+        dp[1] = 1;
         
+        for(int i = 2; i <= n; i++){
+            for(int j = 1; j <= i; j++){                
+                //left node * right node
+                dp[i] += dp[j - 1] * dp[i - j];
+            }
         }        
         return dp[n];
     }
