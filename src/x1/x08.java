@@ -478,7 +478,40 @@ private static TreeNode clone(TreeNode n, int offset) {
         return dp[n];
     }
     
-    //98
+    //98. Validate Binary Search Tree
+    public static boolean isValidBST(TreeNode root) {
+        if(root == null) return true;
+        
+        //Self check
+        int parentVal = root.val;
+        if(root.left == null && root.right == null) return true;
+        TreeNode current;
+        //get left's most right
+        if(root.left != null){
+            current = root.left;
+            while(current.right != null){
+                current = current.right;
+            }
+            if(parentVal < current.val) return false;
+        }
+        //get right's most left
+        if(root.right != null){
+            current = root.right;
+            while(current.left != null){
+                current = current.left;
+            }
+            
+            if(parentVal > current.val) return false;
+        }
+        
+        return isValidBST(root.left) || isValidBST(root.right);
+    }
     
-    //100
+    //100. Same Tree
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p == null && q == null) return true;
+        if(p == null || q == null) return false;
+        if(p.val != q.val) return false;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
 }
