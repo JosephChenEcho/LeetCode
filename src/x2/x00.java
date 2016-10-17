@@ -64,11 +64,44 @@ public class x00 {
             }
             if(!tmpIntList.isEmpty()) retList.add(tmpIntList);
             if(!tmpTreeList.isEmpty()) treeList.add(tmpTreeList);
-        }
-        
+        }        
         return retList;
     }
     
+    //103. Binary Tree Zigzag Level Order Traversal
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> retList = new ArrayList();
+        if(root == null) return retList;
+        List<List<TreeNode>> treeList = new ArrayList();
+        List<TreeNode> initTree = new ArrayList();
+        initTree.add(root);
+        treeList.add(initTree);
+        boolean reverse = false;
+        while(treeList.size() > retList.size()){
+            List<TreeNode> tmpTreeList = new ArrayList();
+            List<Integer> tmpIntList = new ArrayList();
+            List<TreeNode> lastTreeList = treeList.get(treeList.size() - 1);
+            for(int i = 0; i < lastTreeList.size(); i++){
+                TreeNode t = lastTreeList.get(i);                
+                if(t.left != null) tmpTreeList.add(t.left);
+                if(t.right != null) tmpTreeList.add(t.right);
+                if(reverse){
+                    t = lastTreeList.get(lastTreeList.size() - 1 - i);
+                }
+                tmpIntList.add(t.val);
+            }
+            reverse = !reverse;
+            /*
+            for(TreeNode t : treeList.get(treeList.size() - 1)){
+                tmpIntList.add(t.val);
+                if(t.left != null) tmpTreeList.add(t.left);
+                if(t.right != null) tmpTreeList.add(t.right);
+            }*/
+            if(!tmpIntList.isEmpty()) retList.add(tmpIntList);
+            if(!tmpTreeList.isEmpty()) treeList.add(tmpTreeList);
+        }        
+        return retList;
+    }
     //105. Construct Binary Tree from Preorder and Inorder Traversal
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         if(preorder == null || inorder == null) return null;
