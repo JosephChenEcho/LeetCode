@@ -102,13 +102,34 @@ public class x00 {
         }        
         return retList;
     }
+    
+    //104. Maximum Depth of Binary Tree
+    public static int maxDepth(TreeNode root) {
+        /*int max = 0;
+        if(root == null) return max;
+        List<TreeNode> lvl = new ArrayList();
+        lvl.add(root);
+        while(!lvl.isEmpty()){
+            List<TreeNode> tmplvl = new ArrayList();
+            for(TreeNode t : lvl){
+                if(t.left != null) tmplvl.add(t.left);
+                if(t.right != null) tmplvl.add(t.right);
+            }
+            lvl = tmplvl;
+            max++;
+        }        
+        return max;*/
+        if(root == null) return 0;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+    
     //105. Construct Binary Tree from Preorder and Inorder Traversal
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         if(preorder == null || inorder == null) return null;
         int rootVal = preorder[0];
         int rootIdx = 0;
         while(inorder[rootIdx] != rootVal) rootIdx++;
-        rootIdx = Arrays.binarySearch(inorder, rootVal);
+        //rootIdx = Arrays.binarySearch(inorder, rootVal);
         TreeNode root = new TreeNode(rootVal);
         root.left = buildTree(Arrays.copyOfRange(preorder, 1, rootIdx + 1), Arrays.copyOfRange(inorder, 0, rootIdx));
         root.right = buildTree(Arrays.copyOfRange(preorder, rootIdx + 1, preorder.length), Arrays.copyOfRange(inorder, rootIdx + 1, inorder.length));
@@ -117,7 +138,15 @@ public class x00 {
     
     //106. Construct Binary Tree from Inorder and Postorder Traversal
     public TreeNode buildTree2(int[] inorder, int[] postorder) {
-        return null;
+        if(inorder == null || postorder == null || inorder.length == 0 || postorder.length == 0) return null;
+
+        int rootVal = postorder[postorder.length - 1];
+        int rootIdx = 0;
+        while(inorder[rootIdx] != rootVal) rootIdx++;
+        TreeNode root = new TreeNode(rootVal);
+        root.left = buildTree2(Arrays.copyOfRange(inorder, 0, rootIdx), Arrays.copyOfRange(postorder, 0, rootIdx));
+        root.right = buildTree2(Arrays.copyOfRange(inorder, rootIdx + 1, inorder.length), Arrays.copyOfRange(postorder, rootIdx, postorder.length - 1));        
+        return root;
     }
     
     //108. Convert Sorted Array to Binary Search Tree
