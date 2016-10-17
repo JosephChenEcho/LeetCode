@@ -46,6 +46,29 @@ public class x00 {
         return (left.val == right.val) && isMirror(right.left, left.right) && isMirror(right.right, left.left);
     }
     
+    //102. Binary Tree Level Order Traversal
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> retList = new ArrayList();
+        if(root == null) return retList;
+        List<List<TreeNode>> treeList = new ArrayList();
+        List<TreeNode> initTree = new ArrayList();
+        initTree.add(root);
+        treeList.add(initTree);
+        while(treeList.size() > retList.size()){
+            List<TreeNode> tmpTreeList = new ArrayList();
+            List<Integer> tmpIntList = new ArrayList();
+            for(TreeNode t : treeList.get(treeList.size() - 1)){
+                tmpIntList.add(t.val);
+                if(t.left != null) tmpTreeList.add(t.left);
+                if(t.right != null) tmpTreeList.add(t.right);
+            }
+            if(!tmpIntList.isEmpty()) retList.add(tmpIntList);
+            if(!tmpTreeList.isEmpty()) treeList.add(tmpTreeList);
+        }
+        
+        return retList;
+    }
+    
     //105. Construct Binary Tree from Preorder and Inorder Traversal
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         if(preorder == null || inorder == null) return null;
@@ -57,5 +80,15 @@ public class x00 {
         root.left = buildTree(Arrays.copyOfRange(preorder, 1, rootIdx + 1), Arrays.copyOfRange(inorder, 0, rootIdx));
         root.right = buildTree(Arrays.copyOfRange(preorder, rootIdx + 1, preorder.length), Arrays.copyOfRange(inorder, rootIdx + 1, inorder.length));
         return root;
+    }
+    
+    //106. Construct Binary Tree from Inorder and Postorder Traversal
+    public TreeNode buildTree2(int[] inorder, int[] postorder) {
+        return null;
+    }
+    
+    //108. Convert Sorted Array to Binary Search Tree
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return null;
     }
 }
