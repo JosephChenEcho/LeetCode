@@ -5,7 +5,8 @@
  */
 package x2;
 
-/**
+/**Unsolved Hard: 123, 124, 126, 128, 132, 135, 138, 140
+ * 
  *
  * @author Joseph
  */
@@ -16,16 +17,13 @@ public class x02 {
     
     //121. Best Time to Buy and Sell Stock
     public int maxProfit(int[] prices) {
-        int i = 0;
-        int j = prices.length;
-        int min = prices[i];
-        int max = prices[j];
-        while(i < j){
-            if(prices[i] < min){
-                min = prices[i];
-            }
-        }
-        
-        return 0;
+        int max = 0;
+        if(prices.length <= 1) return max;
+        int min = prices[0];
+        for(int i = 1; i < prices.length; i++){
+            if(prices[i] < min) min = prices[i];
+            if(prices[i] - min > max) max = prices[i] - min;
+        }        
+        return max;
     }
 }
