@@ -45,4 +45,17 @@ public class x00 {
         if(left == null || right == null) return false;
         return (left.val == right.val) && isMirror(right.left, left.right) && isMirror(right.right, left.left);
     }
+    
+    //105. Construct Binary Tree from Preorder and Inorder Traversal
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if(preorder == null || inorder == null) return null;
+        int rootVal = preorder[0];
+        int rootIdx = 0;
+        while(inorder[rootIdx] != rootVal) rootIdx++;
+        rootIdx = Arrays.binarySearch(inorder, rootVal);
+        TreeNode root = new TreeNode(rootVal);
+        root.left = buildTree(Arrays.copyOfRange(preorder, 1, rootIdx + 1), Arrays.copyOfRange(inorder, 0, rootIdx));
+        root.right = buildTree(Arrays.copyOfRange(preorder, rootIdx + 1, preorder.length), Arrays.copyOfRange(inorder, rootIdx + 1, inorder.length));
+        return root;
+    }
 }
