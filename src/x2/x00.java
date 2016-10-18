@@ -150,7 +150,25 @@ public class x00 {
     }
     
     //108. Convert Sorted Array to Binary Search Tree
+    /*public TreeNode sortedArrayToBST(int[] nums) {
+        if(nums.length == 0) return null;
+        int rootIdx = (nums.length - 1)/2;
+        TreeNode root = new TreeNode(nums[rootIdx]);
+        int[] leftnums = Arrays.copyOfRange(nums, 0, rootIdx);
+        int[] rightnums = Arrays.copyOfRange(nums, rootIdx + 1, nums.length);
+        root.left = sortedArrayToBST(leftnums);
+        root.right = sortedArrayToBST(rightnums);
+        return root;
+    }*/
     public TreeNode sortedArrayToBST(int[] nums) {
-        return null;
+        return buildBST(0, nums.length-1, nums);
+    }
+    public TreeNode buildBST(int low, int high, int[] nums){
+        if(low > high) return null;
+        int mid = (low + high)/2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = buildBST(low, mid-1, nums);
+        root.right = buildBST(mid+1, high, nums);
+        return root;
     }
 }
