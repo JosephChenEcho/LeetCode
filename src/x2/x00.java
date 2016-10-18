@@ -199,6 +199,56 @@ public class x00 {
         return root;
     }
     
+    //109. Convert Sorted List to Binary Search Tree
+    public TreeNode sortedListToBST(ListNode head) {
+        return sortedListToBST(head, null);
+    }
+    
+    public TreeNode sortedListToBST(ListNode start, ListNode end){
+        if(start == end) return null;
+        ListNode mid = start;
+        ListNode tail = start;
+        while(tail.next != end && tail.next.next != end){
+            mid = mid.next;
+            tail = tail.next.next;
+        }
+        TreeNode root = new TreeNode(mid.val);
+        root.left = sortedListToBST(start, mid);
+        root.right = sortedListToBST(mid.next, end);        
+        return root;
+    }
+
+    //110. Balanced Binary Tree
+    public boolean isBalanced(TreeNode root) {
+        return false;
+    }
+    
+    //111. Minimum Depth of Binary Tree
+    public int minDepth(TreeNode root) {
+        /*int count = 0;
+        List<TreeNode> treeList = new ArrayList();
+        if(root == null) return 0;
+        treeList.add(root);
+        while(true){
+            count++;
+            List<TreeNode> tmpTreeList = new ArrayList();
+            for(TreeNode t : treeList){                
+                if(t.left == null && t.right == null) return count;                
+                if(t.left != null) tmpTreeList.add(t.left);
+                if(t.right != null) tmpTreeList.add(t.right);                
+            }
+            treeList = tmpTreeList;
+        }*/              
+        if(root == null) return 0;
+        if(root.left == null){
+            return 1 + minDepth(root.right);
+        }else if(root.right == null){
+            return 1 + minDepth(root.left);
+        }else{
+            return 1 + Math.min(minDepth(root.left), minDepth(root.right));
+        }
+    }
+    
     //112. Path Sum
     public boolean hasPathSum(TreeNode root, int sum) {
         if(root == null) return false;
