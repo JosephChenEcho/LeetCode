@@ -149,6 +149,33 @@ public class x00 {
         return root;
     }
     
+    //107. Binary Tree Level Order Traversal II
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> retList = new ArrayList();
+        if(root == null) return retList;
+        List<List<TreeNode>> treeList = new ArrayList();
+        List<TreeNode> initTree = new ArrayList();
+        initTree.add(root);
+        treeList.add(initTree);
+        while(treeList.size() > retList.size()){
+            List<TreeNode> tmpTreeList = new ArrayList();
+            List<Integer> tmpIntList = new ArrayList();
+            for(TreeNode t : treeList.get(treeList.size() - 1)){
+                tmpIntList.add(t.val);
+                if(t.left != null) tmpTreeList.add(t.left);
+                if(t.right != null) tmpTreeList.add(t.right);
+            }
+            if(!tmpIntList.isEmpty()) retList.add(tmpIntList);
+            if(!tmpTreeList.isEmpty()) treeList.add(tmpTreeList);
+        }        
+        List<List<Integer>> retList2 = new ArrayList();
+        while(!retList.isEmpty()){
+            retList2.add(retList.get(retList.size() - 1));
+            retList.remove(retList.size() - 1);
+        }
+        return retList2;
+    }
+    
     //108. Convert Sorted Array to Binary Search Tree
     /*public TreeNode sortedArrayToBST(int[] nums) {
         if(nums.length == 0) return null;
@@ -180,5 +207,11 @@ public class x00 {
             return false;
         }        
         return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+    }
+    
+    //113. Path Sum II
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        
+        return null;
     }
 }
