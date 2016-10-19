@@ -17,7 +17,7 @@ public class LeetCode {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int[][] input = new int[][]{{0,0,4,1},{7,0,8,2},{6,2,8,3},{5,1,6,3},{4,0,5,1},{6,0,7,2},{4,2,5,3},{2,1,4,3},{0,1,2,2},{0,2,2,3},{4,1,5,2},{5,0,6,1}};
+        int[][] input = new int[][]{{0,0,1,1},{0,1,3,2},{1,0,2,2}};
         isRectangleCover(input);
     }
     
@@ -88,7 +88,8 @@ public class LeetCode {
         int imin = Integer.MAX_VALUE;
         int jmax = 0;
         int jmin = Integer.MAX_VALUE;
-        List<int[]> map = new ArrayList();
+        int mapsize = 0;
+        HashMap<Integer,HashSet<Integer>> map = new HashMap();
         for(int[] rec : rectangles){
             for(int i = rec[0]; i < rec[2];i++){
                 imax = Math.max(imax, i);
@@ -96,17 +97,17 @@ public class LeetCode {
                 for(int j = rec[1]; j < rec[3]; j++){
                     jmax = Math.max(jmax, j);
                     jmin = Math.min(jmin, j);
-                    int[] pix = new int[]{i,j};
-                    if(map.contains(pix)){
-                        return false;
+                    if(map.containsKey(i)){
+                        if(!map.get(i).add(j)) return false;
                     }else{
-                        map.add(pix);
+                        map.put(i, new HashSet());
+                        map.get(i).add(j);
                     }
+                    mapsize++;
                 }
             }
         }
-
-        if(map.size() != (jmax - jmin + 1)*(imax - imin + 1)) return false;
+        if(mapsize != (jmax - jmin + 1)*(imax - imin + 1)) return false;
         return true;
     }
 }
