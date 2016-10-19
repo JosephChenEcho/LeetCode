@@ -17,10 +17,8 @@ public class LeetCode {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        HashSet<Character> test = new HashSet();
-        test.add('c');
-        test.add('t');
-        test.add('a');
+        int[][] input = new int[][]{{0,0,4,1},{7,0,8,2},{6,2,8,3},{5,1,6,3},{4,0,5,1},{6,0,7,2},{4,2,5,3},{2,1,4,3},{0,1,2,2},{0,2,2,3},{4,1,5,2},{5,0,6,1}};
+        isRectangleCover(input);
     }
     
     public void setZeroes(int[][] matrix) {
@@ -70,7 +68,6 @@ public class LeetCode {
         else // finished right to left
             ans.add(reversed);
     }
-
     public boolean isIsomorphic(String s, String t) {
         HashMap<Character,Character> map=new HashMap<Character,Character>();
         if(s.length()!=t.length()){return false;}
@@ -83,6 +80,33 @@ public class LeetCode {
                 map.put(s.charAt(i),t.charAt(i));
             }
         }
+        return true;
+    }
+    
+    public static boolean isRectangleCover(int[][] rectangles) {
+        int imax = 0;
+        int imin = Integer.MAX_VALUE;
+        int jmax = 0;
+        int jmin = Integer.MAX_VALUE;
+        List<int[]> map = new ArrayList();
+        for(int[] rec : rectangles){
+            for(int i = rec[0]; i < rec[2];i++){
+                imax = Math.max(imax, i);
+                imin = Math.min(imin, i);
+                for(int j = rec[1]; j < rec[3]; j++){
+                    jmax = Math.max(jmax, j);
+                    jmin = Math.min(jmin, j);
+                    int[] pix = new int[]{i,j};
+                    if(map.contains(pix)){
+                        return false;
+                    }else{
+                        map.add(pix);
+                    }
+                }
+            }
+        }
+
+        if(map.size() != (jmax - jmin + 1)*(imax - imin + 1)) return false;
         return true;
     }
 }
