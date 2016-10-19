@@ -14,20 +14,29 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        TreeNode input = new TreeNode(1);
-        TreeNode left1 = new TreeNode(2);
-        TreeNode left2 = new TreeNode(3);
-        TreeNode left3 = new TreeNode(4);
-        TreeNode right1 = new TreeNode(2);
-        TreeNode right2 = new TreeNode(4);
-        TreeNode right3 = new TreeNode(3);
-        input.left = left1;
-        input.right = right1;
-        //left1.left = left2;
-        left1.right = left3;
-        right1.left = right2;
-        //right1.right = right3;
-        System.out.println(isSymmetric(input));
+        TreeNode input1 = new TreeNode(5);
+        TreeNode input2 = new TreeNode(4);
+        TreeNode input3 = new TreeNode(8);
+        TreeNode input4 = new TreeNode(11);
+        TreeNode input5 = new TreeNode(13);
+        TreeNode input6 = new TreeNode(4);
+        TreeNode input7 = new TreeNode(7);
+        TreeNode input8 = new TreeNode(2);
+        TreeNode input9 = new TreeNode(5);
+        TreeNode input10 = new TreeNode(1);
+        
+        input1.left = input2;
+        input1.right = input3;
+        input2.left = input4;
+        input3.left = input5;
+        input3.right = input6;
+        input4.left = input7;
+        input4.right = input8;
+        input6.left = input9;
+        input6.right = input10;
+        
+        flatten(input1);
+        TreeNode current = input1;
     
     }
     
@@ -262,8 +271,47 @@ public class x00 {
     }
     
     //113. Path Sum II
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        
+    public static List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> retlist = new ArrayList();
+        if(root == null) return retlist;
+        PathSum(retlist, new ArrayList(), root, sum);        
         return null;
+    }
+    
+    public static void PathSum(List<List<Integer>> retlist, List<Integer> ilist, TreeNode root, int sum){
+        if(root.right == null && root.left == null){
+            if(root.val == sum){
+                ilist.add(root.val);
+                retlist.add(ilist);
+            }
+            return;
+        }
+        int nextsum = sum - root.val;
+        if(nextsum <= 0) return;
+        if(root.left != null){
+            List<Integer> leftlist = new ArrayList(ilist);
+            leftlist.add(root.val);
+            PathSum(retlist, leftlist, root.left, nextsum);
+        }
+        if(root.right != null){
+            List<Integer> rightlist = new ArrayList(ilist);
+            rightlist.add(root.val);
+            PathSum(retlist, rightlist, root.right, nextsum);
+        }
+    }
+    
+    //114. Flatten Binary Tree to Linked List
+    public static void flatten(TreeNode root) {
+        if(root == null) return;
+        TreeNode rightRoot = root.right;
+        TreeNode current = root;
+        root.right = root.left;
+        root.left = null;
+        flatten(root.right);
+        flatten(rightRoot);
+        while(current.right != null){
+            current = current.right;
+        }
+        current.right = rightRoot;
     }
 }
