@@ -314,4 +314,13 @@ public class x00 {
         }
         current.right = rightRoot;
     }
+    
+    //116. Populating Next Right Pointers in Each Node
+    public void connect(TreeLinkNode root) {
+        if(root == null || root.left == null) return;
+         root.left.next = root.right;
+         root.right.next = (root.next == null)?null:root.next.left;
+         connect(root.left);
+         connect(root.right);
+    }
 }
