@@ -343,4 +343,22 @@ public class x00 {
         }
         return retlist;
     }
+    
+    //119. Pascal's Triangle II
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> retlist = new ArrayList();
+        retlist.add(1);
+        for(int i = 0; i < rowIndex; i++){            
+            List<Integer> current = new ArrayList();
+            current.add(1);
+            for(int j = 1; j < retlist.size(); j++){
+                current.add(retlist.get(j-1)+retlist.get(j));
+            }
+            current.add(1);
+            retlist = current;
+        }        
+        return retlist;
+    }
+    
+    //120. Triangle
 }
