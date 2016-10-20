@@ -323,4 +323,24 @@ public class x00 {
          connect(root.left);
          connect(root.right);
     }
+    
+    //118. Pascal's Triangle
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> retlist = new ArrayList();
+        if(numRows == 0) return retlist;
+        List<Integer> ilist = new ArrayList();
+        ilist.add(1);
+        retlist.add(ilist);
+        for(int i = 1; i < numRows; i++){            
+            List<Integer> current = new ArrayList();
+            List<Integer> previous = retlist.get(retlist.size() - 1);
+            current.add(1);
+            for(int j = 1; j < previous.size(); j++){
+                current.add(previous.get(j-1)+previous.get(j));
+            }
+            current.add(1);
+            retlist.add(current);
+        }
+        return retlist;
+    }
 }
