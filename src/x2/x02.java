@@ -49,4 +49,23 @@ public class x02 {
         }
         return max;
     }
+    
+    //125. Valid Palindrome
+    public boolean isPalindrome(String s) {
+        char[] carr = s.toCharArray();
+        int i = 0;
+        int j = s.length() - 1;
+        while(i <= j){
+            while(i <= j && !isalphanumeric(carr[i])) i++;
+            while(i <= j && !isalphanumeric(carr[j])) j--;
+            if(carr[i] != carr[j]) return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+    
+    public boolean isalphanumeric(char c){
+        return (c >= 'a' && c <= 'z')||(c >= 'A' && c <= 'Z')||(c >= '0' && c <= '9');
+    }
 }

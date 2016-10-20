@@ -9,7 +9,8 @@ import java.util.*;
 
 /**
  * Unsolved Hard:
- * 115, 117
+ * 115, 
+ * Solved : 117
  * @author jochen
  */
 public class x00 {
