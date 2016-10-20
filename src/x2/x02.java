@@ -26,4 +26,27 @@ public class x02 {
         }        
         return max;
     }
+    
+    //122. Best Time to Buy and Sell Stock II
+    public int maxProfit2(int[] prices) {
+        int max = 0;
+        boolean buy = false;
+        int buyPrice = Integer.MAX_VALUE;
+        for(int i = 0; i < prices.length - 1; i++){
+            if(!buy && prices[i] < prices[i + 1]){
+                //buy stock
+                buyPrice = prices[i];
+                buy = true;
+                continue;
+            }
+            if(buy && prices[i] > prices[i + 1]){
+                max += prices[i] - buyPrice;
+                buy = false;
+            }
+        } 
+        if(buy && prices[prices.length - 1] > buyPrice){
+            max += prices[prices.length - 1] - buyPrice;
+        }
+        return max;
+    }
 }
