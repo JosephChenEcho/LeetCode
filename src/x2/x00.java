@@ -324,6 +324,24 @@ public class x00 {
          connect(root.right);
     }
     
+    //117. Populating Next Right Pointers in Each Node II
+    public void connect2(TreeLinkNode root) {
+        if(root == null) return;
+        List<TreeLinkNode> current = new ArrayList();
+        current.add(root);
+        while(!current.isEmpty()){
+            for(int i = 0; i < current.size() - 1; i++){
+                current.get(i).next = current.get(i + 1);
+            }
+            List<TreeLinkNode> tmp = new ArrayList();
+            for(TreeLinkNode t : current){
+                if(t.left != null) tmp.add(t.left);
+                if(t.right != null) tmp.add(t.right);
+            }
+            current = tmp;
+        }        
+    }
+    
     //118. Pascal's Triangle
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> retlist = new ArrayList();
