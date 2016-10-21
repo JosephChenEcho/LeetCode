@@ -75,6 +75,7 @@ public class x02 {
     
     //127. Word Ladder
     public static int ladderLength(String beginWord, String endWord, Set<String> wordList) {
+        /*
         if(beginWord.length() != endWord.length()) return 0;
         int len = beginWord.length();
         if(len == 0) return 0;
@@ -114,6 +115,31 @@ public class x02 {
         int retint = wordMap.get(endWord);
         if(wordList.contains(endWord) && retint > 0) retint++;
         return retint;
+*/
+        Set<String> reached = new HashSet<String>();
+        reached.add(beginWord);
+        wordList.add(endWord);
+        int distance = 1;
+        while (!reached.contains(endWord)) {
+            Set<String> toAdd = new HashSet<String>();
+            for (String each : reached) {
+                for (int i = 0; i < each.length(); i++) {
+                    char[] chars = each.toCharArray();
+                    for (char ch = 'a'; ch <= 'z'; ch++) {
+                        chars[i] = ch;
+                        String word = new String(chars);
+                        if (wordList.contains(word)) {
+                            toAdd.add(word);
+                            wordList.remove(word);
+                        }
+                    }
+                }
+            }
+            distance++;
+            if (toAdd.size() == 0) return 0;
+            reached = toAdd;
+        }
+        return distance;
     }
     
     public static boolean isLadder(String begin, String end){
