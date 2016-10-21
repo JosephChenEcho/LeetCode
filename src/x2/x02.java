@@ -12,11 +12,12 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        HashSet<String> set = new HashSet();
+        /*HashSet<String> set = new HashSet();
         set.add("a");
         set.add("b");
         set.add("c");
-        ladderLength("a","c",set);
+        ladderLength("a","c",set);*/
+        partition("aab");
     }
     
     //121. Best Time to Buy and Sell Stock
@@ -175,6 +176,43 @@ public class x02 {
             treeList = tmpList;
         }
         return sum;
+    }
+    
+    //131. Palindrome Partitioning
+    public static List<List<String>> partition(String s) {
+        List<List<String>> retlist = new ArrayList();
+        for(int i = 1; i < s.length(); i++){
+            if(isPalind(s.substring(0, i))){
+                for(List<String> lstr : partition(s.substring(i))){
+                    List<String> solstr = new ArrayList();
+                    solstr.add(s.substring(0,i));
+                    solstr.addAll(lstr);
+                    retlist.add(solstr);
+                }
+            }
+        }      
+        if(isPalind(s)){
+            List<String> solstr = new ArrayList();
+            solstr.add(s);
+            retlist.add(solstr);
+        }
+        return retlist;
+    }
+    
+    public static boolean isPalind(String s){
+        int i = 0;
+        int j = s.length() - 1;
+        while(i < j){
+            if(s.charAt(i) != s.charAt(j)) return false;
+            i++;
+            j--;
+        }        
+        return true;
+    }
+    
+    //133. Clone Graph
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        return null;
     }
     
 }
