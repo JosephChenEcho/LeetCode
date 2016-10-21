@@ -124,4 +124,31 @@ public class x02 {
         }
         return diff == 1;
     }
+    
+    //129. Sum Root to Leaf Numbers
+    public int sumNumbers(TreeNode root) {
+        if(root == null) return 0;
+        int sum = 0;
+        List<TreeNode> treeList = new ArrayList();
+        treeList.add(root);
+        while(!treeList.isEmpty()){
+            List<TreeNode> tmpList = new ArrayList();
+            for(TreeNode t : treeList){
+                if(t.left != null){
+                    t.left.val += t.val * 10;
+                    tmpList.add(t.left);
+                }
+                if(t.right != null){
+                    t.right.val += t.val * 10;
+                    tmpList.add(t.right);
+                }                
+                if(t.left == null && t.right == null){
+                    sum += t.val;
+                }
+            }
+            treeList = tmpList;
+        }
+        return sum;
+    }
+    
 }
