@@ -17,7 +17,20 @@ public class x02 {
         set.add("b");
         set.add("c");
         ladderLength("a","c",set);*/
-        partition("aab");
+        /*
+        UndirectedGraphNode input1 = new UndirectedGraphNode(1);
+        UndirectedGraphNode input2 = new UndirectedGraphNode(2);
+        UndirectedGraphNode input3 = new UndirectedGraphNode(3);
+        input1.neighbors.add(input2);
+        input1.neighbors.add(input3);
+        input2.neighbors.add(input3);
+        input3.neighbors.add(input3);
+        
+        UndirectedGraphNode output = cloneGraph(input1);*/
+        int[] gas = new int[]{0,5,6};
+        int[] cost = new int[]{1,2,3};
+        System.out.println(canCompleteCircuit(gas,cost));
+                
     }
     
     //121. Best Time to Buy and Sell Stock
@@ -211,8 +224,37 @@ public class x02 {
     }
     
     //133. Clone Graph
-    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        return null;
+    public static UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if(node == null) return null;
+        UndirectedGraphNode graph = new UndirectedGraphNode(node.label);      
+        List<UndirectedGraphNode> nodeneigh = node.neighbors;
+        for(UndirectedGraphNode n : nodeneigh){
+            if(n == node){
+                graph.neighbors.add(node); 
+            }else{
+                graph.neighbors.add(cloneGraph(n));
+            }
+        }
+        return graph;
     }
     
+    //134. Gas Station
+    public static int canCompleteCircuit(int[] gas, int[] cost) {
+        if(gas.length == 0) return -1;
+        int i;
+        for(i = 0; i < gas.length; i++){
+            int gasTank = gas[i] - cost[i];
+            int j = i;
+            while(gasTank > 0 && j != i - 1){
+                j++;
+                if(j >= gas.length) j -= gas.length;
+                if(gasTank < 0) break;
+                gasTank += gas[j] - cost[j];
+                
+            }
+            if(j == i) break;
+        }
+        if(i == gas.length) return -1;
+        return i;
+    }
 }
