@@ -257,4 +257,24 @@ public class x02 {
         if(i == gas.length) return -1;
         return i;
     }
+    
+    //136. Single Number
+    public int singleNumber(int[] nums) {
+        HashSet<Integer> set = new HashSet();
+        for(int i = 0; i < nums.length; i++){
+            if(set.contains(nums[i])){
+                set.remove(nums[i]);
+            }else{
+                set.add(nums[i]);
+            }
+        }
+        Object[] ret = set.toArray();
+        return (int)ret[0];
+    }
+
+    
+    
+    //137
+    
+    //139
 }
