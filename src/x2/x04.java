@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package x2;
+import java.util.*;
 
 /**Unsolved Hard:
  * 145, 146, 149, 154, 158, 159 
@@ -13,5 +14,16 @@ package x2;
 public class x04 {
     public static void main(String args[]){
     
+    }
+    
+    //141. Linked List Cycle
+    public boolean hasCycle(ListNode head) {
+        if(head==null)return false;
+        while(head.next!=null && head.next!=head){
+            ListNode tmp=head.next;
+            head.next=head.next.next;
+            head=tmp;
+        }
+        return head.next!=null;
     }
 }
