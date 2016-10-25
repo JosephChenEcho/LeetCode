@@ -17,16 +17,23 @@ public class x02 {
         set.add("b");
         set.add("c");
         ladderLength("a","c",set);*/
-        /*
+        UndirectedGraphNode input0 = new UndirectedGraphNode(0);
         UndirectedGraphNode input1 = new UndirectedGraphNode(1);
         UndirectedGraphNode input2 = new UndirectedGraphNode(2);
         UndirectedGraphNode input3 = new UndirectedGraphNode(3);
+        UndirectedGraphNode input4 = new UndirectedGraphNode(4);
+        UndirectedGraphNode input5 = new UndirectedGraphNode(5);
+        input0.neighbors.add(input1);
+        input0.neighbors.add(input5);
         input1.neighbors.add(input2);
-        input1.neighbors.add(input3);
+        input1.neighbors.add(input5);
         input2.neighbors.add(input3);
-        input3.neighbors.add(input3);
+        input3.neighbors.add(input4);
+        input3.neighbors.add(input4);
+        input4.neighbors.add(input5);
+        input4.neighbors.add(input5);
         
-        UndirectedGraphNode output = cloneGraph(input1);*/
+        UndirectedGraphNode output = cloneGraph(input1);
         //int[] gas = new int[]{0,5,6};
         //int[] cost = new int[]{1,2,3};
         
@@ -228,14 +235,20 @@ public class x02 {
     }
     
     //133. Clone Graph
+    public static ArrayList nodeList = new ArrayList();
+    
     public static UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if(node == null) return null;
         UndirectedGraphNode graph = new UndirectedGraphNode(node.label);      
         List<UndirectedGraphNode> nodeneigh = node.neighbors;
         for(UndirectedGraphNode n : nodeneigh){
             if(n == node){
-                graph.neighbors.add(node); 
+                graph.neighbors.add(graph); 
             }else{
+                int i = 0;
+                for(i = 0; i < nodeList.size(); i++){
+                    
+                }
                 graph.neighbors.add(cloneGraph(n));
             }
         }
@@ -269,6 +282,41 @@ public class x02 {
             }
         }
         return total < 0 ? -1 : start;
+    }
+    
+    //135
+    public static int candy(int[] ratings) {
+        int len = ratings.length;
+        if(len == 0) return 0;
+        if(len == 1) return 1;
+        int result = 1, curCandy = 1, temp;
+        
+        for(int i=1;i<len;){
+            if(ratings[i] > ratings[i-1]){
+                curCandy++;
+                result += curCandy;
+                i++;
+            }
+            else if(ratings[i] == ratings[i-1]){
+                curCandy = 1;
+                result += curCandy;
+                i++;
+            }
+            else{
+                temp = curCandy;
+                curCandy = 1;
+                result += curCandy;
+                while(i<len && ratings[i] < ratings[i-1]){
+                    curCandy++;
+                    result += curCandy;
+                    i++;
+                }
+                result -= temp<curCandy?temp:curCandy;
+                curCandy = 1;
+                if(i == len) return result;
+            }
+        }        
+        return result;
     }
     
     //136. Single Number
