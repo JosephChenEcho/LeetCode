@@ -17,8 +17,10 @@ public class LeetCode {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int[][] input = new int[][]{{0,0,1,1},{0,1,3,2},{1,0,2,2}};
-        isRectangleCover(input);
+        //int[][] input = new int[][]{{0,0,1,1},{0,1,3,2},{1,0,2,2}};
+        //isRectangleCover(input);
+        int[] input = new int[]{3,1,5,8};
+        System.out.println(maxCoins(input));
     }
     
     public void setZeroes(int[][] matrix) {
@@ -109,5 +111,51 @@ public class LeetCode {
         }
         if(mapsize != (jmax - jmin + 1)*(imax - imin + 1)) return false;
         return true;
+    }
+    
+    //Burst Balloons
+    public static int maxCoins(int[] iNums) {
+        int[] nums = new int[iNums.length + 2];
+        int n = 1;
+        for (int x : iNums) if (x > 0) nums[n++] = x;
+        nums[0] = nums[n++] = 1;
+        
+        int[][] dp = new int[n][n];
+        for (int k = 2; k < n; ++k)
+            for (int left = 0; left < n - k; ++left) {
+                int right = left + k;
+                for (int i = left + 1; i < right; ++i)
+                    dp[left][right] = Math.max(dp[left][right], nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right]);
+            }      
+        return dp[0][n - 1];
+    }
+    
+    public static int bestShot(List<Integer> nums){
+        int score = 0;
+        int ballon = 0;
+        if(nums.size() == 1){
+            score = nums.get(0);
+            nums.clear();
+            return score;
+        }               
+        for(int i = 0; i < nums.size(); i++){
+            int tmpScore = 0;
+            if(i == 0){
+                tmpScore = nums.get(0) * nums.get(1);
+            }else if(i == nums.size() - 1){
+                tmpScore = nums.get(i-1) * nums.get(i);
+            }else{
+                tmpScore = nums.get(i-1) * nums.get(i) * nums.get(i+1);
+            }
+            if(tmpScore > score){
+                score = tmpScore;
+                ballon = i;
+            }else if(tmpScore == score && nums.get(i) < nums.get(ballon)){
+                ballon = i;
+            }
+        }
+        nums.remove(ballon);
+        
+        return score;
     }
 }

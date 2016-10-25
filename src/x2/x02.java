@@ -257,21 +257,6 @@ public class x02 {
     
     //134. Gas Station
     public static int canCompleteCircuit(int[] gas, int[] cost) {
-        /*if(gas.length == 0) return -1;
-        int i;
-        for(i = 0; i < gas.length; i++){
-            int gasTank = 0;
-            int j = i;
-            do{
-                gasTank += gas[j] - cost[j];
-                j++;
-                if(j >= gas.length) j -= gas.length;
-            }
-            while(gasTank >= 0 && j != i);
-            if(gasTank < 0) continue;
-            if(j == i) return j;
-        }
-        return -1;*/
         int total = 0, sum = 0, start = 0;
         for (int i = 0; i < gas.length; i++) {
             total += gas[i] - cost[i];
@@ -284,7 +269,7 @@ public class x02 {
         return total < 0 ? -1 : start;
     }
     
-    //135
+    //135. Candy
     public static int candy(int[] ratings) {
         int len = ratings.length;
         if(len == 0) return 0;
