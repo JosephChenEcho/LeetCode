@@ -36,4 +36,16 @@ public class x04 {
         }
         return head.next!=null;
     }
+    
+    //142. Linked List Cycle II
+    public ListNode detectCycle(ListNode head) {
+        ListNode current = head;
+        Set<ListNode> set = new HashSet();
+        while(current != null){
+            if(!set.add(current)) return current;
+            current = current.next;
+        }
+        
+        return null;
+    }
 }
