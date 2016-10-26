@@ -39,13 +39,22 @@ public class x04 {
     
     //142. Linked List Cycle II
     public ListNode detectCycle(ListNode head) {
-        ListNode current = head;
-        Set<ListNode> set = new HashSet();
-        while(current != null){
-            if(!set.add(current)) return current;
-            current = current.next;
-        }
+
+        ListNode fast = head;
+        ListNode slow = head;
+        
         
         return null;
+    }
+    
+    //144. Binary Tree Preorder Traversal
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> retlist = new ArrayList();
+        if(root == null) return retlist;
+        
+        retlist.add(root.val);
+        retlist.addAll(preorderTraversal(root.left));
+        retlist.addAll(preorderTraversal(root.right));
+        return retlist;
     }
 }
