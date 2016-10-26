@@ -33,7 +33,7 @@ public class x02 {
         input4.neighbors.add(input5);
         input4.neighbors.add(input5);
         
-        UndirectedGraphNode output = cloneGraph(input1);
+
         //int[] gas = new int[]{0,5,6};
         //int[] cost = new int[]{1,2,3};
         
@@ -235,24 +235,23 @@ public class x02 {
     }
     
     //133. Clone Graph
-    public static ArrayList nodeList = new ArrayList();
-    
-    public static UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        if(node == null) return null;
-        UndirectedGraphNode graph = new UndirectedGraphNode(node.label);      
-        List<UndirectedGraphNode> nodeneigh = node.neighbors;
-        for(UndirectedGraphNode n : nodeneigh){
-            if(n == node){
-                graph.neighbors.add(graph); 
-            }else{
-                int i = 0;
-                for(i = 0; i < nodeList.size(); i++){
-                    
-                }
-                graph.neighbors.add(cloneGraph(n));
-            }
+    private HashMap<Integer, UndirectedGraphNode> map = new HashMap<>();
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        return clone(node);
+    }
+
+    private UndirectedGraphNode clone(UndirectedGraphNode node) {
+        if (node == null) return null;
+        
+        if (map.containsKey(node.label)) {
+            return map.get(node.label);
         }
-        return graph;
+        UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
+        map.put(clone.label, clone);
+        for (UndirectedGraphNode neighbor : node.neighbors) {
+            clone.neighbors.add(clone(neighbor));
+        }
+        return clone;
     }
     
     //134. Gas Station
@@ -316,9 +315,7 @@ public class x02 {
         }
         Object[] ret = set.toArray();
         return (int)ret[0];
-    }
-
-    
+    }   
     
     //137
     
