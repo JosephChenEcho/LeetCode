@@ -19,8 +19,9 @@ public class LeetCode {
         // TODO code application logic here
         //int[][] input = new int[][]{{0,0,1,1},{0,1,3,2},{1,0,2,2}};
         //isRectangleCover(input);
-        int[] input = new int[]{3,1,5,8};
-        System.out.println(maxCoins(input));
+        int[][] input = new int[][]{{1,-3,3},{0,-2,0},{-3,-3,-3}};
+        calculateMinimumHP(input);
+        
     }
     
     public void setZeroes(int[][] matrix) {
@@ -158,4 +159,21 @@ public class LeetCode {
         
         return score;
     }
+    //Dungeon Game
+    public static int calculateMinimumHP(int[][] dungeon) {
+        if(dungeon.length ==0) return 0;    
+        int row=dungeon.length;
+        int col=dungeon[0].length;    
+        for(int i=row-1; i>=0; i--) {        
+            for(int j=col-1; j>=0; j--) {            
+                if(i==row-1 && j==col-1) dungeon[i][j]=Math.max(1, 1-dungeon[i][j]);
+                else if(i==row-1) dungeon[i][j]=Math.max(1, dungeon[i][j+1]-dungeon[i][j]);
+                else if(j==col-1) dungeon[i][j]=Math.max(1, dungeon[i+1][j]-dungeon[i][j]);
+                else dungeon[i][j]=Math.max(1, Math.min(dungeon[i+1][j], dungeon[i][j+1])-dungeon[i][j]);
+            }
+        }        
+        return dungeon[0][0];
+    }   
 }
+
+

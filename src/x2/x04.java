@@ -39,6 +39,7 @@ public class x04 {
     
     //142. Linked List Cycle II
     public ListNode detectCycle(ListNode head) {
+        if(head == null || head.next == null) return null;
 
         ListNode fast = head;
         ListNode slow = head;
