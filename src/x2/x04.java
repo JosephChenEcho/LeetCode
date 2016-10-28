@@ -13,7 +13,8 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String args[]){
-        ListNode input1 = new ListNode(5);
+        reverseWords("This is a red apple");
+        /*ListNode input1 = new ListNode(5);
         ListNode input2 = new ListNode(4);
         ListNode input3 = new ListNode(2);
         ListNode input4 = new ListNode(3);
@@ -23,7 +24,7 @@ public class x04 {
         input3.next = input4;
         input4.next = input5;
         
-        System.out.println(insertionSortList(input1).toString());
+        System.out.println(insertionSortList(input1).toString());*/
     }
     
     //141. Linked List Cycle
@@ -98,4 +99,52 @@ public class x04 {
         return prehead.next;
     }
     
+    //150. Evaluate Reverse Polish Notation
+    /*  ["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
+        ["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6*/    
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> istack = new Stack();
+        for(int i = 0; i < tokens.length; i++){
+            if(tokens[i].equals("+")){
+                int sec = istack.pop();
+                int fir = istack.pop();
+                int tmp = fir + sec;
+                istack.push(tmp);
+            
+            }else if(tokens[i].equals("-")){
+                int sec = istack.pop();
+                int fir = istack.pop();
+                int tmp = fir - sec;
+                istack.push(tmp);
+            }else if(tokens[i].equals("*")){
+                int sec = istack.pop();
+                int fir = istack.pop();
+                int tmp = fir * sec;
+                istack.push(tmp);
+            }else if(tokens[i].equals("/")){
+                int sec = istack.pop();
+                int fir = istack.pop();
+                int tmp = fir / sec;
+                istack.push(tmp);
+            }else{
+                int tmp = Integer.parseInt(tokens[i]);
+                istack.push(tmp);
+            }
+        }        
+        return istack.pop();
+    }
+    
+    //151. Reverse Words in a String
+    public static String reverseWords(String s) {
+        String [] words = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+        int end = words.length - 1;
+        for(int i = 0; i<= end; i++){
+            if(!words[i].isEmpty()) {
+                sb.insert(0, words[i]);
+                if(i < end) sb.insert(0, " ");
+            }
+        }
+        return sb.toString();
+    }
 }
