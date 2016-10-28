@@ -23,7 +23,7 @@ public class x04 {
         input3.next = input4;
         input4.next = input5;
         input5.next = input2;
-        hasCycle(input1);
+        detectCycle(input1);
     }
     
     //141. Linked List Cycle
@@ -38,13 +38,24 @@ public class x04 {
     }
     
     //142. Linked List Cycle II
-    public ListNode detectCycle(ListNode head) {
-        if(head == null || head.next == null) return null;
-
-        ListNode fast = head;
-        ListNode slow = head;
-        
-        
+    public static ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;   // no circle
+        }
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {  // circle detected
+                while (head != fast) {
+                    fast = fast.next;
+                    head = head.next;
+                }
+                return head;
+            }
+        }
+        //return null; // no circle
+        //System.out.println("Here");
         return null;
     }
     
