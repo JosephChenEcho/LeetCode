@@ -13,17 +13,17 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String args[]){
-        ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(2);
-        ListNode input3 = new ListNode(3);
-        ListNode input4 = new ListNode(4);
-        ListNode input5 = new ListNode(5);
+        ListNode input1 = new ListNode(5);
+        ListNode input2 = new ListNode(4);
+        ListNode input3 = new ListNode(2);
+        ListNode input4 = new ListNode(3);
+        ListNode input5 = new ListNode(1);
         input1.next = input2;
         input2.next = input3;
         input3.next = input4;
         input4.next = input5;
-        input5.next = input2;
-        detectCycle(input1);
+        
+        System.out.println(insertionSortList(input1).toString());
     }
     
     //141. Linked List Cycle
@@ -69,4 +69,33 @@ public class x04 {
         retlist.addAll(preorderTraversal(root.right));
         return retlist;
     }
+    
+    //147. Insertion Sort List
+    public static ListNode insertionSortList(ListNode head) {
+        if(head == null) return null;
+        ListNode prehead = new ListNode(-1);
+        prehead.next = head;
+        ListNode point = prehead.next;
+        while(point.next != null){
+            if(point.val > point.next.val){
+                //Insert Sort
+                ListNode pre = prehead;
+                while(pre.next.val < point.next.val){
+                    pre = pre.next;
+                }
+                ListNode post = pre.next;
+                ListNode tail = point.next.next;
+                //insert point.next into pre and post
+                pre.next = point.next;
+                pre.next.next = post;                
+                //add tail after point
+                point.next = tail;
+            }else{
+                point = point.next;
+            }
+        }
+        
+        return prehead.next;
+    }
+    
 }
