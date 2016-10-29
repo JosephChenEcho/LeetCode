@@ -147,4 +147,9 @@ public class x04 {
         }
         return sb.toString();
     }
+    
+    //152. Maximum Product Subarray
+    public int maxProduct(int[] nums) {
+        return 0;
+    }
 }
