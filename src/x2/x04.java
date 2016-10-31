@@ -150,6 +150,23 @@ public class x04 {
     
     //152. Maximum Product Subarray
     public int maxProduct(int[] nums) {
-        return 0;
+        if(nums.length == 1) return nums[0];
+        int[] numMax = new int[nums.length];
+        int[] numMin = new int[nums.length];
+        numMax[0] = nums[0];
+        numMin[0] = nums[0];
+        int maxValue = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] == 0){
+                numMax[i] = 1;
+                numMin[i] = 1;
+            }else
+            {
+                numMax[i] = numMax[i-1] * nums[i] > numMin[i-1] * nums[i] ? (numMax[i-1] * nums[i] > nums[i] ? numMax[i-1] * nums[i] : nums[i]):(numMin[i-1] * nums[i] > nums[i] ? numMin[i-1] * nums[i]: nums[i]);
+                numMin[i] = numMax[i-1] * nums[i] < numMin[i-1] * nums[i] ? (numMax[i-1] * nums[i] < nums[i] ? numMax[i-1] * nums[i] : nums[i]):(numMin[i-1] * nums[i] < nums[i] ? numMin[i-1] * nums[i]: nums[i]);
+                maxValue = maxValue > numMax[i] ? maxValue : numMax[i];
+            }
+        }                    
+        return maxValue;
     }
 }
