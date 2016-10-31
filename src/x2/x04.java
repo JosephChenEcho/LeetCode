@@ -160,6 +160,7 @@ public class x04 {
             if(nums[i] == 0){
                 numMax[i] = 1;
                 numMin[i] = 1;
+                maxValue = maxValue < 0? 0 : maxValue;
             }else
             {
                 numMax[i] = numMax[i-1] * nums[i] > numMin[i-1] * nums[i] ? (numMax[i-1] * nums[i] > nums[i] ? numMax[i-1] * nums[i] : nums[i]):(numMin[i-1] * nums[i] > nums[i] ? numMin[i-1] * nums[i]: nums[i]);
