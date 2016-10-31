@@ -170,4 +170,19 @@ public class x04 {
         }                    
         return maxValue;
     }
+    
+    //153. Find Minimum in Rotated Sorted Array
+    public int findMin(int[] nums) {
+        return binarySearch(0, nums.length-1, nums);
+    }
+
+    private int binarySearch(int start, int end, int[] nums){
+        if(start == end) return nums[start];   
+        if(nums[start] < nums[end]) return nums[start]; // the subarray is sorted
+        int mid = start + ((end-start)/2);
+        if(nums[start] < nums[mid] || mid == start){
+           return binarySearch(mid +1, end, nums);
+        }
+        return binarySearch(start, mid, nums);
+    } 
 }
