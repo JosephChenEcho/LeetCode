@@ -60,6 +60,8 @@ public class x04 {
         return null;
     }
     
+    //143
+    
     //144. Binary Tree Preorder Traversal
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> retlist = new ArrayList();
@@ -98,6 +100,8 @@ public class x04 {
         
         return prehead.next;
     }
+    
+    //148
     
     //150. Evaluate Reverse Polish Notation
     /*  ["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
@@ -185,4 +189,19 @@ public class x04 {
         }
         return binarySearch(start, mid, nums);
     } 
+    
+    //155. Min Stack
+    
+    //160. Intersection of Two Linked Lists
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null) return null;    
+        ListNode a = headA;
+        ListNode b = headB;    
+        while( a != b){
+            //for the end of first iteration, we just reset the pointer to the head of another linkedlist
+            a = a == null? headB : a.next;
+            b = b == null? headA : b.next;    
+        }    
+        return a;
+    }
 }
