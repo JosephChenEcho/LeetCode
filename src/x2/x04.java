@@ -13,18 +13,18 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String args[]){
-        reverseWords("This is a red apple");
-        /*ListNode input1 = new ListNode(5);
-        ListNode input2 = new ListNode(4);
-        ListNode input3 = new ListNode(2);
-        ListNode input4 = new ListNode(3);
-        ListNode input5 = new ListNode(1);
+
+        ListNode input1 = new ListNode(1);
+        ListNode input2 = new ListNode(2);
+        ListNode input3 = new ListNode(3);
+        ListNode input4 = new ListNode(4);
+        ListNode input5 = new ListNode(5);
         input1.next = input2;
         input2.next = input3;
         input3.next = input4;
         input4.next = input5;
         
-        System.out.println(insertionSortList(input1).toString());*/
+        reorderList(input1);
     }
     
     //141. Linked List Cycle
@@ -60,7 +60,52 @@ public class x04 {
         return null;
     }
     
-    //143
+    //143. Reorder List
+    //L0→Ln→L1→Ln-1→L2→Ln-2→…
+    public static void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        
+        ListNode fast = head, slow = head;
+        while (fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+
+        }
+        // now slow is the mid, reverse from slow->next to end
+
+        ListNode prev = null;
+        ListNode curt = slow.next;
+        // break the connection
+        slow.next = null;
+        
+        while (curt != null) {
+            ListNode temp = curt.next;
+            curt.next = prev;
+            prev = curt;
+            curt = temp;
+        }
+        
+        // Ln starts from prev, L0 starts from head
+        curt = new ListNode(-1);
+        ListNode temp = head;
+        
+        while(prev != null) {
+            curt.next = temp;
+            temp = temp.next;
+            curt = curt.next;
+            curt.next = prev;
+            prev = prev.next;
+            curt = curt.next;
+        }
+        
+        if (temp != null) {
+            curt.next = temp;
+        }
+
+    }
+    
     
     //144. Binary Tree Preorder Traversal
     public List<Integer> preorderTraversal(TreeNode root) {
