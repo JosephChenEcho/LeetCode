@@ -5,6 +5,8 @@
  */
 package x2;
 
+import java.util.*;
+
 /** UnSolved Hard:
  * 164, 174
  * @author jochen
@@ -41,5 +43,25 @@ public class x06 {
         }
         return 0;
     }
+    
+    //167. Two Sum II - Input array is sorted
+    public int[] twoSum(int[] numbers, int target) {
+        int[] ret = new int[2];
+        int left = 0;
+        int right = numbers.length - 1;
+        while(left < right){
+            int sum = numbers[left] + numbers[right];
+            if(sum > target){ right--;}
+            else if(sum < target){ left++;}
+            else{
+                ret[0] = left + 1;
+                ret[1] = right + 1;
+                return ret;
+            }
+        }        
+        return ret;
+    }
+    
+    //168. Excel Sheet Column Title
 }
 
