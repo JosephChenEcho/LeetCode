@@ -11,7 +11,7 @@ package x2;
  */
 public class x06 {
     public static void main(String[] args){
-    
+        compareVersion("1","0");
     }
     //162. Find Peak Element
     public int findPeakElement(int[] nums) {
@@ -29,5 +29,17 @@ public class x06 {
     }    
     
     //165. Compare Version Numbers
+    public static int compareVersion(String version1, String version2) {
+        String[] v1 = version1.split("\\.");
+        String[] v2 = version2.split("\\.");
+        int max = Math.max(v1.length, v2.length);       
+        for(int i = 0; i < max; i++){
+            int i1 = i < v1.length ? Integer.parseInt(v1[i]) : 0;
+            int i2 = i < v2.length ? Integer.parseInt(v2[i]) : 0;
+            if(i1 > i2) return 1;
+            if(i1 < i2) return -1;
+        }
+        return 0;
+    }
 }
 
