@@ -15,7 +15,10 @@ import java.util.*;
 public class x06 {
     public static void main(String[] args){
         //System.out.println(convertToTitle(52));
-        System.out.println(titleToNumber("AA"));
+        //System.out.println(titleToNumber("AA"));-1
+//-2147483648
+        
+        System.out.print(fractionToDecimal(-1,-2147483648));
     }
     //162. Find Peak Element
     public int findPeakElement(int[] nums) {
@@ -46,7 +49,39 @@ public class x06 {
         return 0;
     }
     
-    //166
+    //166. Fraction to Recurring Decimal
+    public static String fractionToDecimal(int numerator, int denominator) {
+        if (numerator == 0) {
+            return "0";
+        }
+        StringBuilder res = new StringBuilder();
+        if(numerator > 0 ^ denominator > 0) res.append("-");
+        
+        long num = Math.abs((long)numerator);
+        long den = Math.abs((long)denominator);
+        long pre = num/den;
+        res.append(pre);
+        long post = num % den;
+        
+        if(post == 0) return res.toString();
+        res.append('.');
+        HashMap<Long, Integer> imap = new HashMap();
+        imap.put(post, res.length());
+        while(post != 0){
+            post *= 10;
+            res.append(post / den);
+            post %= den;
+            if(imap.containsKey(post)){
+                int idx = imap.get(post);
+                res.insert(idx, '(');
+                res.append(')');
+                break;
+            }else{
+                imap.put(post, res.length());
+            }            
+        }
+        return res.toString();      
+    }
     
     //167. Two Sum II - Input array is sorted
     public int[] twoSum(int[] numbers, int target) {
