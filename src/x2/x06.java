@@ -88,5 +88,27 @@ public class x06 {
         }        
         return res;
     }
+    
+    //174. Dungeon Game
+    public static int calculateMinimumHP(int[][] dungeon) {
+        int width = dungeon.length;
+        int height = dungeon[0].length;
+        dungeon[width - 1][height - 1] = Math.max(1, 1 - dungeon[width - 1][height - 1]);
+        
+        for(int i = width - 2; i >= 0; i--){
+            dungeon[i][height - 1] = Math.max(1, dungeon[i + 1][height - 1] - dungeon[i][height - 1]);
+        }
+        
+        for(int j = height - 2; j >= 0; j--){
+            dungeon[width - 1][j] = Math.max(1, dungeon[width - 1][j + 1] - dungeon[width - 1][j]);
+        }
+        
+        for(int i = width - 2; i >= 0; i--){
+            for(int j = height - 2; j >=0; j--){
+                dungeon[i][j] = Math.max(1, Math.min(dungeon[i][j + 1], dungeon[i + 1][j]) - dungeon[i][j]);
+            }
+        }        
+        return dungeon[0][0];
+    }   
 }
 
