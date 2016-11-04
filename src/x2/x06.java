@@ -13,7 +13,8 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        System.out.println(convertToTitle(52));
+        //System.out.println(convertToTitle(52));
+        System.out.println(titleToNumber("AA"));
     }
     //162. Find Peak Element
     public int findPeakElement(int[] nums) {
@@ -73,6 +74,19 @@ public class x06 {
             int post = n - pre*26;
             return convertToTitle(pre) + convertToTitle(post);
         }        
+    }
+    
+    //171. Excel Sheet Column Number
+    public static int titleToNumber(String s) {
+        if(s.length() == 0) return 0;        
+        char[] carr = s.toCharArray();
+        int res = 0;
+        for(int i = 0; i < carr.length; i++){
+            res *= 26;
+            int v = carr[i] - 64;
+            res += v;
+        }        
+        return res;
     }
 }
 
