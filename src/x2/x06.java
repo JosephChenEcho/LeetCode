@@ -8,7 +8,8 @@ package x2;
 import java.util.*;
 
 /** UnSolved Hard:
- * 164, 174
+ * 164
+ * Solved : 174
  * @author jochen
  */
 public class x06 {
@@ -45,6 +46,8 @@ public class x06 {
         return 0;
     }
     
+    //166
+    
     //167. Two Sum II - Input array is sorted
     public int[] twoSum(int[] numbers, int target) {
         int[] ret = new int[2];
@@ -76,6 +79,8 @@ public class x06 {
         }        
     }
     
+    //169
+    
     //171. Excel Sheet Column Number
     public static int titleToNumber(String s) {
         if(s.length() == 0) return 0;        
@@ -88,6 +93,18 @@ public class x06 {
         }        
         return res;
     }
+    
+    //172. Factorial Trailing Zeroes
+    public int trailingZeroes(int n) {
+        int ret = 0;
+        while(n < 5){
+            ret += n/5;
+            n = n/5;
+        }
+        return ret;
+    }
+    
+    //173
     
     //174. Dungeon Game
     public static int calculateMinimumHP(int[][] dungeon) {
@@ -110,5 +127,7 @@ public class x06 {
         }        
         return dungeon[0][0];
     }   
+    
+    //179
 }
 
