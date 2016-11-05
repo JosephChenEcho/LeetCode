@@ -114,7 +114,28 @@ public class x06 {
         }        
     }
     
-    //169
+    //169. Majority Element
+    public int majorityElement(int[] nums) {
+        /*Arrays.sort(nums);        
+        return nums[nums.length/2];*/
+        int majorityElem = nums[0], count = 1;
+        for( int i = 1; i < nums.length; i++ )
+        {
+            if( count == 0 )
+            {
+                majorityElem = nums[i];
+                count = 1;
+            }
+            else
+            {
+                if( nums[i] == majorityElem )
+                    count++;
+                else
+                    count--;
+            }
+        }
+        return majorityElem;
+    }
     
     //171. Excel Sheet Column Number
     public static int titleToNumber(String s) {
