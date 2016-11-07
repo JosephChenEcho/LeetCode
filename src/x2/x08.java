@@ -65,4 +65,22 @@ public class x08 {
             end--;
         }
     }
+    
+    //199. Binary Tree Right Side View
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> retList = new ArrayList();
+        if(root == null) return retList;
+        List<TreeNode> curLvl =  new ArrayList();
+        curLvl.add(root);
+        while(!curLvl.isEmpty()){
+            retList.add(curLvl.get(curLvl.size() - 1).val);
+            List<TreeNode> tmpLvl = new ArrayList();
+            for(TreeNode r : curLvl){
+                if(r.left != null) tmpLvl.add(r.left);
+                if(r.right != null) tmpLvl.add(r.right);
+            }
+            curLvl = tmpLvl;
+        }
+        return retList;
+    }
 }
