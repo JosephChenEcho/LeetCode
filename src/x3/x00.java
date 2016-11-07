@@ -84,4 +84,26 @@ public class x00 {
         }
         return count;
     }
+    
+    //205. Isomorphic Strings
+    public boolean isIsomorphic(String s, String t) {
+	if(s == null || t == null) return false;
+    if(s == "") return t == "";
+    if(t == "") return false;
+    
+    for(int i = 0; i < s.length(); i++){
+        char c1 = s.charAt(i);
+        char c2 = t.charAt(i);
+        if(s.lastIndexOf(c1) != t.lastIndexOf(c2))
+            return false;
+    }
+    
+    return true;
+    }
+    
+    //206. Reverse Linked List
+    public ListNode reverseList(ListNode head) {
+        return null;
+    }
+    
 }
