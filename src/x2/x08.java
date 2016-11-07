@@ -11,11 +11,13 @@ import java.util.*;
  */
 public class x08 {
     public static void main(String[] args){
-        int[] input = new int[]{1,2};
-        rotate(input,1);
-        for(int i : input){
-            System.out.println(i);
-        }
+        
+        char[][] input = new char[4][5];//{"11110","11010","11000","00000"};
+        input[0] = "11110".toCharArray();
+        input[1] = "11010".toCharArray();
+        input[2] = "11000".toCharArray();
+        input[3] = "00000".toCharArray();
+        numIslands(input);
     }
     
     //187. Repeated DNA Sequences
@@ -66,6 +68,12 @@ public class x08 {
         }
     }
     
+    //190
+    
+    //191
+    
+    //198
+    
     //199. Binary Tree Right Side View
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> retList = new ArrayList();
@@ -82,5 +90,33 @@ public class x08 {
             curLvl = tmpLvl;
         }
         return retList;
+    }
+    
+    //200. Number of Islands
+    public static int numIslands(char[][] grid) {
+        int cnt = 0;
+        if(grid == null) return cnt;
+        int len = grid.length;
+        int wid = grid[0].length;
+        for(int i = 0; i < len; i++){
+            for(int j = 0; j < wid; j++){
+                if(grid[i][j] == '2') continue;
+                if(grid[i][j] == '1'){
+                    cnt++;
+                    readIsland(i,j,grid);
+                }
+            }
+        }        
+        return cnt;
+    }
+    
+    public static void readIsland(int i, int j, char[][] grid){
+        int len = grid.length;
+        int wid = grid[0].length;
+        grid[i][j] = '2';
+        if(i - 1 >=0 && grid[i-1][j] == '1') readIsland(i-1,j,grid);
+        if(j - 1 >=0 && grid[i][j-1] == '1') readIsland(i,j-1,grid);
+        if(i + 1 < len && grid[i+1][j] == '1') readIsland(i+1,j,grid);
+        if(j + 1 < wid && grid[i][j + 1] == '1') readIsland(i,j+1,grid);
     }
 }
