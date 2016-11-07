@@ -14,17 +14,8 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        int input = 1329;
-        while(input != 1){
-            int ret = 0;
-            while(input != 0){
-                int mod = input % 10;
-                ret += mod * mod;
-                input /= 10;
-            }
-            System.out.println("ret = " + ret);
-            input = ret;
-        }
+        System.out.println(countPrimes(5));
+        
     }
     //202. Happy Number
     public boolean isHappy(int n) {
@@ -45,11 +36,52 @@ public class x00 {
     
     //203. Remove Linked List Elements
     public ListNode removeElements(ListNode head, int val) {
-        return null;
+        ListNode pre = new ListNode(-1);
+        pre.next = head;
+        ListNode point = pre;
+        while(point.next != null){
+            if(point.next.val != val){
+                point = point.next;
+            }else{
+                point.next = point.next.next;
+            }
+        }
+        
+        return pre.next;
     }
     
     //204. Count Primes
-    public int countPrimes(int n) {
-        return -1;
+    public static int countPrimes(int n) {
+        /*List<Integer> iList = new ArrayList();
+        for(int i = 2; i <n; i++) iList.add(i);
+        for(int i = 0; i < iList.size(); i++){
+            int prime = iList.get(i);
+            int m = 2;
+            int last = iList.get(iList.size() - 1);
+            while(m * prime <= last){
+                if(iList.contains(m * prime)) iList.remove((Object)(m*prime));
+                m++;
+            }
+        }
+        
+        return iList.size();
+        int[] prime = new int[n+1];
+        int count=0;
+        for(int i=2;i<n;i++){
+            if(prime[i]==-1) continue;
+            count++;
+            for(int j=i;n/i>=j;j++) prime[i*j]=-1;
+        }
+        return count;*/
+        int[] numarr = new int[n+1];
+        int count = 0;
+        for(int i=2; i < n; i++){
+            if(numarr[i] == -1) continue;
+            count++;
+            for(int j = 2; i*j < n; j++){
+                numarr[i*j] = -1;
+            }
+        }
+        return count;
     }
 }
