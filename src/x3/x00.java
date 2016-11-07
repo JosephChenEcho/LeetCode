@@ -14,8 +14,16 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        System.out.println(countPrimes(5));
-        
+        ListNode input1 = new ListNode(1);
+        ListNode input2 = new ListNode(2);
+        ListNode input3 = new ListNode(3);
+        ListNode input4 = new ListNode(4);
+        ListNode input5 = new ListNode(5);
+        input1.next = input2;
+        input2.next = input3;
+        input3.next = input4;
+        input4.next = input5;
+        System.out.println(reverseList(input1));
     }
     //202. Happy Number
     public boolean isHappy(int n) {
@@ -88,22 +96,29 @@ public class x00 {
     //205. Isomorphic Strings
     public boolean isIsomorphic(String s, String t) {
 	if(s == null || t == null) return false;
-    if(s == "") return t == "";
-    if(t == "") return false;
-    
-    for(int i = 0; i < s.length(); i++){
-        char c1 = s.charAt(i);
-        char c2 = t.charAt(i);
-        if(s.lastIndexOf(c1) != t.lastIndexOf(c2))
-            return false;
-    }
-    
-    return true;
+        if(s == "") return t == "";
+        if(t == "") return false;    
+        for(int i = 0; i < s.length(); i++){
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+//            if(s.lastIndexOf(c1) != t.lastIndexOf(c2))
+            if(s.indexOf(c1) != t.indexOf(c2))
+                return false;
+        }    
+        return true;
     }
     
     //206. Reverse Linked List
-    public ListNode reverseList(ListNode head) {
-        return null;
+    public static ListNode reverseList(ListNode head) {
+        if(head == null) return null;
+        ListNode ret = null;
+        while(head != null){
+            ListNode tmp = head;            
+            head = head.next;
+            tmp.next = ret;
+            ret = tmp;
+        }    
+        return ret;
     }
     
 }
