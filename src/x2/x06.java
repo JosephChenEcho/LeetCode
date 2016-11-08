@@ -17,8 +17,14 @@ public class x06 {
         //System.out.println(convertToTitle(52));
         //System.out.println(titleToNumber("AA"));-1
 //-2147483648
-        
-        System.out.print(fractionToDecimal(-1,-2147483648));
+        String[] test = new String[2];
+        test[0] = "121";
+        test[1] = "12";
+        Arrays.sort(test);
+        System.out.println(test[0] + " " +test[1]);
+        int[] input = new int[2];
+        input[0] =  12; input[1] = 121;
+        System.out.println(largestNumber(input));
     }
     //162. Find Peak Element
     public int findPeakElement(int[] nums) {
@@ -184,6 +190,45 @@ public class x06 {
         return dungeon[0][0];
     }   
     
-    //179
+    //179. Largest Number
+    public static String largestNumber(int[] nums) {
+        /*String[] strnum = new String[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            strnum[i] = String.valueOf(nums[i]);
+        }
+        Arrays.sort(strnum);
+        StringBuilder res = new StringBuilder();
+        for(int i = strnum.length - 1; i >=0 ; i--){
+            res.append(strnum[i]);
+        }
+        return res.toString();*/
+        Integer[] nn = new Integer[nums.length];  // Built an Integer array to implement sort function
+        for(int i = 0; i < nums.length; i++){
+            nn[i] = nums[i];
+        }
+        Arrays.sort(nn, new Comparator<Integer>(){
+            public int compare(Integer a, Integer b){  //compare which is bigger. 
+                String aa = (a + "") + (b + "");            //If you like, can also convert to long number and compare
+                String bb = (b + "") + (a + "");
+                for(int i = 0; i < aa.length(); i++){
+                    if (aa.charAt(i) > bb.charAt(i)){
+                        return -1;
+                    } else if (aa.charAt(i) < bb.charAt(i)){
+                        return 1;
+                    }
+                }
+                return 0;
+            }
+        });
+        StringBuilder res = new StringBuilder();
+        for(int i : nn){
+            res = res.append(i);
+        }
+        if (nn[0] == 0){                                  //if the biggest one is 0, return "0" directly.
+            return "0";
+        } else {
+            return res.toString();
+        }
+    }
 }
 
