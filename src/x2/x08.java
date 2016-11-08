@@ -12,12 +12,7 @@ import java.util.*;
 public class x08 {
     public static void main(String[] args){
         
-        char[][] input = new char[4][5];//{"11110","11010","11000","00000"};
-        input[0] = "11110".toCharArray();
-        input[1] = "11010".toCharArray();
-        input[2] = "11000".toCharArray();
-        input[3] = "00000".toCharArray();
-        numIslands(input);
+        reverseBits(14);
     }
     
     //187. Repeated DNA Sequences
@@ -68,7 +63,18 @@ public class x08 {
         }
     }
     
-    //190
+    //190. Reverse Bits
+    public static int reverseBits(int n) {
+        if (n == 0) return 0;
+    
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            result <<= 1;
+            if ((n & 1) == 1) result++;
+            n >>= 1;
+        }
+        return result;
+    }
     
     //191
     
