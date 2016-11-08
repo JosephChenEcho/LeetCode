@@ -14,16 +14,9 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(2);
-        ListNode input3 = new ListNode(3);
-        ListNode input4 = new ListNode(4);
-        ListNode input5 = new ListNode(5);
-        input1.next = input2;
-        input2.next = input3;
-        input3.next = input4;
-        input4.next = input5;
-        System.out.println(reverseList(input1));
+        Trie trie = new Trie();
+        trie.insert("somestring");
+        trie.search("some");
     }
     //202. Happy Number
     public boolean isHappy(int n) {
@@ -121,4 +114,7 @@ public class x00 {
         return ret;
     }
     
+    //207. Course Schedule
+    
+    //208. Implement Trie (Prefix Tree)
 }
