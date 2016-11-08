@@ -12,7 +12,7 @@ import java.util.*;
 public class x08 {
     public static void main(String[] args){
         
-        reverseBits(14);
+        hammingWeight(14);
     }
     
     //187. Repeated DNA Sequences
@@ -76,9 +76,38 @@ public class x08 {
         return result;
     }
     
-    //191
-    
-    //198
+    //191. Number of 1 Bits
+    public static int hammingWeight(int n) {
+        int count = 0;
+        while (n != 0) {
+            int p = n & -n;
+            n ^= p;
+            count++;
+        }
+        return count;
+    }
+    //198. House Robber
+    public int rob(int[] nums) {
+        /*int pre1 = 0;
+        int pre2 = 0;
+        int max = 0;
+        for(int i = 0; i < nums.length; i++){
+            max = Math.max(pre1, pre2 + nums[i]);
+            pre2 = pre1;
+            pre1 = max;
+        }
+        return max;
+        */
+        if(nums.length == 0) return 0;
+        if(nums.length == 1) return nums[0];
+        if(nums.length == 2) return Math.max(nums[0], nums[1]);
+        nums[1] = Math.max(nums[0], nums[1]);
+        for(int i = 2; i < nums.length; i++){
+            nums[i] = Math.max(nums[i] + nums[i - 2], nums[i-1]);
+        }        
+        return nums[nums.length - 1];
+        
+    }
     
     //199. Binary Tree Right Side View
     public List<Integer> rightSideView(TreeNode root) {
