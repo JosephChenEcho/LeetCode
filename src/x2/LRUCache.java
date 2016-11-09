@@ -56,8 +56,7 @@ private DLinkedNode popTail(){
 	return res;
 }
 
-private Hashtable<Integer, DLinkedNode> 
-	cache = new Hashtable<Integer, DLinkedNode>();
+private java.util.HashMap<Integer, DLinkedNode> cache = new HashMap();
 private int count;
 private int capacity;
 private DLinkedNode head, tail;
