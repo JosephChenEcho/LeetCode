@@ -18,6 +18,8 @@ public class x00 {
         trie.insert("somestring");
         trie.search("some");
     }
+    //201
+    
     //202. Happy Number
     public boolean isHappy(int n) {
         HashSet<Integer> intSet = new HashSet();
@@ -115,6 +117,16 @@ public class x00 {
     }
     
     //207. Course Schedule
-    
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        return true;
+    }
     //208. Implement Trie (Prefix Tree)
+}
+
+class Graph{
+    int val;
+    List<Graph> nodes = new ArrayList();
+    public Graph(){
+        
+    }
 }
