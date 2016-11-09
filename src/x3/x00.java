@@ -117,16 +117,46 @@ public class x00 {
     }
     
     //207. Course Schedule
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    ArrayList<Integer>[] graph ;
+    boolean[] isVisited;
+    boolean[] courseOK;
+    public boolean canFinish(int numCourses, int[][] preR) {
+        graph = new ArrayList[numCourses];    
+        for(int i = 0; i < numCourses; i++) {
+            graph[i] = new ArrayList<Integer>();
+        }   
+        for(int i = 0; i < preR.length; i++) {
+            graph[preR[i][1]].add(preR[i][0]);
+        }
+        isVisited = new boolean[numCourses];     // if the course have been visited.
+        courseOK = new boolean[numCourses];      // if the course have been tested before to be available.
+
+        for(int i = 0; i < numCourses; i++) {
+           if (!dfs(i)) {
+               return false;
+           } 
+        }
+        return true;
+    }
+
+    private boolean dfs(int course) {
+        if (courseOK[course]) return true; 
+        if (isVisited[course]){
+            return false;
+        }else {
+            isVisited[course] = true;
+        }
+
+        ArrayList<Integer> curPre = graph[course];
+
+        for(Integer preRe: curPre) {
+            if (!dfs(preRe)){
+                return false;
+            }
+        }
+        isVisited[course] = false;
+        courseOK[course] = true;
         return true;
     }
     //208. Implement Trie (Prefix Tree)
-}
-
-class Graph{
-    int val;
-    List<Graph> nodes = new ArrayList();
-    public Graph(){
-        
-    }
 }
