@@ -14,7 +14,10 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        minSubArrayLen(7, new int[]{2,3,1,2,4,3});
+        //minSubArrayLen(7, new int[]{2,3,1,2,4,3});
+        int[][] input = new int[][]{{1,0},{2,1},{1,2}};
+        
+        findOrder(3,input);
     }
     //201
     
@@ -115,7 +118,7 @@ public class x00 {
     }
     
     //207. Course Schedule
-    ArrayList<Integer>[] graph ;
+    static ArrayList<Integer>[] graph ;
     boolean[] isVisited;
     boolean[] courseOK;
     public boolean canFinish(int numCourses, int[][] preR) {
@@ -177,23 +180,20 @@ public class x00 {
     }
     
     //210. Course Schedule II
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
+    public static int[] findOrder(int numCourses, int[][] prerequisites) {
         int[] incLinkCounts = new int[numCourses];
-        List<List<Integer>> adjs = new ArrayList<>(numCourses);
-        initialiseGraph(incLinkCounts, adjs, prerequisites);
-        //return solveByBFS(incLinkCounts, adjs);
-        return solveByDFS(adjs);
-    }
-    private void initialiseGraph(int[] incLinkCounts, List<List<Integer>> adjs, int[][] prerequisites){
-        int n = incLinkCounts.length;
-        while (n-- > 0) adjs.add(new ArrayList<>());
+        graph = new ArrayList[numCourses];
+        for(int i = 0; i < numCourses; i++) {
+            graph[i] = new ArrayList<Integer>();
+        }   
         for (int[] edge : prerequisites) {
             incLinkCounts[edge[0]]++;
-            adjs.get(edge[1]).add(edge[0]);
+            graph[edge[1]].add(edge[0]);
         }
-    }
-    
-    private int[] solveByBFS(int[] incLinkCounts, List<List<Integer>> adjs){
+        return solveByBFS(incLinkCounts);
+        //return solveByDFS(adjs);
+    }    
+    private static int[] solveByBFS(int[] incLinkCounts){
         int[] order = new int[incLinkCounts.length];
         Queue<Integer> toVisit = new ArrayDeque<>();
         for (int i = 0; i < incLinkCounts.length; i++) {
@@ -203,7 +203,7 @@ public class x00 {
         while (!toVisit.isEmpty()) {
             int from = toVisit.poll();
             order[visited++] = from;
-            for (int to : adjs.get(from)) {
+            for (int to : graph[from]) {
                 incLinkCounts[to]--;
                 if (incLinkCounts[to] == 0) toVisit.offer(to);
             }
