@@ -14,9 +14,7 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        Trie trie = new Trie();
-        trie.insert("somestring");
-        trie.search("some");
+        minSubArrayLen(4, new int[]{2,3,1,2,4,3});
     }
     //201
     
@@ -159,4 +157,50 @@ public class x00 {
         return true;
     }
     //208. Implement Trie (Prefix Tree)
+    
+    //209. Minimum Size Subarray Sum
+    public static int minSubArrayLen(int s, int[] nums) {
+        /*int min = Integer.MAX_VALUE;
+        int sum = 0;
+        for(int i = 0; i < nums.length; i++){
+            sum = 0;
+            for(int j = 0; j + i < nums.length;j++){
+                sum += nums[j + i];
+                if(sum >= s){
+                    min = Math.min(min, j + 1);
+                    break;
+                }
+            }            
+        }        
+        return min == Integer.MAX_VALUE ? 0 : min;*/
+        int start = 0;
+        int end = 0;
+        int sum = 0;
+        int min;
+        while(sum < s && end < nums.length){
+            sum += nums[end++];
+        }
+        if(end == nums.length) return 0;
+        min = end;
+        //end--;
+        while (!(end == nums.length && sum < s)){
+            //init
+            while(sum >= s){
+                sum -= nums[start++];
+            }
+            start--;
+            int tmp = end - start;
+            min = Math.min(min, tmp);
+            while(sum < s && end < nums.length){
+                sum += nums[end++];
+            }
+        }
+        
+        return min;
+    }
+    
+    //210. Course Schedule II
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        return null;
+    }
 }
