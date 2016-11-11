@@ -243,6 +243,21 @@ public class x00 {
     
     //213. House Robber II
     public int rob(int[] nums) {
-        return -1;
+        if(nums.length == 0) return 0;
+        if(nums.length == 1) return nums[0];
+        if(nums.length == 2) return Math.max(nums[0], nums[1]);
+        int[] nums1 = Arrays.copyOfRange(nums, 0, nums.length - 1);
+        int[] nums2 = Arrays.copyOfRange(nums, 1, nums.length);
+                
+        nums1[1] = Math.max(nums1[0], nums1[1]);
+        for(int i = 2; i < nums1.length; i++){
+            nums1[i] = Math.max(nums1[i] + nums1[i - 2], nums1[i-1]);
+        } 
+        nums2[1] = Math.max(nums2[0], nums2[1]);
+        for(int i = 2; i < nums2.length; i++){
+            nums2[i] = Math.max(nums2[i] + nums2[i - 2], nums2[i-1]);
+        } 
+        
+        return Math.max(nums1[nums1.length - 1], nums2[nums2.length - 1]);
     }
 }
