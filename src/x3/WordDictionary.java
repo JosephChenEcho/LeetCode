@@ -10,6 +10,8 @@ package x3;
  * @author jochen
  */
 //211. Add and Search Word - Data structure design
+
+
 public class WordDictionary {
     
     class Trie{
