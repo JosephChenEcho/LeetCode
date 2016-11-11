@@ -317,4 +317,28 @@ public class x00 {
             combinationSum3(i + 1, k - 1, n - i, retList, tmpList);
         }
     }
+    
+    //217. Contains Duplicate
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> iset = new HashSet();
+        for(int i : nums){
+            if(!iset.add(i)) return true;
+        }
+        return false;
+    }
+    
+    //218. The Skyline Problem
+    public List<int[]> getSkyline(int[][] buildings) {
+        return null;
+    }
+    
+    //219. Contains Duplicate II
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        return false;
+    }
+    
+    //220. Contains Duplicate III
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        return false;
+    }
 }
