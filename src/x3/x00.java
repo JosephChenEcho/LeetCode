@@ -242,7 +242,7 @@ public class x00 {
     //211. Add and Search Word - Data structure design
     
     //213. House Robber II
-    public int rob(int[] nums) {
+    /*public int rob(int[] nums) {
         if(nums.length == 0) return 0;
         if(nums.length == 1) return nums[0];
         if(nums.length == 2) return Math.max(nums[0], nums[1]);
@@ -259,5 +259,43 @@ public class x00 {
         } 
         
         return Math.max(nums1[nums1.length - 1], nums2[nums2.length - 1]);
+    }*/
+    
+    public int rob(int[] nums) {
+        if (nums.length == 1) return nums[0];
+        return Math.max(rob(nums, 0, nums.length - 2), rob(nums, 1, nums.length - 1));
+    }
+    private int rob(int[] num, int lo, int hi) {
+        int include = 0, exclude = 0;
+        for (int j = lo; j <= hi; j++) {
+            int i = include, e = exclude;
+            include = e + num[j];
+            exclude = Math.max(e, i);
+        }
+        return Math.max(include, exclude);
+    }
+    
+    //215. Kth Largest Element in an Array
+    public int findKthLargest(int[] nums, int k) {
+        if(nums.length < k){
+             return 0;
+         }
+         Queue<Integer> pq = new PriorityQueue<Integer>(k);
+         for(int i = 0; i < nums.length; i++){
+             if(i < k){
+                 pq.add(nums[i]);
+             }else{
+                 if(nums[i] > pq.peek()){
+                     pq.poll();
+                     pq.add(nums[i]);
+                 }
+             }
+         }
+         return pq.peek();
+    }
+    
+    //216. Combination Sum III
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        return null;
     }
 }
