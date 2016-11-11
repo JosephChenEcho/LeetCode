@@ -14,10 +14,7 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        WordDictionary test = new WordDictionary();
-        test.addWord("ab");
-        //test.addWord("applecool");
-        test.search("a.");
+        combinationSum3(2, 18);
     }
     //201
     
@@ -295,7 +292,29 @@ public class x00 {
     }
     
     //216. Combination Sum III
-    public List<List<Integer>> combinationSum3(int k, int n) {
-        return null;
+    public static List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> retList = new ArrayList();
+        List<Integer> curList = new ArrayList();
+        for(int i = 1; i < n/k && i < 10; i++){
+            curList = new ArrayList();
+            curList.add(i);
+            combinationSum3(i + 1, k - 1, n - i, retList, curList);
+        }
+        return retList;
+    }
+    
+    public static void combinationSum3(int start, int k, int n, List<List<Integer>> retList, List<Integer> curList){
+        if(start > n) return;
+        if(start <= n && k ==1 && n < 10){
+            List<Integer> tmpList = new ArrayList(curList);
+            tmpList.add(n);
+            retList.add(tmpList);
+            return;
+        }
+        for(int i = start; i < 10; i++){
+            List<Integer> tmpList = new ArrayList(curList);
+            tmpList.add(i);
+            combinationSum3(i + 1, k - 1, n - i, retList, tmpList);
+        }
     }
 }
