@@ -14,10 +14,10 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        //minSubArrayLen(7, new int[]{2,3,1,2,4,3});
-        int[][] input = new int[][]{{1,0},{2,1},{1,2}};
-        
-        findOrder(3,input);
+        WordDictionary test = new WordDictionary();
+        test.addWord("ab");
+        //test.addWord("applecool");
+        test.search("a.");
     }
     //201
     
@@ -237,5 +237,12 @@ public class x00 {
         onStack.clear(from);
         order.push(from);
         return true;
+    }
+    
+    //211. Add and Search Word - Data structure design
+    
+    //213. House Robber II
+    public int rob(int[] nums) {
+        return -1;
     }
 }
