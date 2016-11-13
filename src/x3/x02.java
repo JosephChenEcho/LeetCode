@@ -39,4 +39,14 @@ public class x02 {
     }
     
     //225. Implement Stack using Queues
+    
+    //226. Invert Binary Tree
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) return null;
+        TreeNode rleft = invertTree(root.right);
+        TreeNode rright = invertTree(root.left);
+        root.left = rleft;
+        root.right = rright;
+        return root;
+    }
 }
