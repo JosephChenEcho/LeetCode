@@ -31,7 +31,29 @@ public class x02 {
     
     //222. Count Complete Tree Nodes
     public int countNodes(TreeNode root) {
-        return -1;
+        int depth = rightMostDepth(root);   //depth of the last full level
+        int result = (1 << depth) - 1;  //num of nodes from root to the last full level
+        TreeNode cur = root;
+        int rootdepth = 1;
+        while (cur != null) {
+            int leftdepth = rightMostDepth(cur.left);
+            if (leftdepth + rootdepth == depth) cur = cur.left; //the partially full level ends within the left subtree
+            else {  //ends in the right subtree
+                result += (1 << leftdepth - 1); //add the number of nodes in the partially full level within the left subtree
+                cur = cur.right;    //continue to search for the end point of partially full level
+            }
+            rootdepth++;
+        }
+        return result;
+    }
+    
+    private static int rightMostDepth(TreeNode root) {  //the depth from root to the right most leave
+        int depth = 0;
+        while (root != null) {
+            depth++;
+            root = root.right;
+        }
+        return depth;
     }
     
     //223. Rectangle Area
