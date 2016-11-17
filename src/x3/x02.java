@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package x3;
-
+import java.util.*;
 /**
  *
  * @author Joseph
@@ -81,6 +81,46 @@ public class x02 {
         root.left = rleft;
         root.right = rright;
         return root;
+    }
+        
+    //227. Basic Calculator II
+    public int calculate(String s) {
+        char[] carr = s.trim().toCharArray();
+        List<Integer> iList = new ArrayList();
+        List<Character> cList = new ArrayList();
+        int ival = 0;
+        for(int i = 0; i < carr.length; i++){
+            if(carr[i] == ' ') continue;
+            if(carr[i] - '0' >= 0 && carr[i] - '0' <= 9){
+                ival = ival * 10 + (carr[i] - '0');
+            }else{
+                iList.add(ival);
+                ival = 0;
+                cList.add(carr[i]);
+            }
+        }        
+        iList.add(ival);
+        int pre = iList.get(0);
+        int ret = 0;
+        for(int i = 0; i < cList.size(); i++){
+            char c = cList.get(i);
+            if(c == '+' || c == '-'){
+                ret += pre;
+                if(c == '+'){
+                    pre = iList.get(i + 1);
+                }else{
+                    pre = 0 - iList.get(i + 1);
+                }
+            }else{
+                if(c == '*'){
+                    pre *= iList.get(i + 1);
+                }else{
+                    pre /= iList.get(i + 1);
+                }
+            }
+        }
+        ret += pre;
+        return ret;
     }
     
     //232. Implement Queue using Stacks
