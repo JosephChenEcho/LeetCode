@@ -123,5 +123,45 @@ public class x02 {
         return ret;
     }
     
+    //228. Summary Ranges
+    public List<String> summaryRanges(int[] nums) {
+        List<String> retList = new ArrayList();
+        if(nums.length == 0) return retList;
+        String str = String.valueOf(nums[0]);
+        int start = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] != nums[i - 1] + 1){
+                if(nums[i - 1] != start){
+                    str += "->" + String.valueOf(nums[i - 1]);
+                }
+                retList.add(str);
+                start = nums[i];
+                str = String.valueOf(nums[i]);
+            }
+        }        
+        if(nums[nums.length - 1] != start){
+            str += "->" + String.valueOf(nums[nums.length - 1]);
+        }
+        retList.add(str);
+        return retList;
+    }
+    //229
+    
+    //230
+    
+    //231
+    
     //232. Implement Queue using Stacks
+    
+    //234
+    
+    //235
+    
+    //236
+    
+    //237
+    
+    //238
+    
+    //240
 }
