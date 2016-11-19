@@ -182,8 +182,10 @@ public class x02 {
 	return result;
     }
     
-    //230
-    
+    //230. Kth Smallest Element in a BST
+    public int kthSmallest(TreeNode root, int k) {
+        return -1;
+    }
     //231
     
     //232. Implement Queue using Stacks
