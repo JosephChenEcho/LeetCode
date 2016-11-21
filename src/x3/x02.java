@@ -271,7 +271,12 @@ public class x02 {
         if (parent == node) return true;
         return hasNode(parent.left, node) || hasNode(parent.right, node);
     }    
-    //237
+    
+    //237. Delete Node in a Linked List
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
     
     //238
     
