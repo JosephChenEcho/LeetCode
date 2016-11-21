@@ -11,15 +11,16 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(2);
-        ListNode input3 = new ListNode(2);
-        ListNode input4 = new ListNode(1);
-        input1.next = input2;
-        input2.next = input3;
-        input3.next = input4;
-        
-        isPalindrome(input1);
+        TreeNode input1 = new TreeNode(1);
+        TreeNode input2 = new TreeNode(2);
+        TreeNode input3 = new TreeNode(3);
+        TreeNode input4 = new TreeNode(4);
+        TreeNode input5 = new TreeNode(5);
+        input2.left = input1;
+        input2.right = input3;
+        input4.left = input3;
+        input4.right = input5;
+        lowestCommonAncestor2(input2, input1, input3);
     }
     //221. Maximal Square
     public static int maximalSquare(char[][] matrix) {
@@ -222,10 +223,54 @@ public class x02 {
         }
         return true;
     }
-    //235
+    //235. Lowest Common Ancestor of a Binary Search Tree
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        int left = p.val > q.val ? q.val : p.val;
+        int right = p.val > q.val ? p.val : q.val;
+        TreeNode retNode = root;
+        while(!(retNode.val >= left && retNode.val <= right)){
+            if(retNode.left != null && retNode.val >= right){
+                retNode = retNode.left;
+            }else if(retNode.right != null && retNode.val <= left){
+                retNode = retNode.right;
+            }else{
+                return null;
+            }
+        }
+        return retNode;
+    }
+    //236. Lowest Common Ancestor of a Binary Tree
+    public static TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        /*TreeNode retNode = root;
+        while(hasNode(retNode,p) && hasNode(retNode,q)){
+            if(hasNode(retNode.left,p) && hasNode(retNode.left,q)){
+                retNode = retNode.left;
+            }else if(hasNode(retNode.right,p) && hasNode(retNode.right,q)){
+                retNode = retNode.right;
+            }else{
+                return retNode;
+            }
+        }
+        return null;*/
+        if(root == null) {
+            return null;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if(left != null && right != null || root == p || root == q) {
+            return root;
+        }
+        if(left != null) {
+            return left;
+        }
+        return right;
+    }
     
-    //236
-    
+    public static boolean hasNode(TreeNode parent, TreeNode node){
+        if (parent == null) return false;
+        if (parent == node) return true;
+        return hasNode(parent.left, node) || hasNode(parent.right, node);
+    }    
     //237
     
     //238
