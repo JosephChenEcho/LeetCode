@@ -186,7 +186,11 @@ public class x02 {
     public int kthSmallest(TreeNode root, int k) {
         return -1;
     }
-    //231
+    
+    //231. Power of Two
+    public boolean isPowerOfTwo(int n) {
+        return n > 0 && ((n - 1) & n) == 0;
+    }
     
     //232. Implement Queue using Stacks
     
