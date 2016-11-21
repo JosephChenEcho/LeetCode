@@ -11,7 +11,15 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        computeArea(0,0,0,0,-1,-1,1,1);
+        ListNode input1 = new ListNode(1);
+        ListNode input2 = new ListNode(2);
+        ListNode input3 = new ListNode(2);
+        ListNode input4 = new ListNode(1);
+        input1.next = input2;
+        input2.next = input3;
+        input3.next = input4;
+        
+        isPalindrome(input1);
     }
     //221. Maximal Square
     public static int maximalSquare(char[][] matrix) {
@@ -194,8 +202,26 @@ public class x02 {
     
     //232. Implement Queue using Stacks
     
-    //234
-    
+    //234. Palindrome Linked List
+    public static boolean isPalindrome(ListNode head) {
+        ListNode reverse = null;
+        ListNode point = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            ListNode tmp = point;
+            point = point.next;
+            tmp.next = reverse;
+            reverse = tmp;            
+        }        
+        if(fast != null) point = point.next;
+        while(point != null && reverse != null){
+            if(point.val != reverse.val) return false;
+            point = point.next;
+            reverse = reverse.next;
+        }
+        return true;
+    }
     //235
     
     //236
