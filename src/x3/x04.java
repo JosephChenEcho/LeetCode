@@ -52,7 +52,7 @@ public class x04 {
             retList.add(iList.get(istart));
             return retList;
         }
-        for(int i = istart; i <= iend; i++){
+        for(int i = istart; i <= iend-1; i++){
             List<Integer> head = compute(iList, cList, istart, i);
             List<Integer> tail = compute(iList, cList, i + 1, iend);
             char c = cList.get(i);
