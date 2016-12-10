@@ -11,11 +11,13 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-    
+        for(int i : diffWaysToCompute("2*3-4*5")){
+            System.out.println(i);
+        }
     }
     
     //241. Different Ways to Add Parentheses
-    public List<Integer> diffWaysToCompute(String input) {
+    public static List<Integer> diffWaysToCompute(String input) {
         List<Integer> retList = new ArrayList();
         char[] carr = input.trim().toCharArray();
         List<Integer> iList = new ArrayList();
@@ -43,15 +45,30 @@ public class x04 {
         return null;
     }
     
-    public List<Integer> compute(List<Integer> iList, List<Character> cList, int istart, int iend){
+    public static List<Integer> compute(List<Integer> iList, List<Character> cList, int istart, int iend){
         List<Integer> retList = new ArrayList();
         if(istart == iend){
             retList.add(iList.get(istart));
             return retList;
         }
         for(int i = istart; i <= iend; i++){
-            
+            List<Integer> head = compute(iList, cList, istart, i);
+            List<Integer> tail = compute(iList, cList, i + 1, iend);
+            char c = cList.get(i);
+            for(int hi : head){
+                for(int ti : tail){
+                    if(c == '+'){
+                        retList.add(hi + ti);                        
+                    }else if(c == '-'){
+                        retList.add(hi - ti);
+                    }else if(c == '*'){
+                        retList.add(hi * ti);
+                    }else if(ti != 0){
+                        retList.add(hi /ti);
+                    }            
+                }
+            }
         }
-        return null;
+        return retList;
     }
 }
