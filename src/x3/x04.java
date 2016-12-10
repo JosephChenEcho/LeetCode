@@ -48,6 +48,7 @@ public class x04 {
     public static List<Integer> compute(List<Integer> iList, List<Character> cList, int istart, int iend){
         List<Integer> retList = new ArrayList();
         if(istart == iend){
+            System.out.println(iend);
             retList.add(iList.get(istart));
             return retList;
         }
