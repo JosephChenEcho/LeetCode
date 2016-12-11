@@ -42,17 +42,17 @@ public class x04 {
         
         retList.addAll(compute(iList, cList, 0, iList.size() - 1));
         
-        return null;
+        return retList;
     }
     
     public static List<Integer> compute(List<Integer> iList, List<Character> cList, int istart, int iend){
         List<Integer> retList = new ArrayList();
         if(istart == iend){
-            System.out.println(iend);
+            //System.out.println(iend);
             retList.add(iList.get(istart));
             return retList;
         }
-        for(int i = istart; i <= iend-1; i++){
+        for(int i = istart; i < iend; i++){
             List<Integer> head = compute(iList, cList, istart, i);
             List<Integer> tail = compute(iList, cList, i + 1, iend);
             char c = cList.get(i);
