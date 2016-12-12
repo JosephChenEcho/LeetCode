@@ -81,4 +81,38 @@ public class x04 {
         for (int i : alphabet) if (i != 0) return false;
         return true;
     }
+    
+    //257. Binary Tree Paths
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> retList = new ArrayList();
+        if(root == null) return retList;
+        String strroot = String.valueOf(root.val);
+        if(root.right == null && root.left == null){
+            retList.add(strroot);
+            return retList;
+        }
+        if(root.right != null){
+            retList.addAll(binaryTreePaths(strroot+"->",root.right));
+        }
+        if(root.left != null){
+            retList.addAll(binaryTreePaths(strroot+"->",root.left));
+        }
+        return retList;
+    }
+    
+    public List<String> binaryTreePaths(String start, TreeNode root){
+        String strroot = start + String.valueOf(root.val);
+        List<String> retList = new ArrayList();
+        if(root.right == null && root.left == null){
+            retList.add(strroot);
+            return retList;
+        }
+        if(root.right != null){
+            retList.addAll(binaryTreePaths(strroot+"->",root.right));
+        }
+        if(root.left != null){
+            retList.addAll(binaryTreePaths(strroot+"->",root.left));
+        }
+        return retList;
+    }
 }
