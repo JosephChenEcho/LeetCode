@@ -115,4 +115,18 @@ public class x04 {
         }
         return retList;
     }
+    
+    //258. Add Digits
+    public int addDigits(int num) {
+        /*while(num > 9){
+            int res = 0;
+            while(num != 0){
+                res += num % 10;
+                num /= 10;
+            }
+            num = res;
+        }
+        return num;*/
+        return num==0?0:(num%9==0?9:(num%9));
+    }
 }
