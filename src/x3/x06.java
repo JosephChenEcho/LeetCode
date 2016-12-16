@@ -28,4 +28,15 @@ public class x06 {
         if(num == 1) return true; 
         return false;
     }
+    
+    //264. Ugly Number II
+    public int nthUglyNumber(int n) {
+        int i = 0;
+        int num = 0;
+        while(i < n){
+            
+        }
+        
+        return -1;
+    }
 }
