@@ -58,4 +58,16 @@ public class x06 {
             
         return (nums.length * (nums.length + 1) )/ 2 - sum;
     }
+    
+    //274. H-Index
+    public int hIndex(int[] citations) {
+        if(citations.length == 0) return 0;
+        Arrays.sort(citations);        
+        return citations[citations.length/2];
+    }
+    
+    //275. H-Index II
+    public int hIndex2(int[] citations) {
+        return -1;
+    }
 }
