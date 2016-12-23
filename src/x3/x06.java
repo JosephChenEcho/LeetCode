@@ -5,6 +5,8 @@
  */
 package x3;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Joseph
@@ -48,5 +50,12 @@ public class x06 {
         return ugly[n-1];
     }
     
-    //
+    //268. Missing Number
+    public int missingNumber(int[] nums) {
+        int sum = 0;
+        for(int num: nums)
+            sum += num;
+            
+        return (nums.length * (nums.length + 1) )/ 2 - sum;
+    }
 }
