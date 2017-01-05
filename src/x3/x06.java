@@ -86,6 +86,16 @@ public class x06 {
     
     //275. H-Index II
     public int hIndex2(int[] citations) {
-        return -1;
+        int left=0;
+        int len = citations.length;
+        int right= len-1;
+        int mid;
+        while(left<=right)
+        {
+            mid=left+ (right-left)/2;
+            if(citations[mid] >= (len-mid)) right = mid - 1;
+            else left = mid + 1;
+        }
+        return len - left;
     }
 }
