@@ -98,4 +98,42 @@ public class x06 {
         }
         return len - left;
     }
+    
+    //278. First Bad Version
+    public int firstBadVersion(int n) {
+        int left = 0;
+        int right = n;
+        while(left < right){
+            int mid = (left + right)/2;
+            if(true){
+                right = mid;
+            }else{
+                left = mid;
+            }                    
+        }
+        return -1;
+    }
+    
+    //279. Perfect Squares
+    public int numSquares(int n) {
+        /*if(n == 0) return 0;
+        if(n == 1) return 1;
+        int res = Integer.MAX_VALUE;
+        for(int i = 1; i * i <= n; i++){
+            int ans = numSquares(n - i*i) + 1;
+            if(res > ans) res = ans;
+        }
+        return res;*/
+        int[] dp = new int[n+1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for(int i = 2; i <= n; i++){
+            int min = Integer.MAX_VALUE;
+            for(int j = 1; j * j <= i; j++){
+                min = Math.min(1 + dp[i - j * j],min);
+            }
+            dp[i] = min;
+        }
+        return dp[n];
+    }
 }
