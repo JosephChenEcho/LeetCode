@@ -16,6 +16,21 @@ public class x08 {
     
     //283. Move Zeroes
     public void moveZeroes(int[] nums) {
-        
+        int len = nums.length;
+        int i = 0;
+        int j = 0;
+        while(i < len){
+            while(i < len && nums[i] == 0){
+                i++;
+            }
+            if(i == len) break;
+            nums[j] = nums[i];
+            j++;
+            i++;
+        }
+        while(j < len){
+            nums[j] = 0;
+            j++;
+        }
     }
 }
