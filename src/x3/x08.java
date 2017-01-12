@@ -33,4 +33,9 @@ public class x08 {
             j++;
         }
     }
+    
+    //289. Game of Life
+    public void gameOfLife(int[][] board) {
+        
+    }
 }
