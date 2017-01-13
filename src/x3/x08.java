@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package x3;
-
+import java.util.*;
 /**
  *
  * @author jochen
@@ -80,5 +80,27 @@ public class x08 {
             if(i < m - 1 && j < n - 1 && board[i+1][j+1]%2 == 1) count++;
             if(count == 3) board[i][j] = 2;
         }
+    }
+    
+    //290. Word Pattern
+    public boolean wordPattern(String pattern, String str) {
+        String[] words = str.split(" ");
+        char[] pats = pattern.toCharArray();
+        if(words.length != pats.length) return false;
+        HashMap<Character, String> map = new HashMap();
+        for(int i = 0 ; i < pats.length; i++){
+            if(map.containsKey(pats[i])){
+                if(!map.get(pats[i]).equals(words[i])){
+                    return false;
+                }
+            }else if(map.containsValue(words[i])){
+                if(!map.containsKey(pats[i]) || !map.get(pats[i]).equals(words[i])){
+                    return false;
+                }
+            }else{
+                map.put(pats[i], words[i]);
+            }
+        }        
+        return true;
     }
 }
