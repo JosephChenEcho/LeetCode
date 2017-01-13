@@ -97,4 +97,9 @@ public class x08 {
         }        
         return true;
     }
+    
+    //292. Nim Game
+    public boolean canWinNim(int n) {
+        return n % 4 != 0;
+    }
 }
