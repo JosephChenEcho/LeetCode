@@ -10,15 +10,9 @@ import java.util.*;
  * @author jochen
  */
 public class x08 {
-    public static void main(String[] args){
-        int[][] input = {{1,1},{1,0}};
-        gameOfLife(input);
-        for(int[] ai : input){
-            for(int i : ai){
-                System.out.print(i + "\t");
-            }
-            System.out.println();
-        }
+    public static void main(String[] args){        
+
+
     }
     
     //283. Move Zeroes
