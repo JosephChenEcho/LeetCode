@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class x08 {
     public static void main(String[] args){        
-
+        getHint("1122","2211");
 
     }
     
@@ -101,5 +101,52 @@ public class x08 {
     //292. Nim Game
     public boolean canWinNim(int n) {
         return n % 4 != 0;
+    }
+    
+    //299. Bulls and Cows
+    public static String getHint(String secret, String guess) {
+        int bulls = 0;
+        int cows = 0;
+        /*int[] numbers = new int[10];
+        for (int i = 0; i<secret.length(); i++) {
+            int s = Character.getNumericValue(secret.charAt(i));
+            int g = Character.getNumericValue(guess.charAt(i));
+            if (s == g) bulls++;
+            else {
+                numbers[s] ++;
+                numbers[g] --;
+                if (numbers[s] < 0) cows++;
+                if (numbers[g] > 0) cows++;                
+            }
+        }
+        return bulls + "A" + cows + "B";*/
+        Boolean[] useds = new Boolean[secret.length()];
+        Boolean[] usedg = new Boolean[secret.length()];
+        for(int i = 0; i < secret.length(); i++){
+            int s = Character.getNumericValue(secret.charAt(i));
+            int g = Character.getNumericValue(guess.charAt(i));
+            useds[i] = false;
+            usedg[i] = false;
+            if (s == g) {
+                bulls++;
+                useds[i] = true;
+                usedg[i] = true;
+            }
+        }
+        for(int i = 0; i < secret.length(); i++){            
+            int s = Character.getNumericValue(guess.charAt(i));
+            for(int j = 0; j < secret.length(); j++){
+                int g = Character.getNumericValue(secret.charAt(j));
+                if(s == g){
+                    if(!(useds[i]&&usedg[j]))
+                    {cows++;
+                    usedg[i] = true;
+                    useds[j] = true;
+                    }
+                }
+            }
+        }
+        
+        return bulls + "A" + cows + "B";              
     }
 }
