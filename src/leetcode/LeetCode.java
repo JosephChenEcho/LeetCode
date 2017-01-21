@@ -21,9 +21,10 @@ public class LeetCode {
         //isRectangleCover(input);
         //int[][] input = new int[][]{{1,-3,3},{0,-2,0},{-3,-3,-3}};
         //calculateMinimumHP(input);
-        int[] input = new int[]{10,12,21,4,6,78,9,91,34,45,27};
-        System.out.println(maxProfit2(input));
-        System.out.println(maxProfit(3,input));
+        int[] input = new int[]{1,11,5,5};
+        System.out.println(dividedBy2(input));
+        //System.out.println(maxProfit2(input));
+        //System.out.println(maxProfit(3,input));
         
     }
     
@@ -244,6 +245,34 @@ public class LeetCode {
             trans++;
         }
         return dp[n - 1];
+    }
+    
+    public static boolean dividedBy2(int[] input){
+        int sum = 0;
+        for(int i : input){
+            sum += i;
+        }
+        if(sum % 2 == 1) return false;
+        int target = sum/2;
+        
+        return isSubsetSum (input, 0, target);
+    }
+    
+    public static boolean isSubsetSum (int[] nums, int n, int sum)
+    {
+        // Base Cases
+        if (sum == 0)
+            return true;
+        if (n == nums.length - 1 && sum != 0)
+            return false;
+ 
+        // If next element is greater than sum, then ignore it
+        if (nums[n+1] > sum)
+            return isSubsetSum (nums, n+1, sum);
+ 
+
+        return isSubsetSum (nums, n+1, sum) ||
+               isSubsetSum (nums, n+1, sum-nums[n+1]);
     }
 }
 
