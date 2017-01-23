@@ -149,4 +149,23 @@ public class x08 {
         
         return bulls + "A" + cows + "B";              
     }
+    
+    //300. Longest Increasing Subsequence
+    public int lengthOfLIS(int[] nums) {
+        int[] map = new int[nums.length];
+        int max = -1;
+        for(int i = 0; i < map.length; i++){
+            map[i] = 1;
+        }
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i + 1; j < nums.length; j++){
+                if(nums[j] > nums[i]){
+                    map[j] = Math.max(map[j], map[i] + 1);
+                    max = Math.max(max, map[j]);
+                }
+            }
+        }
+        
+        return max;
+    }
 }
