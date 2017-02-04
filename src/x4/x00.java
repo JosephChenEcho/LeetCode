@@ -42,10 +42,39 @@ public class x00 {
     
     //309. Best Time to Buy and Sell Stock with Cooldown
     public int maxProfit(int[] prices) {
-        if(prices.length <= 1) return 0;
-        int[] dp = new int[prices.length + 1];
-        
-        
-        return -1;
+        /*vector<int> s0(prices.size(), 0);
+		vector<int> s1(prices.size(), 0);
+		vector<int> s2(prices.size(), 0);
+		s1[0] = -prices[0];
+		s0[0] = 0;
+		s2[0] = INT_MIN;
+		for (int i = 1; i < prices.size(); i++) {
+			s0[i] = max(s0[i - 1], s2[i - 1]);
+			s1[i] = max(s1[i - 1], s0[i - 1] - prices[i]);
+			s2[i] = s1[i - 1] + prices[i];
+		}
+		return max(s0[prices.size() - 1], s2[prices.size() - 1]);*/
+        if(prices.length == 0) return 0;
+        int[] s1 = new int[prices.length];
+        int[] s0 = new int[prices.length];
+        int[] s2 = new int[prices.length];
+        s1[0] = -prices[0];
+        s0[0] = 0;
+        s2[0] = Integer.MIN_VALUE;
+        for(int i = 1; i < prices.length; i++){
+            s0[i] = Math.max(s0[i - 1], s2[i - 1]);
+            s1[i] = Math.max(s1[i - 1], s0[i - 1] - prices[i]);
+            s2[1] = s1[i - 1] + prices[i];            
+        }
+        return Math.max(s0[prices.length - 1], s2[prices.length - 1]);
+        /*
+        int sell = 0, prev_sell = 0, buy = Integer.MIN_VALUE, prev_buy;
+        for (int price : prices) {
+            prev_buy = buy;
+            buy = Math.max(prev_sell - price, prev_buy);
+            prev_sell = sell;
+            sell = Math.max(prev_buy + price, prev_sell);
+        }
+        return sell;*/
     }
 }
