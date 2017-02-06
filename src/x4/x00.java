@@ -15,8 +15,10 @@ import java.util.*;
 public class x00 {
     public static void main(String[] args){
         //10
-        int[][] input = new int[][]{{0,1},{0,2},{0,3},{2,4},{0,5},{5,6},{6,7},{2,8},{7,9}};
-        findMinHeightTrees(10,input);
+        //int[][] input = new int[][]{{0,1},{0,2},{0,3},{2,4},{0,5},{5,6},{6,7},{2,8},{7,9}};
+        //findMinHeightTrees(10,input);
+        int[] input = new int[]{3,1,5,8};
+        maxCoins(input);
     }
     
     //306. Additive Number
@@ -114,5 +116,22 @@ public class x00 {
             leaves = newLeaves;
         }
         return leaves;*/
+    }
+    
+    //312. Burst Balloons
+    public static int maxCoins(int[] iNums) {
+        int[] nums = new int[iNums.length + 2];
+        int n = 1;
+        for (int x : iNums) if (x > 0) nums[n++] = x;
+        nums[0] = nums[n++] = 1;
+        
+        int[][] dp = new int[n][n];
+        for (int k = 2; k < n; k++)
+            for (int left = 0; left < n - k; left++) {
+                int right = left + k;
+                for (int i = left + 1; i < right; i++)
+                    dp[left][right] = Math.max(dp[left][right], nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right]);
+            }      
+        return dp[0][n - 1];
     }
 }
