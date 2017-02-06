@@ -6,13 +6,19 @@ package x4;
  * and open the template in the editor.
  */
 
+import java.util.*;
+
 /**
  *
  * @author Joseph
  */
 public class x00 {
     public static void main(String[] args){
-    
+        //10
+        //int[][] input = new int[][]{{0,1},{0,2},{0,3},{2,4},{0,5},{5,6},{6,7},{2,8},{7,9}};
+        //findMinHeightTrees(10,input);
+        int[] input = new int[]{3,1,5,8};
+        maxCoins(input);
     }
     
     //306. Additive Number
@@ -76,5 +82,85 @@ public class x00 {
             sell = Math.max(prev_buy + price, prev_sell);
         }
         return sell;*/
+    }
+    
+    //310. Minimum Height Trees
+    public static List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        List<Integer> retList = new ArrayList();
+        if(n == 1) return retList;
+        List<Set<Integer>> adj = new ArrayList();
+        for(int i = 0; i < n; i++){
+            adj.add(new HashSet());
+        }
+        for(int i = 0; i < edges.length; i++){
+            adj.get(edges[i][0]).add(edges[i][1]);
+            adj.get(edges[i][1]).add(edges[i][0]);
+        }
+        for(int i = 0; i < n; i++){
+            if(adj.get(i).size() == 1){
+                retList.add(i);
+                // get leaves
+            }
+        }
+        while(n > 2){
+            
+            //remove leaves
+            List<Integer> newList = new ArrayList();
+            for(int i : retList){
+                //leaves should be only link to one node
+                int j = adj.get(i).iterator().next();
+                //remove leaves on map
+                adj.get(i).remove(j);
+                adj.get(j).remove(i);
+                //assign that node as new leaves
+                if(adj.get(j).size() == 1) newList.add(j);
+            }
+            n -= retList.size();
+            retList = newList;
+        }
+        return retList;
+           
+        /*
+        if (n == 1) return Collections.singletonList(0);
+
+        List<Set<Integer>> adj = new ArrayList<>(n);
+        for (int i = 0; i < n; ++i) adj.add(new HashSet<>());
+        for (int[] edge : edges) {
+            adj.get(edge[0]).add(edge[1]);
+            adj.get(edge[1]).add(edge[0]);
+        }
+
+        List<Integer> leaves = new ArrayList<>();
+        for (int i = 0; i < n; ++i)
+            if (adj.get(i).size() == 1) leaves.add(i);
+
+        while (n > 2) {
+            n -= leaves.size();
+            List<Integer> newLeaves = new ArrayList<>();
+            for (int i : leaves) {
+                int j = adj.get(i).iterator().next();
+                adj.get(j).remove(i);
+                if (adj.get(j).size() == 1) newLeaves.add(j);
+            }
+            leaves = newLeaves;
+        }
+        return leaves;*/
+    }
+    
+    //312. Burst Balloons
+    public static int maxCoins(int[] iNums) {
+        int[] nums = new int[iNums.length + 2];
+        int n = 1;
+        for (int x : iNums) if (x > 0) nums[n++] = x;
+        nums[0] = nums[n++] = 1;
+        
+        int[][] dp = new int[n][n];
+        for (int k = 2; k < n; k++)
+            for (int left = 0; left < n - k; left++) {
+                int right = left + k;
+                for (int i = left + 1; i < right; i++)
+                    dp[left][right] = Math.max(dp[left][right], nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right]);
+            }      
+        return dp[0][n - 1];
     }
 }
