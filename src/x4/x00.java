@@ -14,11 +14,11 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String[] args){
-        //10
-        //int[][] input = new int[][]{{0,1},{0,2},{0,3},{2,4},{0,5},{5,6},{6,7},{2,8},{7,9}};
-        //findMinHeightTrees(10,input);
-        int[] input = new int[]{3,1,5,8};
-        maxCoins(input);
+        int i = 9990;
+        while(i < 10000){
+            System.out.println("input : " + i + ", output : " + bulbSwitch(i));
+            i++;
+        }
     }
     
     //306. Additive Number
@@ -162,5 +162,66 @@ public class x00 {
                     dp[left][right] = Math.max(dp[left][right], nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right]);
             }      
         return dp[0][n - 1];
+    }
+    
+    //318. Maximum Product of Word Lengths
+    public int maxProduct(String[] words) {
+        int[] checker = new int[words.length];
+        int max = 0;
+        // populating the checker array with their respective numbers
+        for (int i = 0; i < checker.length; i++) {
+            int num = 0;
+            for (int j = 0; j < words[i].length(); j++) {
+                num |= 1 << (words[i].charAt(j) - 'a');
+            }
+            checker[i] = num;
+        }
+
+        for (int i = 0; i < words.length; i++) {
+            for (int j = i + 1; j < words.length; j++) {
+                if ((checker[i] & checker[j]) == 0) //checking if the two strings have common character
+                    max = Math.max(max, words[i].length() * words[j].length());
+            }
+        }
+        return max;
+        /*
+        int max = 0;
+        for(int i = 0; i < words.length - 1; i++){
+            for(int j = i + 1; j < words.length; j++){
+                if(isnotShare(words[i],words[j])){
+                    max = Math.max(words[i].length() * words[j].length(),max);
+                }
+            }
+        }
+        
+        return max;
+        */
+    }
+    
+    public boolean isnotShare(String a, String b){
+        for(char c : a.toCharArray()){
+            if(b.indexOf(c)>=0) return false;
+        }
+        return true;
+    }
+    
+    //319. Bulb Switcher
+    public static int bulbSwitch(int n) {
+        boolean[] light = new boolean[n];
+        int i = 1;
+        while(i <= n){
+            int ii = i;
+            while(ii <= n){
+                light[ii - 1] = !light[ii - 1];
+                ii += i;
+            }
+            i++;
+        } 
+        int count = 0;
+        for(boolean b : light){
+            if(b) count++;
+        }
+        return count;
+        //return -1;
     }
 }
