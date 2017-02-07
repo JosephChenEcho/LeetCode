@@ -207,7 +207,7 @@ public class x00 {
     
     //319. Bulb Switcher
     public static int bulbSwitch(int n) {
-        boolean[] light = new boolean[n];
+        /*boolean[] light = new boolean[n];
         int i = 1;
         while(i <= n){
             int ii = i;
@@ -221,7 +221,7 @@ public class x00 {
         for(boolean b : light){
             if(b) count++;
         }
-        return count;
-        //return -1;
+        return count;*/
+        return (int)Math.sqrt(n);
     }
 }
