@@ -11,7 +11,19 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        System.out.print(Integer.MAX_VALUE);
+        //System.out.print(Integer.MAX_VALUE);
+        ListNode input1 = new ListNode(1);
+        ListNode input2 = new ListNode(2);
+        ListNode input3 = new ListNode(3);
+        ListNode input4 = new ListNode(4);
+        //ListNode input5 = new ListNode(5);
+        input1.next = input2;
+        input2.next = input3;
+        input3.next = input4;
+        //input4.next = input5;
+        
+        System.out.println(input1.toString());
+        System.out.println(oddEvenList(input1).toString());
     
     }
     //322. Coin Change
@@ -73,4 +85,19 @@ public class x02 {
     }
     
     //328. Odd Even Linked List
+    public static ListNode oddEvenList(ListNode head) {
+        ListNode odd = new ListNode(-1);
+        odd.next = head;
+        ListNode even = new ListNode(-1);
+        ListNode point = even;
+        while(head.next != null){
+            point.next = head.next;
+            point = point.next;
+            head.next = head.next.next;
+            if(head.next != null) head = head.next;
+        }
+        if(point != null) point.next = null;
+        head.next = even.next;
+        return odd.next;
+    }
 }
