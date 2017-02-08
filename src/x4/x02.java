@@ -11,23 +11,50 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        int[] input = {1,3,7,5,4};
-        Arrays.sort(input);
-        for(int i : input){
-            System.out.println(i);
-        }
+        int[] input = {2,3,4};
+        System.out.println(coinChange(input,1));
     
     }
     //322. Coin Change
-    public int coinChange(int[] coins, int amount) {     
+    public static int coinChange(int[] coins, int amount) {     
+        if(amount<1) return 0;
+        int[] dp = new int[amount+1];
+        int sum = 1;
+    
+	while(sum<=amount) {
+            int min = -1;
+            for(int coin : coins) {
+                if(sum >= coin && dp[sum-coin]!=-1) {
+                    int temp = dp[sum-coin]+1;
+                    min = min<0 ? temp : (temp < min ? temp : min);
+                }
+            }
+            dp[sum] = min;
+            sum++;
+	}
+	return dp[amount];
+        /*
         Arrays.sort(coins);
-        
-        return -1;
+        int retval = coinChange(coins, amount, coins.length - 1);
+        return retval;
+        */
     }
     
-    public int coinChange(int[] coins, int amount, int idx){
-        if(coins[0] > amount) return -1;
-        if(coins[idx] == amount) return 1;
-        return 0;
+    public static int coinChange(int[] coins, int amount, int idx){
+        if(idx < 0) return -1;
+        int count = 0;
+        while(coins[idx] <= amount){
+            count++;
+            amount -= coins[idx];
+        }
+        if(amount == 0) return count;
+        int nextcount = coinChange(coins, amount, idx - 1);
+        while(nextcount == -1){
+            count--;
+            amount += coins[idx];
+            if(count < 0) return -1;
+            nextcount = coinChange(coins, amount, idx - 1);
+        }
+        return count + nextcount;
     }
 }
