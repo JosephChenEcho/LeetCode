@@ -11,8 +11,7 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        int[] input = {2,3,4};
-        System.out.println(coinChange(input,1));
+        System.out.print(Integer.MAX_VALUE);
     
     }
     //322. Coin Change
@@ -56,5 +55,20 @@ public class x02 {
             nextcount = coinChange(coins, amount, idx - 1);
         }
         return count + nextcount;
+    }
+    
+    //324. Wiggle Sort II
+    public void wiggleSort(int[] nums) {
+        
+    }
+    
+    //326. Power of Three
+    public boolean isPowerOfThree(int n) {
+        if(n == 0) return false;
+        while( n % 3 == 0){
+            n /= 3;
+        }
+        if(n == 1) return true;
+        return false;
     }
 }
