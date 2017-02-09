@@ -9,7 +9,7 @@ import java.util.*;
 //import java.math.*;
 
 /**Unsolved Hard:
- * 41, 42, 44, 45, 52(Can improve), 56, 57 
+ * 41, 42, 44, 45, 52(Can improve), 56
  * Solved 51
  * @author Joseph
  */
@@ -317,6 +317,32 @@ public class x04 {
         return true;
     }
     
+    //57. Insert Interval
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        List<Interval> ret = new ArrayList();
+        List<Interval> right = new ArrayList();
+        int s = newInterval.start;
+        int e = newInterval.end;
+        int min = s;
+        int max = e;
+
+        for(Interval iv : intervals){
+            if(iv == null) continue;
+            if(iv.end < s ){ 
+                ret.add(iv);
+            }else if(iv.start <= e){
+                min = Math.min(min, iv.start);
+                max = Math.max(max, iv.end);
+            }else{
+                right.add(iv);
+            }
+        }
+        Interval niv = new Interval(min,max);
+        ret.add(niv);
+        ret.addAll(right);
+        return ret;
+    }
+    
     //58. Length of Last Word
     public static int lengthOfLastWord(String s) {
         s = s.trim();
@@ -380,5 +406,5 @@ public class x04 {
         retstr = String.valueOf(intal.get(idx));
         intal.remove(idx);        
         return retstr + getPermutation(intal, k, max);
-    }
+    }       
 }
