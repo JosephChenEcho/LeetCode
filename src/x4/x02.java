@@ -100,4 +100,9 @@ public class x02 {
         head.next = even.next;
         return odd.next;
     }
+    
+    //331. Verify Preorder Serialization of a Binary Tree
+    public boolean isValidSerialization(String preorder) {
+        return false;
+    }
 }
