@@ -11,19 +11,9 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        //System.out.print(Integer.MAX_VALUE);
-        ListNode input1 = new ListNode(1);
-        ListNode input2 = new ListNode(2);
-        ListNode input3 = new ListNode(3);
-        ListNode input4 = new ListNode(4);
-        //ListNode input5 = new ListNode(5);
-        input1.next = input2;
-        input2.next = input3;
-        input3.next = input4;
-        //input4.next = input5;
-        
-        System.out.println(input1.toString());
-        System.out.println(oddEvenList(input1).toString());
+        //String[][] input = new String[][]{{"MUC","LHR"},{"JKF","MUC"},{"SFO","SJC"},{"LHR","SFO"}};
+        String[][] input = new String[][]{{"JFK","SFO"},{"JFK","ATL"},{"SFO","ATL"},{"ATL","JFK"},{"ATL","SFO"}};
+        findItinerary(input);
     
     }
     //322. Coin Change
@@ -71,7 +61,7 @@ public class x02 {
     
     //324. Wiggle Sort II
     public void wiggleSort(int[] nums) {
-        
+
     }
     
     //326. Power of Three
@@ -111,4 +101,29 @@ public class x02 {
         }
         return diff == 0;
     }
+    
+    //332. Reconstruct Itinerary
+    static Map<String, Queue<String>> flights;
+    static LinkedList<String> path;
+
+    public static List<String> findItinerary(String[][] tickets) {
+        flights = new HashMap<>();
+        path = new LinkedList<>();
+        for (String[] ticket : tickets) {
+            flights.putIfAbsent(ticket[0], new PriorityQueue<>());
+            flights.get(ticket[0]).add(ticket[1]);
+        }
+        dfs("JFK");
+        return path;
+    }
+
+    public static void dfs(String departure) {
+        Queue<String> arrivals = flights.get(departure);
+        while (arrivals != null && !arrivals.isEmpty())
+            dfs(arrivals.poll());
+        path.addFirst(departure);
+    }
+    /*
+    
+    */
 }
