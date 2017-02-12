@@ -251,12 +251,36 @@ public class x04 {
     
     //53. Maximum Subarray
     public static int maxSubArray(int[] nums) {
-        int max_so_far = nums[0], sum = nums[0];
+        /*int max_so_far = nums[0], sum = nums[0];
         for(int i=1; i<nums.length; i++){
             sum = (nums[i] > sum+nums[i]) ? nums[i] : sum+nums[i];
             if(sum > max_so_far) max_so_far = sum;
         }
-        return max_so_far;        
+        return max_so_far;       */
+        int[] max = new int[nums.length];
+	for(int i=0;i<nums.length;i++)
+	{
+		if(i==0)
+		{
+			max[i]=nums[i];
+		}
+		else
+		{
+			max[i]=Math.max(max[i-1], max[i-1]+nums[i]);
+		}
+	}
+	
+	// find maxium
+	int result = max[0];
+	for(int i=1;i<nums.length;i++)
+	{
+		if(nums[i]>result)
+	   	{
+			result = nums[i];
+		}
+
+	}
+	return result;
     }
     
     //54. Spiral Matrix
