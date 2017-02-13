@@ -156,5 +156,23 @@ public class x02 {
             return retval;
         }
     }
+    
+    //338. Counting Bits
+    public int[] countBits(int num) {
+        if(num == 0) return new int[]{0};
+        int[] retval = new int[num+1];
+        retval[0] = 0;
+        retval[1] = 1;
+        int delta = 2;
+        for(int i = 2; i <= num;){
+            while(i < 2 * delta && i <= num){
+                retval[i] = 1 + retval[i - delta];
+                i++;
+            }
+            delta *= 2;
+            
+        }
+        return retval;
+    }
 
 }
