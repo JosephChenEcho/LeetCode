@@ -140,7 +140,21 @@ public class x02 {
     
     //337. House Robber III
     public int rob(TreeNode root) {
-        return -1;
+        int[] ret = dprob(root);
+        return Math.max(ret[0], ret[1]);
+    }
+    
+    public int[] dprob(TreeNode root){
+        if(root == null){
+            return new int[]{0,0};
+        }else{
+            int[] retval = new int[2]; //[0] withour rob root; [1] rob root
+            int[] left = dprob(root.left);
+            int[] right = dprob(root.right);
+            retval[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+            retval[1] = root.val + left[0] + right[0];            
+            return retval;
+        }
     }
 
 }
