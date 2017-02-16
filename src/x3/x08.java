@@ -11,7 +11,20 @@ import java.util.*;
  */
 public class x08 {
     public static void main(String[] args){        
-        getHint("1122","2211");
+        TreeNode input1 = new TreeNode(1);
+        TreeNode input2 = new TreeNode(2);
+        TreeNode input3 = new TreeNode(3);
+        TreeNode input4 = new TreeNode(4);
+        TreeNode input5 = new TreeNode(5);
+        TreeNode input6 = new TreeNode(6);
+        TreeNode input7 = new TreeNode(7);
+        input1.left = input2;
+        input1.right = input3;
+        input2.left = input4;
+        input2.right = input5;
+        input3.left = input6;
+        input3.right = input7;
+        System.out.println(serialize(input1));
 
     }
     
@@ -157,6 +170,57 @@ public class x08 {
     }
     
     //297. Serialize and Deserialize Binary Tree
+    // Encodes a tree to a single string.
+    public static String serialize(TreeNode root) {        
+        StringBuilder sb=new StringBuilder();
+        TreeNode x=root;
+        Deque<TreeNode> stack=new LinkedList<>();
+        while (x!=null || !stack.isEmpty()) {
+            if (x!=null) {
+                sb.append(String.valueOf(x.val));
+                sb.append(' ');
+                stack.push(x);
+                x=x.left;
+            }
+            else {
+                sb.append("null ");
+                x=stack.pop();
+                x=x.right;
+            }
+        }
+        return sb.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public static TreeNode deserialize(String data) {
+        TreeNode retNode;
+        data = data.substring(1, data.length() - 1);
+        if(data.length() == 0) return null;
+        String[] nodeval = data.split(",");
+        retNode = new TreeNode(Integer.parseInt(nodeval[0]));
+        List<TreeNode> nodeList = new ArrayList();
+        int i = 1;
+        while(!nodeList.isEmpty()){
+            List<TreeNode> tmpList = new ArrayList();
+            for(int j = 0; j < nodeList.size(); j++){
+                TreeNode cur = nodeList.get(i);
+                String left = i < nodeval.length ?  nodeval[i++] : "null";
+                String right = i < nodeval.length ? nodeval[i++] : "null";
+                if(!left.equals("null")){
+                    TreeNode leftNode = new TreeNode(Integer.parseInt(left));
+                    cur.left = leftNode;
+                    tmpList.add(leftNode);
+                }
+                if(!right.equals("null")){
+                    TreeNode rightNode = new TreeNode(Integer.parseInt(right));
+                    cur.right = rightNode;
+                    tmpList.add(rightNode);
+                }
+            }
+            nodeList = tmpList;
+        }        
+        return retNode;
+    }
     
     //299. Bulls and Cows
     public static String getHint(String secret, String guess) {

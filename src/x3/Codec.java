@@ -51,18 +51,21 @@ public class Codec {
         String[] nodeval = data.split(",");
         retNode = new TreeNode(Integer.parseInt(nodeval[0]));
         List<TreeNode> nodeList = new ArrayList();
-        for(int i = 1; i < nodeval.length;){
+        int i = 1;
+        while(!nodeList.isEmpty()){
             List<TreeNode> tmpList = new ArrayList();
             for(int j = 0; j < nodeList.size(); j++){
                 TreeNode cur = nodeList.get(i);
-                String left = nodeval[i++];
-                String right = nodeval[i++];
+                String left = i < nodeval.length ?  nodeval[i++] : "null";
+                String right = i < nodeval.length ? nodeval[i++] : "null";
                 if(!left.equals("null")){
                     TreeNode leftNode = new TreeNode(Integer.parseInt(left));
+                    cur.left = leftNode;
                     tmpList.add(leftNode);
                 }
                 if(!right.equals("null")){
                     TreeNode rightNode = new TreeNode(Integer.parseInt(right));
+                    cur.right = rightNode;
                     tmpList.add(rightNode);
                 }
             }
