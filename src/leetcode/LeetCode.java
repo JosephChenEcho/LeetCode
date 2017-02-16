@@ -21,8 +21,10 @@ public class LeetCode {
         //isRectangleCover(input);
         //int[][] input = new int[][]{{1,-3,3},{0,-2,0},{-3,-3,-3}};
         //calculateMinimumHP(input);
-        int[] input = new int[]{1,11,5,5};
-        System.out.println(dividedBy2(input));
+        String input = "[1,2,3]";
+        input = input.substring(1,input.length() - 1);
+        //int[] input = new int[]{1,11,5,5};
+        //System.out.println(dividedBy2(input));
         //System.out.println(maxProfit2(input));
         //System.out.println(maxProfit(3,input));
         
