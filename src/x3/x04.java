@@ -11,9 +11,7 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        for(int i : diffWaysToCompute("2*3-4*5")){
-            System.out.println(i);
-        }
+        getFactors(12);
     }
     
     //241. Different Ways to Add Parentheses
@@ -80,6 +78,29 @@ public class x04 {
         for (int i = 0; i < t.length(); i++) alphabet[t.charAt(i) - 'a']--;
         for (int i : alphabet) if (i != 0) return false;
         return true;
+    }
+    
+    //254. Factor Combinations
+    public static List<List<Integer>> getFactors(int n) {
+        List<List<Integer>> retList = new ArrayList();
+        dfsFactors(retList, new ArrayList<Integer>(), n, 2);
+        return retList;
+    }
+    
+    public static void dfsFactors(List<List<Integer>> retList, List<Integer> item, int n, int start){
+        if(n <= 1){
+            if(item.size() > 1){
+                retList.add(new ArrayList(item));
+                return;
+            }
+        }
+        for(int i = start; i <= n; i++){
+            if(n % i == 0){
+                item.add(i);
+                dfsFactors(retList,item, n / i, i);
+                item.remove(item.size() - 1);
+            }
+        }
     }
     
     //257. Binary Tree Paths
