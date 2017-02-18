@@ -12,32 +12,17 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        int n = 300;
-        List<Integer> output = new ArrayList();
-        output.add(0);
-        if(n > 9){
-            for(int i = 1; i < 10; i++){
-                output.add(i);
-            }
-        }
-        for(int i = 0; i < output.size(); i++){
-            if(i == 0) continue;
-            int last = i % 10;
-            if(last != 0){
-                int tmp = i * 10 + last - 1;
-                if(tmp >= n) break;
-                output.add(tmp);
-            }
-            if(last != 9){
-                int tmp = i * 10 + last + 1;
-                if(tmp >= n) break;
-                output.add(tmp);
-            }
-        }
-        
-        for(int i : output){
-            System.out.println(i);
-        }
+        //wordBreak
+        String str = "catsanddog";
+        List<String> input = new ArrayList();
+        input.add("cat");
+        input.add("cats");
+        input.add("and");
+        input.add("sand");
+        input.add("dog");
+
+        wordBreak(str,input);
+               // ["cat","cats","and","sand","dog"]
                 
     }
     
@@ -391,21 +376,28 @@ public class x02 {
     }
     
     //140. Word Break II
-    public List<String> wordBreak(String s, List<String> wordDict) {
-        if(s == null || wordDict.isEmpty()) return null;
-        String[] dp = new String[s.length() + 1];
-        //init
-        for(int i = 0; i < s.length(); i++){
-            if(wordDict.contains(s.substring(0, i))){
-                dp[i] = s.substring(0, i);
+    private static HashMap<String, List<String>> wordMap = new HashMap();
+    public static List<String> wordBreak(String s, List<String> wordDict) {
+        HashSet<String> wordSet = new HashSet();
+        for(String str : wordDict){wordSet.add(str);};
+        if(wordMap.containsKey(s) && !wordMap.get(s).isEmpty()){
+            return wordMap.get(s);
+        }
+        List<String> cur = new ArrayList();
+        for(String str: wordDict){
+            if(s.startsWith(str)){
+                List<String> rest = wordBreak(s.substring(str.length()), wordDict);
+                if(s.equals(str)){
+                    cur.add(str);
+                }
+                for(String strrest: rest){
+                    cur.add(str + " " + strrest);
+                }
+                
             }
         }
-        //loop
-        for(int i = 1; i <= s.length(); i++){
-            for(int j = 1; j < i; j++){
-                if(dp[j] != null && wordDict.contains(j)){}
-            }
-        }
-        return null;
+        wordMap.put(s, cur);
+        return cur;
     }
+
 }
