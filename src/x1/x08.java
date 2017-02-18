@@ -208,6 +208,23 @@ public class x08 {
     
     //91. Decode Ways
     public static int numDecodings(String s) {
+        int len = s.length();
+        if(len == 0) return 0;
+        int[] dp = new int[len + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for(int i = 2; i <= len; i++){
+            int oneDigit = Integer.parseInt(s.substring(i-1, i));
+            int twoDigit = Integer.parseInt(s.substring(i-2,i));
+            if(oneDigit != 0){
+                dp[i] = dp[i-1];
+            }
+            if(twoDigit >= 10 && twoDigit <= 26){
+                dp[i] += dp[i-2];
+            }
+        }
+        return dp[len];
+        /*
         int n = s.length();
         if(n == 0) return 0;
         int[] dp = new int[n + 1];
@@ -226,7 +243,7 @@ public class x08 {
                 dp[i] += dp[i-2];
             }
         }        
-        return dp[n];
+        return dp[n];*/
     }
     
     //92. Reverse Linked List II

@@ -335,6 +335,34 @@ public class x02 {
         //for(int i = 0)        
         return -1;
     }
+        
+    //138. Copy List with Random Pointer    
+    private HashMap<Integer, RandomListNode> randMap = new HashMap();
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if(head == null) return null;
+        RandomListNode cur = head;
+        while(cur != null){
+            randMap.put(cur.label, new RandomListNode(cur.label));
+            cur = cur.next;
+        }
+        cur = head;
+        while(cur != null){
+            randMap.get(cur.label).next = cur.next == null ? null : randMap.get(cur.next.label);
+            randMap.get(cur.label).random = cur.random == null ? null : randMap.get(cur.random.label);
+            cur = cur.next;
+        }
+        return randMap.get(head.label);
+        /*int val = head.label;
+        if(randMap.containsKey(val)){
+            return randMap.get(val);
+        }        
+        RandomListNode copyNode = new RandomListNode(head.label);
+        randMap.put(val, copyNode);
+        copyNode.next = copyRandomList(head.next);
+        copyNode.random = copyRandomList(head.random);
+        return copyNode;*/
+    }
+    
     
     //139. Word Break
     public static boolean wordBreak(String s, Set<String> wordDict) {
