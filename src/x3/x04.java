@@ -80,6 +80,51 @@ public class x04 {
         return true;
     }
     
+    //249. Group Shifted Strings
+    public List<List<String>> groupStrings(String[] strings) {
+        /*
+        HashMap<Integer, List<String>> groupMap = new HashMap();
+        List<List<String>> retList = new ArrayList();
+        for(String str : strings){
+            int len = str.length();
+            if(groupMap.containsKey(len)){
+                groupMap.get(len).add(str);
+            }else{
+                List<String> tmp = new ArrayList();
+                tmp.add(str);
+                groupMap.put(len, tmp);
+            }            
+        }
+        for(Map.Entry<Integer,List<String>> set : groupMap.entrySet()){
+            retList.add(set.getValue());
+        }        
+        return retList;*/
+        List<List<String>> result = new ArrayList<List<String>>();
+        Map<String, List<String>> map = new HashMap<String, List<String>>();
+        for (String str : strings) {
+            int offset = str.charAt(0) - 'a';
+            String key = "";
+            for (int i = 0; i < str.length(); i++) {
+                char c = (char) (str.charAt(i) - offset);
+                if (c < 'a') {
+                    c += 26;
+                }
+                key += c;
+            }
+            if (!map.containsKey(key)) {
+                List<String> list = new ArrayList<String>();
+                map.put(key, list);
+            }
+            map.get(key).add(str);
+        }
+        for (String key : map.keySet()) {
+            List<String> list = map.get(key);
+            Collections.sort(list);
+            result.add(list);
+        }
+        return result;
+    }
+    
     //254. Factor Combinations
     public static List<List<Integer>> getFactors(int n) {
         List<List<Integer>> retList = new ArrayList();
