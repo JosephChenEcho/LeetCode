@@ -357,7 +357,7 @@ public class x02 {
     
     //139. Word Break
     public static boolean wordBreak(String s, Set<String> wordDict) {
-        if(s == null && wordDict.isEmpty()) return true;
+        /*if(s == null && wordDict.isEmpty()) return true;
         if(s == null || wordDict.isEmpty()) return false;
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
@@ -372,6 +372,19 @@ public class x02 {
         }
         
         
+        return dp[s.length()];*/
+        if(s == null && wordDict.isEmpty()) return true;
+        if(s == null || wordDict.isEmpty()) return false;
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for(int i = 0; i <= s.length(); i++){
+            for(int j = 0; j < i; j++){
+                if(dp[j] && wordDict.contains(s.substring(j, i))){
+                    dp[i] = true;
+                    //break;
+                }
+            }
+        }
         return dp[s.length()];
     }
     

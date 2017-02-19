@@ -78,6 +78,11 @@ public class x02 {
         }
     }
     
+    //23. Merge k Sorted Lists
+    public ListNode mergeKLists(ListNode[] lists) {
+        return null;
+    }
+    
     //24 Swap nodes in pairs
     public static ListNode swapPairs(ListNode head) {
         if(head == null || head.next == null) return head;
