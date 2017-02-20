@@ -5,7 +5,7 @@
  */
 package x3;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  *
@@ -48,6 +48,16 @@ public class x06 {
                 factor5 = 5*ugly[++index5];
         }
         return ugly[n-1];
+    }
+    
+    //266. Palindrome Permutation
+    public boolean canPermutePalindrome(String s) {
+        Set<Character>set = new HashSet<Character>();
+	for (char c : s.toCharArray())  
+		if (set.contains(c)) set.remove(c);// If char already exists in set, then remove it from set
+		else set.add(c);// If char doesn't exists in set, then add it to set
+	return set.size() <= 1;
+        
     }
     
     //268. Missing Number
