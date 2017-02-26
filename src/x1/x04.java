@@ -15,23 +15,35 @@ import java.util.*;
  */
 public class x04 {
     public static void main(String[] args){
-        int[][] output = generateMatrix(5);
-        for(int[] ia : output){
-            for(int i : ia){
-                System.out.print(i + "\t");
-            }
-            System.out.println();
-        }
+        int[] input = new int[]{0,1,0,2,1,0,1,3,2,1,2,1};
+        trap(input);
     }
     
     //42. Trapping Rain Water
-    public int trap(int[] height) {
+    public static int trap(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        while(left < right && height[left] <= height[left + 1]){
+            left = left + 1;
+        }
+        while(left < right && height[right] <= height[right - 1]){
+            right = right - 1;
+        }        
         int sum = 0;
-        int start = 0;
-        int end = 0;
-        //for(int i = 0; i <)
-        
-        return -1;
+        while(left < right){
+            int leftedge = height[left];
+            int rightedge = height[right];
+            if(leftedge < rightedge){
+                while(left < right && leftedge > height[++left]){
+                    sum += leftedge - height[left];
+                }
+            }else{
+                while(left < right && rightedge > height[--right]){
+                    sum += rightedge - height[right];
+                }
+            }
+        }
+        return sum;
     }
     
     //43. Multiply Strings
