@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        combinationSum3(2, 18);
+        findWords(new char[][]{"b".toCharArray(),"a".toCharArray(),"b".toCharArray()},"bbabab");
     }
     //201
     
@@ -237,6 +237,48 @@ public class x00 {
     }
     
     //211. Add and Search Word - Data structure design
+    
+    //212. Word Search II
+    public static List<String> findWords(char[][] board, String[] words) {
+        List<String> retList = new ArrayList();
+        for(int i = 0; i < words.length; i++){
+            if(findWords(board, words[i])){
+                if(!retList.contains(words[i])) retList.add(words[i]);
+            }
+        }
+        return retList;
+    }
+    
+    public static boolean findWords(char[][] board, String word){
+        int len = board.length;
+        int wid = board[0].length;
+        boolean[][] visited = new boolean[len][wid];
+        for(int i = 0; i < len; i++){
+            for(int j = 0; j < wid; j++){
+                if(findWords(board, word, 0, visited, i, j)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public static boolean findWords(char[][] board, String word, int idx, boolean[][] visited, int i, int j){
+        if(idx == word.length()) return true;
+        int len = board.length;
+        int wid = board[0].length;
+        if(i < 0 || j < 0 || i == len || j == wid) return false;        
+        if(word.charAt(idx) == board[i][j] && !visited[i][j]){
+            visited[i][j] = true;
+            boolean result = (findWords(board, word, idx + 1, visited, i + 1, j)) ||
+                    (findWords(board, word, idx + 1, visited, i, j + 1)) ||
+                    (findWords(board, word, idx + 1, visited, i - 1, j)) ||
+                    (findWords(board, word, idx + 1, visited, i, j - 1));
+            visited[i][j] = false;
+            return result;
+        }        
+        return false;
+    }
     
     //213. House Robber II
     /*public int rob(int[] nums) {
