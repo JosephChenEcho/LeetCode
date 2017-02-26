@@ -29,10 +29,11 @@ public class x04 {
         int sum = 0;
         int start = 0;
         int end = 0;
-        for(int i = 0; i <)
+        //for(int i = 0; i <)
         
         return -1;
     }
+    
     //43. Multiply Strings
     public static String multiply(String num1, String num2) {
         int m = num1.length(), n = num2.length();
