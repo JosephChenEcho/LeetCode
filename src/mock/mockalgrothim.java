@@ -29,4 +29,20 @@ public class mockalgrothim {
             cur.remove(cur.size() - 1);
         }
     }
+    
+    //Pow(x, n)
+    public double myPow(double x, int n) {
+
+        if(n == 1) return x;
+        if(n == -1) return 1/x;
+        if(n == 0) return 1;
+        double res = 1.00;
+        int divid = n / 2;
+        int mod = n % 2;
+        res = myPow(x, divid);
+        res *= res;
+        if(mod == 1) res *= x;
+        if(mod == -1) res /= x;
+        return res;
+    }
 }

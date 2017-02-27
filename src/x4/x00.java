@@ -14,11 +14,7 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String[] args){
-        int i = 9990;
-        while(i < 10000){
-            System.out.println("input : " + i + ", output : " + bulbSwitch(i));
-            i++;
-        }
+        countSmaller(new int[]{26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41});
     }
     
     //306. Additive Number
@@ -163,6 +159,63 @@ public class x00 {
             }      
         return dp[0][n - 1];
     }
+    
+    //315. Count of Smaller Numbers After Self
+    public static List<Integer> countSmaller(int[] nums) {
+        /*
+        26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41        
+        */
+        List<Integer> retList = new ArrayList();
+        SumNode root = null;
+        if(nums.length > 0){
+            root = new SumNode();
+            root.val = nums[nums.length - 1];
+            retList.add(0);
+        }
+        for(int i = nums.length - 2; i >= 0; i--){
+            retList.add(0,insert(root, nums[i]));
+        }
+        
+        return retList;
+        //26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41
+        //[10,27,10,35,12,22,28,8,19,2,12,2,9,6,12,5,17,9,19,12,14,6,12,5,12,3,0,10,0,7,8,4,0,0,4,3,2,0,1,0]
+        //[10,00,10,18,12,22,28,0,00,2,12,2,9,6,12,5,17,0,19,12,14,6,12,5,12,3,0,10,0,7,8,4,0,0,4,3,2,0,1,0]
+    }
+    
+    public static int insert(SumNode root, int val){
+        int count = 0;
+
+        SumNode point = root;
+        //it's mean visit end
+        while(true){
+            //dup case
+            if(point.val == val){
+                point.dup += 1;
+                count = point.count;
+                break;
+            }
+            else if(val < point.val){
+                point.count += 1;
+                if(point.smaller == null) break;
+                point = point.smaller;
+            }else{
+                count += point.count + point.dup;
+                if(point.larger == null) break;
+                point = point.larger;
+            }
+        }
+        if(val < point.val){
+            point.smaller = new SumNode();
+            point.smaller.val = val;
+        }
+        if(val > point.val){
+            point.larger = new SumNode();
+            point.larger.val = val;
+        }
+        return count;
+    }
+    
+ 
     
     //318. Maximum Product of Word Lengths
     public int maxProduct(String[] words) {
