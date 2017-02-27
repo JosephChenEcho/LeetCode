@@ -184,23 +184,16 @@ public class x00 {
     
     public static int insert(SumNode root, int val){
         int count = 0;
-
         SumNode point = root;
         //it's mean visit end
         while(true){
             //dup case
             if(point.val == val){
-                if(point.val == 51){
-                    System.out.println("here");
-                }
                 point.dup += 1;
-                point.count = count;
+                count += point.count;
                 break;
             }
             else if(val < point.val){
-                if(point.val == 51){
-                    System.out.println("here");
-                }
                 point.count += 1;
                 if(point.smaller == null) break;
                 point = point.smaller;
