@@ -13,8 +13,54 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-            
+        validTree(4,new int[][]{{0,1},{2,3},{1,2}});
+        /*4
+[[0,1],[2,3],[1,2]]*/
     }
+    
+    //261. Graph Valid Tree
+    public static boolean validTree(int n, int[][] edges) {
+        if(n == 1 && edges.length == 0) return true;
+        if(n == 1 || edges.length == 0) return false;
+        if(n - 1 != edges.length) return false;
+        List<int[]> edgeList = new ArrayList();
+        for(int[] ia : edges) edgeList.add(ia);
+        boolean[] visited = new boolean[n];
+        int start = edgeList.get(0)[0];
+        int end = edgeList.get(0)[1];
+        visited[start] = true;
+        visited[end] = true;
+        edgeList.remove(0);
+        int i = 0;
+        
+        while(!edgeList.isEmpty()){
+            start = edgeList.get(i)[0];
+            end = edgeList.get(i)[1];
+            if(visited[start] && visited[end]) return false;
+            if(visited[start] || visited[end]){
+                visited[start] = true;
+                visited[end] = true;
+                edgeList.remove(i);
+            }else{
+                i++;
+                
+            }
+            if(i == edgeList.size()) i = 0;
+        }
+        
+        return true;
+    }
+    
+    boolean hasCycle(List<List<Integer>> adjList, int u, boolean[] visited, int parent) {
+        visited[u] = true;        
+        for (int i = 0; i < adjList.get(u).size(); i++) {
+            int v = adjList.get(u).get(i);            
+            if ((visited[v] && parent != v) || (!visited[v] && hasCycle(adjList, v, visited, u)))
+                return true;
+        }        
+        return false;
+    }
+
     
     //263. Ugly Number
     public boolean isUgly(int num) {
