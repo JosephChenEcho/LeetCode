@@ -29,5 +29,22 @@ public class x06 {
         }
         return res;
     }
+    
+    //377. Combination Sum IV
+    public static int combinationSum4(int[] nums, int target) {
+        if(nums.length == 0 || target == 0) return 0;
+
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for(int i = 0; i < dp.length; i++){
+            for(int ii : nums){
+                if(i + ii < dp.length){
+                    dp[i + ii] += dp[i];
+                }
+            }
+        }        
+        return dp[target];
+    }
+    
     //380. Insert Delete GetRandom O(1)
 }

@@ -32,8 +32,11 @@ public class x06 {
         visited[end] = true;
         edgeList.remove(0);
         int i = 0;
+        int presize = 0;
         
         while(!edgeList.isEmpty()){
+            if(presize == edgeList.size() && i == 0) return false;
+            presize = edgeList.size();
             start = edgeList.get(i)[0];
             end = edgeList.get(i)[1];
             if(visited[start] && visited[end]) return false;
