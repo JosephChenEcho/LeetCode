@@ -11,20 +11,7 @@ import java.util.*;
  */
 public class x08 {
     public static void main(String[] args){        
-        TreeNode input1 = new TreeNode(1);
-        TreeNode input2 = new TreeNode(2);
-        TreeNode input3 = new TreeNode(3);
-        TreeNode input4 = new TreeNode(4);
-        TreeNode input5 = new TreeNode(5);
-        TreeNode input6 = new TreeNode(6);
-        TreeNode input7 = new TreeNode(7);
-        input1.left = input2;
-        input1.right = input3;
-        input2.left = input4;
-        input2.right = input5;
-        input3.left = input6;
-        input3.right = input7;
-        System.out.println(serialize(input1));
+        wallsAndGates(new int[][]{{2147483647,-1,0,2147483647},{2147483647,2147483647,2147483647,-1},{2147483647,-1,2147483647,-1},{0,-1,2147483647,2147483647}});
 
     }
     
@@ -46,6 +33,35 @@ public class x08 {
             nums[j] = 0;
             j++;
         }
+    }
+    
+    //286. Walls and Gates
+    public static void wallsAndGates(int[][] rooms) {
+        for(int i = 0; i < rooms.length; i++){
+            for(int j = 0; j < rooms[0].length; j++){
+                if(rooms[i][j] == 0){
+                    bfsMap(rooms, 0, i, j);
+                }
+            }
+        }
+    }
+    
+    public static void bfsMap(int[][] rooms, int distance, int i, int j){
+        distance += 1;
+        assignValue(rooms, distance, i, j - 1);
+        assignValue(rooms, distance, i, j + 1);
+        assignValue(rooms, distance, i + 1, j);
+        assignValue(rooms, distance, i - 1, j);
+    }
+    
+    public static void assignValue(int[][] rooms, int distance, int i, int j){
+        int imax = rooms.length;
+        int jmax = rooms[0].length;
+        if(i < 0 || i == imax || j < 0 || j == jmax) return;
+        if(rooms[i][j] == -1 || rooms[i][j] == 0) return;
+        if(rooms[i][j] <= distance) return;
+        rooms[i][j] = distance;
+        bfsMap(rooms, distance, i, j);
     }
     
     //289. Game of Life
