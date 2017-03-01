@@ -254,7 +254,22 @@ public class x00 {
         return count;
     }
     
- 
+    //317. Shortest Distance from All Buildings
+    public int shortestDistance(int[][] grid) {
+        int wid = grid.length;
+        int len = grid[0].length;
+        int[] singlegrid = new int[wid*len];
+        for(int i = 0; i < wid; i++){
+            for(int j = 0; j < len; j++){
+                singlegrid[i * wid + j] = grid[i][j];
+            }
+        }
+        int[] distance = new int[wid*len];
+        for(int i = 0; i < singlegrid.length; i++){
+        
+        }
+        return -1;
+    }
     
     //318. Maximum Product of Word Lengths
     public int maxProduct(String[] words) {
