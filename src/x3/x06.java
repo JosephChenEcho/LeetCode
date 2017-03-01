@@ -13,7 +13,12 @@ import java.util.*;
  */
 public class x06 {
     public static void main(String[] args){
-        validTree(4,new int[][]{{0,1},{2,3},{1,2}});
+        List<String> input = new ArrayList();
+        input.add("this");
+        input.add("is");
+        input.add("for");
+        input.add("testing");
+        decode(encode(input));
         /*4
 [[0,1],[2,3],[1,2]]*/
     }
@@ -116,6 +121,29 @@ public class x06 {
             sum += num;
             
         return (nums.length * (nums.length + 1) )/ 2 - sum;
+    }
+    
+    // 271. Encode and Decode Strings
+    // Encodes a list of strings to a single string.
+    public static String encode(List<String> strs) {
+        StringBuilder sb = new StringBuilder();
+        for(String s : strs) {
+            sb.append(s.length()).append('/').append(s);
+        }
+        return sb.toString();
+    }
+
+    // Decodes a single string to a list of strings.
+    public static List<String> decode(String s) {
+        List<String> ret = new ArrayList<String>();
+        int i = 0;
+        while(i < s.length()) {
+            int slash = s.indexOf('/', i);
+            int size = Integer.valueOf(s.substring(i, slash));
+            ret.add(s.substring(slash + 1, slash + size + 1));
+            i = slash + size + 1;
+        }
+        return ret;
     }
     
     //274. H-Index
