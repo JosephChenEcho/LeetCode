@@ -13,7 +13,7 @@ public class x04 {
     public static void main(String[] args){}
     
     //450. Delete Node in a BST
-    public TreeNode deleteNode(TreeNode root, int key) {
+    public static TreeNode deleteNode(TreeNode root, int key) {
         if(root == null){
         return null;
         }
@@ -35,10 +35,11 @@ public class x04 {
         return root;
     }
 
-    private TreeNode findMin(TreeNode node){
+    private static TreeNode findMin(TreeNode node){
         while(node.left != null){
             node = node.left;
         }
         return node;
     }
 }
+
