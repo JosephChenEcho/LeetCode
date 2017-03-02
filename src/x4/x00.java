@@ -258,17 +258,52 @@ public class x00 {
     public int shortestDistance(int[][] grid) {
         int wid = grid.length;
         int len = grid[0].length;
-        int[] singlegrid = new int[wid*len];
+        int[][] distance = new int[wid][len];
+        int retdis = 0;
         for(int i = 0; i < wid; i++){
             for(int j = 0; j < len; j++){
-                singlegrid[i * wid + j] = grid[i][j];
+                if(grid[i][j] == 1){
+                    Queue<int[]> pq = new LinkedList();
+                    pq.add(new int[]{i,j});
+                    boolean[][] visited = new boolean[wid][len];
+                    retdis = bfsshortdis(grid, distance, pq, visited);
+                }
             }
-        }
-        int[] distance = new int[wid*len];
-        for(int i = 0; i < singlegrid.length; i++){
+        }               
+        return retdis;
+    }
+    
+    public int bfsshortdis(int[][] grid, int[][] distance, Queue<int[]> pq, boolean[][] visited){
+        int mindix = Integer.MAX_VALUE;
+        int len = grid.length;
+        int wid = grid[0].length;
+        while(!pq.isEmpty()){
+            int[] pre = pq.poll();
+            int i = pre[0];
+            int j = pre[1];
+            int predis = distance[i][j];
+            int a = bfshelper(grid, distance, pq, visited, i + 1, j, predis + 1);
+            int b = bfshelper(grid, distance, pq, visited, i - 1, j, predis + 1);
+            int c = bfshelper(grid, distance, pq, visited, i, j + 1, predis + 1);
+            int d = bfshelper(grid, distance, pq, visited, i, j - 1, predis + 1);
+            int minval = Math.min(Math.min(a, b), Math.min(c, d));
+            mindix = Math.min(minval, mindix);
+        }        
+        return mindix;
+    }
+    
+    public int bfshelper(int[][] grid, int[][] distance, Queue<int[]> pq, boolean[][] visited, int i, int j, int dis){
+        int len = grid.length;
+        int wid = grid[0].length;
+        if(i < 0 || i == len || j < 0 || j == wid) return Integer.MAX_VALUE;
+        if(grid[i][j] != 0) return Integer.MAX_VALUE;
+        if(visited[i][j]) return Integer.MAX_VALUE;
         
-        }
-        return -1;
+        distance[i][j] += dis;
+        visited[i][j] = true;
+        pq.add(new int[]{i,j});
+        
+        return distance[i][j];
     }
     
     //318. Maximum Product of Word Lengths
