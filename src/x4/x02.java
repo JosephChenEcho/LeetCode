@@ -14,6 +14,7 @@ public class x02 {
         //String[][] input = new String[][]{{"MUC","LHR"},{"JKF","MUC"},{"SFO","SJC"},{"LHR","SFO"}};
         String[][] input = new String[][]{{"JFK","SFO"},{"JFK","ATL"},{"SFO","ATL"},{"ATL","JFK"},{"ATL","SFO"}};
         findItinerary(input);
+        lengthOfLongestSubstringKDistinct("",0);
     
     }
     //322. Coin Change
@@ -173,6 +174,35 @@ public class x02 {
             
         }
         return retval;
+    }
+    
+    //340. Longest Substring with At Most K Distinct Characters
+    public static int lengthOfLongestSubstringKDistinct(String s, int k) {
+        int start = 0;
+        int res = 0;
+        HashMap <Character,Integer> cMap = new HashMap();
+        for(int i = 0; i < s.length(); i++){
+            Character c = s.charAt(i);
+            if(!cMap.containsKey(c)){
+                cMap.put(c, 1);
+            }else{
+                int n = cMap.get(c);
+                cMap.put(c, n + 1);
+            }
+            while(cMap.size() > k){
+                c = s.charAt(start);
+                int n = cMap.get(c);
+                if(n != 1){
+                    cMap.put(c, n - 1);
+                }else{
+                    cMap.remove(c);
+                }
+            }
+            res = Math.max(res, i - start + 1);
+            start ++;            
+        }
+        
+        return res;
     }
 
 }
