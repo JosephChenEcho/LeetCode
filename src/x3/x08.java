@@ -238,6 +238,11 @@ public class x08 {
         return retNode;
     }
     
+    //298. Binary Tree Longest Consecutive Sequence
+    public int longestConsecutive(TreeNode root) {
+        return -1;
+    }
+    
     //299. Bulls and Cows
     public static String getHint(String secret, String guess) {
         int bulls = 0;
