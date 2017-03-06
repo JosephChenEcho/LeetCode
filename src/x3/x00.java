@@ -14,7 +14,8 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String args[]){
-        findWords(new char[][]{"b".toCharArray(),"a".toCharArray(),"b".toCharArray()},"bbabab");
+        //findWords(new char[][]{"b".toCharArray(),"a".toCharArray(),"b".toCharArray()},"bbabab");
+        shortestPalindrome("aaacebcaaa");
     }
     //201
     
@@ -312,6 +313,19 @@ public class x00 {
             exclude = Math.max(e, i);
         }
         return Math.max(include, exclude);
+    }
+    
+    //214. Shortest Palindrome
+    public static String shortestPalindrome(String s) {
+        int j = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == s.charAt(j)) { j += 1; }
+        }
+        if (j == s.length()) { return s; }
+        String suffix = s.substring(j);
+        String test = new StringBuffer(suffix).reverse().toString();
+        test = shortestPalindrome(s.substring(0, j));
+        return new StringBuffer(suffix).reverse().toString() + shortestPalindrome(s.substring(0, j)) + suffix;
     }
     
     //215. Kth Largest Element in an Array
