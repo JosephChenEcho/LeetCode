@@ -240,6 +240,24 @@ public class x08 {
     
     //298. Binary Tree Longest Consecutive Sequence
     public int longestConsecutive(TreeNode root) {
+        if(root == null) return 0;
+        int max = 0;
+        
+        return -1;
+    }
+    
+    public int dfs(TreeNode root, int len, int target){
+        
+        if(root.val == target){
+            len += 1;
+        }else{
+            len = 1;
+        }
+        int left = dfs(root.left, len, root.val + 1);
+        int right = dfs(root.right, len, root.val + 1);
+        if(left > 1 || right > 1){
+            len += Math.max(left, right);
+        }
         return -1;
     }
     
