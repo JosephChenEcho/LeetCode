@@ -11,16 +11,7 @@ import java.util.*;
  */
 public class x02 {
     public static void main(String[] args){
-        TreeNode input1 = new TreeNode(1);
-        TreeNode input2 = new TreeNode(2);
-        TreeNode input3 = new TreeNode(3);
-        TreeNode input4 = new TreeNode(4);
-        TreeNode input5 = new TreeNode(5);
-        input2.left = input1;
-        input2.right = input3;
-        input4.left = input3;
-        input4.right = input5;
-        lowestCommonAncestor2(input2, input1, input3);
+        maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7},3);
     }
     //221. Maximal Square
     public static int maximalSquare(char[][] matrix) {
@@ -305,6 +296,29 @@ public class x02 {
             right *= nums[i];
         }
         return res;
+    }
+    
+    //239. Sliding Window Maximum
+    public static int[] maxSlidingWindow(int[] in, int w) {
+        int[] max_left = new int[in.length];
+        int[] max_right = new int[in.length];
+
+        max_left[0] = in[0];
+        max_right[in.length - 1] = in[in.length - 1];
+
+        for (int i = 1; i < in.length; i++) {
+            max_left[i] = (i % w == 0) ? in[i] : Math.max(max_left[i - 1], in[i]);
+
+            final int j = in.length - i - 1;
+            max_right[j] = (j % w == 0) ? in[j] : Math.max(max_right[j + 1], in[j]);
+        }
+
+        final int[] sliding_max = new int[in.length - w + 1];
+        for (int i = 0, j = 0; i + w <= in.length; i++) {
+            sliding_max[j++] = Math.max(max_right[i], max_left[i + w - 1]);
+        }
+
+        return sliding_max;
     }
     
     //240. Search a 2D Matrix II
