@@ -185,6 +185,20 @@ public class x08 {
         return n % 4 != 0;
     }
     
+    //293. Flip Game
+    public List<String> generatePossibleNextMoves(String s) {
+        List<String> retList = new ArrayList<String>();
+        if(s.length() <= 1) return retList;
+        for(int i = 1; i < s.length(); i++){
+            if(s.charAt(i - 1) == '+' && s.charAt(i) == '+'){
+                String tmp = new String(s);
+                tmp = s.substring(0, i - 1) + "--" + s.substring(i + 1);
+                retList.add(tmp);
+            }
+        }
+        return retList;
+    }
+    
     //297. Serialize and Deserialize Binary Tree
     // Encodes a tree to a single string.
     public static String serialize(TreeNode root) {        
