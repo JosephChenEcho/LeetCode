@@ -14,14 +14,22 @@ public class x04 {
     
     //442. Find All Duplicates in an Array
     public List<Integer> findDuplicates(int[] nums) {
-        List<Integer> retList = new ArrayList<Integer>();
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; ++i) {
+            int index = Math.abs(nums[i])-1;
+            if (nums[index] < 0)
+                res.add(Math.abs(index+1));
+            nums[index] = -nums[index];
+        }
+        return res;
+        /*List<Integer> retList = new ArrayList<Integer>();
         HashSet<Integer> intSet = new HashSet<Integer>();
         for(int i : nums){
             if(!intSet.add(i)){
                 retList.add(i);
             }
         }
-        return retList;
+        return retList;*/
     }
     
     //450. Delete Node in a BST
