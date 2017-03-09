@@ -4,13 +4,25 @@
  * and open the template in the editor.
  */
 package x5;
-
+import java.util.*;
 /**
  *
  * @author jochen
  */
 public class x04 {
     public static void main(String[] args){}
+    
+    //442. Find All Duplicates in an Array
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> retList = new ArrayList<Integer>();
+        HashSet<Integer> intSet = new HashSet<Integer>();
+        for(int i : nums){
+            if(!intSet.add(i)){
+                retList.add(i);
+            }
+        }
+        return retList;
+    }
     
     //450. Delete Node in a BST
     public static TreeNode deleteNode(TreeNode root, int key) {
