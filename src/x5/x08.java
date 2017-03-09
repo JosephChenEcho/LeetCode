@@ -16,6 +16,10 @@ public class x08 {
     
     //490. The Maze
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        //1. can reach dest
+        
+        //2. dest has close
+        
         return false;
     }
 }
