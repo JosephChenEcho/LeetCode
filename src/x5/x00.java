@@ -89,6 +89,33 @@ public class x00 {
         return idx == digits? "0": new String(stk, idx, digits - idx);
     }
     
+    //404. Sum of Left Leaves
+    public int sumOfLeftLeaves(TreeNode root) {
+        // only return leaf
+        if(root == null) return 0;
+        int ans = 0;
+        if(root.left != null){
+            ans += isLeft(root.left, true);
+        }
+        if(root.right != null){
+            ans += isLeft(root.right, false);
+        }
+        return ans;
+    }
+    
+    public int isLeft(TreeNode root, boolean left){
+        int ans = 0;
+        if(root.left == null && root.right == null && left){
+            return root.val;
+        }
+        if(root.left != null){
+            ans += isLeft(root.left, true);
+        }
+        if(root.right != null){
+            ans += isLeft(root.right, false);
+        }
+        return ans;
+    }
     //408. Valid Word Abbreviation
     public boolean validWordAbbreviation(String word, String abbr) {
         int i = 0, j = 0;
