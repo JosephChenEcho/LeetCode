@@ -262,6 +262,27 @@ public class x04 {
         return num==0?0:(num%9==0?9:(num%9));
     }
     
+    //259. 3Sum Smaller
+    public int threeSumSmaller(int[] nums, int target) {
+        int count = 0;
+        Arrays.sort(nums);
+        int len = nums.length;
+    
+        for(int i=0; i<len-2; i++) {
+            int left = i+1, right = len-1;
+            while(left < right) {
+                if(nums[i] + nums[left] + nums[right] < target) {
+                    count += right-left;
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+        
+        return count;
+    }
+    
     //260. Single Number III
     public int[] singleNumber(int[] nums) {
         // Pass 1 : 
