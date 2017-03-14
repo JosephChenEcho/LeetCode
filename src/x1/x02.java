@@ -292,51 +292,50 @@ public class x02 {
     
     //37. Sudoku Solver
     public static void solveSudoku(char[][] board) {
-        if(!isValidSudoku(board)) return;
-        int len = board.length;
-        for(int i = 0; i < len; i++){
-            for(int j = 0; j < len; j++){
-                if(board[i][j] == '.'){
-                    int k = 1;
-                    for( k = 1; k < 10; k++){
-                        board[i][j] = (char)('0' + k);
-                        if(i == 8 && j == 8 && isValidSudoku(board)){
-                            for(int i1 = 0; i1 < 9; i1++){
-                                for(int j1 = 0; j1 < 9; j1++){
-                                    System.out.print(board[i1][j1] + "\t");
-                                }
-                                System.out.println();
-                            }
-                            return;
-                        }
-                        solveSudoku(board);
-                        
-                    }
-                    
-                    /*if(!isValidSudoku(board,i,j)) return;*/
-                    
-                    
-                    if(k == 10){
-                        board[i][j] = '.';
-                        return;
-                    }
-                }
-            }
-
-        }        
+        cansolve(board, 0, 0);
     }
     
-    public static boolean isValidSudoku(char[][] board, int i, int j){
-        boolean output = isValidSudoku(board);
-        System.out.println("i = " + i + " j = " + j);
-        for(int i1 = 0; i1 < 9; i1++){
-            for(int j1 = 0; j1 < 9; j1++){
-                System.out.print(board[i1][j1] + "\t");
+    public static boolean cansolve(char[][] board, int i, int j){
+        if(i == 9) return true;
+        int nextj = j == 8 ? 0 : j + 1;
+        int nexti = j == 8 ? i + 1 : i;        
+        if(board[i][j] != '.'){
+            return cansolve(board, nexti, nextj);
+        }else{
+            for(int num = 1; num <= 9; num++){
+                if(!isValNum(board, num, i, j)) continue;
+                board[i][j] = (char)('0'+num);
+                if(cansolve(board, nexti, nextj)) return true;
             }
-            System.out.println();
+            board[i][j] = '.';
+            return false;
+        }       
+        
+    }
+    
+    public static boolean isValNum(char[][] board,int num,int i, int j){
+        for(int idx = 0; idx < 9; idx++){
+            if(board[i][idx] == '0' + num) return false;
+            if(board[idx][j] == '0' + num) return false;
         }
-        if(!output) board[i][j] = '.';
-        return output;
+        int imin = i / 3;
+        int jmin = j / 3;
+        for(int ii = 0; ii < 3; ii++){
+            for(int jj = 0; jj < 3; jj++){
+                if(board[3 * imin + ii][3 * jmin + jj] == '0' + num) return false;
+            }
+        }
+        
+        return true;
+    }   
+    
+    public static boolean solvedSudoku(char[][] board){
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j <board[i].length; j++){
+                if(board[i][j] == '.') return false;
+            }
+        }        
+        return true;
     }
     
     //38. Count and Say
