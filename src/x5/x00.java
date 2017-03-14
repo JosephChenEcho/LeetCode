@@ -11,7 +11,9 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String[] args){
-    
+        reconstructQueue(new int[][]{{9,0},{7,0},{1,9},{3,0},{2,7},{5,3},{6,0},{3,4},{6,2},{5,2}});
+        reconstructQueue(new int[][]{{2,4},{3,4},{9,0},{0,6},{7,1},{6,0},{7,3},{2,5},{1,1},{8,0}});
+        reconstructQueue(new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
     }
     
     //401. Binary Watch
@@ -129,6 +131,91 @@ public class x00 {
         }
         return num == 0 ? "0" : sb.toString();
        
+    }
+    
+    //406. Queue Reconstruction by Height
+    public static int[][] reconstructQueue(int[][] people) {
+        /*
+        List<int[]> pList = new ArrayList<>();
+        List<int[]> retList = new ArrayList<>();
+        Comparator<int[]> c = new Comparator<int[]>(){
+            public int compare(int[] o1, int[] o2) {
+                if(o1[0] != o2[0]){
+                    return o2[0] - o1[0];
+                }else{
+                    return o1[1] - o2[1];
+                }
+            }
+        };
+        Arrays.sort(people,c);
+        for(int[] i : people){pList.add(i);}
+        List<int[]> tmpList = new ArrayList<>();
+        
+        while(!pList.isEmpty()){
+            for(int i = 0; i < pList.size(); i++){
+                int[] p = pList.get(i);
+                int count = 0;
+                int j = 0;
+                for(j = 0; j < retList.size(); j++){
+                    if(retList.get(j)[0] >= p[0]){
+                        count++;
+                    }
+                    if(count > p[1]){
+                        retList.add(j,p);
+                        break;
+                    }
+                }
+                if((count == p[1] )){
+                    retList.add(p);
+                }else if(j == retList.size()){
+                    tmpList.add(p);
+                }
+            }
+            if(tmpList.size() == pList.size()) return null;
+            System.out.println("RetList : ");
+            for(int[] ei : retList){
+                System.out.print(ei[0] + " " + ei[1] + ", ");
+            }     
+            System.out.println();
+            System.out.println("tmpList : ");
+            for(int[] ei : tmpList){
+                System.out.print(ei[0] + " " + ei[1] + ", ");
+            }
+            System.out.println();
+            pList.clear();
+            pList.addAll(tmpList);
+            tmpList.clear();
+            //pList = tmpList;            
+        }
+        int[][] retarr = new int[retList.size()][];
+        for(int i = 0; i < retList.size(); i++){
+            retarr[i] = retList.get(i);
+        }        
+        return retarr;
+*/
+        if (people == null || people.length == 0 || people[0].length == 0)
+            return new int[0][0];
+            
+        Arrays.sort(people, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                if (b[0] == a[0]) return a[1] - b[1];
+                return b[0] - a[0];
+            }
+        });
+        
+        int n = people.length;
+        ArrayList<int[]> tmp = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            tmp.add(people[i][1], new int[]{people[i][0], people[i][1]});
+
+        int[][] res = new int[people.length][2];
+        int i = 0;
+        for (int[] k : tmp) {
+            res[i][0] = k[0];
+            res[i++][1] = k[1];
+        }
+        
+        return res;
     }
     
     //408. Valid Word Abbreviation
