@@ -50,7 +50,7 @@ public class x00 {
     }
     
     public List<String> combineHourMinute(List<Integer> hour, List<Integer> minute){
-        List<String> retList = new ArrayList<String>();
+        List<String> retList = new ArrayList<>();
         for(int ih : hour){
             for(int im : minute){
                 String time = String.valueOf(ih) + ":";// + im<10 ? "0" : "" + String.valueOf(im);
@@ -119,6 +119,7 @@ public class x00 {
     
     //405. Convert a Number to Hexadecimal
     public String toHex(int num) {
+        
         long n = num & 0x00000000ffffffffL;
         char[] map = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         StringBuilder sb = new StringBuilder();
@@ -127,6 +128,7 @@ public class x00 {
             n = n / 16;
         }
         return num == 0 ? "0" : sb.toString();
+       
     }
     
     //408. Valid Word Abbreviation
