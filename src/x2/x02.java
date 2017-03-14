@@ -158,6 +158,34 @@ public class x02 {
         return diff == 1;
     }
     
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        List<String> reached = new ArrayList<>();
+        reached.add(beginWord);
+        int distance = 1;
+        while(!reached.contains(endWord)){
+            List<String> visited = new ArrayList<>();
+            for(int i = 0; i < reached.size(); i++){
+                String each = reached.get(i);
+                for (int j = 0; j < each.length(); j++) {
+                    char[] chars = each.toCharArray();
+                    for (char ch = 'a'; ch <= 'z'; ch++) {
+                        chars[j] = ch;
+                        String word = new String(chars);
+                        if (wordList.contains(word)) {
+                            visited.add(word);
+                            wordList.remove(word);
+                        }
+                    }
+                }
+            }
+            if(visited.isEmpty()) return 0;
+            reached = visited;
+            distance++;
+        }
+        
+        return distance;
+    }
+    
     //128. Longest Consecutive Sequence
     public int longestConsecutive(int[] nums) {
         int res = 0;
