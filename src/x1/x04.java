@@ -67,6 +67,26 @@ public class x04 {
         return sb.length() == 0 ? "0" : sb.toString();
     }
     
+    //45. Jump Game II
+    public int jump(int[] nums) {
+        int maxReach = nums[0];
+        int edge = 0;
+        int minstep = 0;
+        for(int i = 1; i < nums.length; i++) {
+            if (i > edge) {
+                minstep += 1;                
+                edge = maxReach;
+                if(edge > nums.length - 1)
+                    return minstep;
+            }
+            maxReach = Math.max(maxReach, nums[i] + i);
+            if (maxReach == i){
+                return -1;
+            }
+        }
+        return minstep;
+    }
+    
     //46. Permutations
     public static List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> retlist = new ArrayList<>();
