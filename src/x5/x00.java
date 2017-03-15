@@ -239,4 +239,20 @@ public class x00 {
         }
         return i == word.length() && j == abbr.length();
     }
+    
+    //409. Longest Palindrome
+    public int longestPalindrome(String s) {
+        HashSet<Character> cSet = new HashSet<>();
+        int res = 0;
+        for(char c : s.toCharArray()){
+            if(cSet.contains(c)){
+                cSet.remove(c);
+                res += 2;
+            }else{
+                cSet.add(c);
+            }
+        }
+        if(!cSet.isEmpty()) res++;
+        return res;
+    }
 }
