@@ -11,9 +11,10 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String[] args){
+        splitArray(new int[]{7, 2, 6, 8, 3, 9}, 3);
         //reconstructQueue(new int[][]{{9,0},{7,0},{1,9},{3,0},{2,7},{5,3},{6,0},{3,4},{6,2},{5,2}});
         //reconstructQueue(new int[][]{{2,4},{3,4},{9,0},{0,6},{7,1},{6,0},{7,3},{2,5},{1,1},{8,0}});
-        reconstructQueue(new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
+        //reconstructQueue(new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
     }
     
     //401. Binary Watch
@@ -257,7 +258,7 @@ public class x00 {
     }
     
     //410. Split Array Largest Sum
-    public int splitArray(int[] nums, int m) {
+    public static int splitArray(int[] nums, int m) {
         int L = nums.length;
         int[] S = new int[L+1];
         S[0]=0;
@@ -286,7 +287,10 @@ public class x00 {
 
         return dp[0];
     }
-    //411
+    //411. Minimum Unique Word Abbreviation
+    public String minAbbreviation(String target, String[] dictionary) {
+        return null;
+    }
     
     //412. Fizz Buzz
     public List<String> fizzBuzz(int n) {

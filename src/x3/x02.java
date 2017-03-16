@@ -27,6 +27,7 @@ public class x02 {
             }
         }
         return result*result;
+        
     }
     
     //222. Count Complete Tree Nodes
