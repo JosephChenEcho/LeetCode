@@ -14,7 +14,10 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String[] args){
-        countSmaller(new int[]{26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41});
+        //countSmaller(new int[]{26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41});
+        int[][] input = new int[][]{{1,0,2,0,1},{0,0,0,0,0},{0,0,1,0,0}};
+        shortestDistance(input);
+        
     }
     
     //305. Number of Islands II
@@ -255,7 +258,8 @@ public class x00 {
     }
     
     //317. Shortest Distance from All Buildings
-    public int shortestDistance(int[][] grid) {
+  
+    public static int shortestDistance(int[][] grid) {
         int wid = grid.length;
         int len = grid[0].length;
         int[][] distance = new int[wid][len];
@@ -273,7 +277,7 @@ public class x00 {
         return retdis;
     }
     
-    public int bfsshortdis(int[][] grid, int[][] distance, Queue<int[]> pq, boolean[][] visited){
+    public static int bfsshortdis(int[][] grid, int[][] distance, Queue<int[]> pq, boolean[][] visited){
         int mindix = Integer.MAX_VALUE;
         int len = grid.length;
         int wid = grid[0].length;
@@ -292,7 +296,7 @@ public class x00 {
         return mindix;
     }
     
-    public int bfshelper(int[][] grid, int[][] distance, Queue<int[]> pq, boolean[][] visited, int i, int j, int dis){
+    public static int bfshelper(int[][] grid, int[][] distance, Queue<int[]> pq, boolean[][] visited, int i, int j, int dis){
         int len = grid.length;
         int wid = grid[0].length;
         if(i < 0 || i == len || j < 0 || j == wid) return Integer.MAX_VALUE;
@@ -305,6 +309,9 @@ public class x00 {
         
         return distance[i][j];
     }
+    
+    
+
     
     //318. Maximum Product of Word Lengths
     public int maxProduct(String[] words) {
