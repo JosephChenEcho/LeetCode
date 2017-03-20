@@ -11,7 +11,31 @@ import java.util.*;
  */
 public class mockalgrothim {
     public static void main(String[] args){
-        subsets(new int[]{1,2,3});
+        //subsets(new int[]{1,2,3});
+        System.out.println(canDivided(new int[]{1,4,7,6,4,2,1,2,3,4,6,4}));
+    }
+    
+    public static boolean canDivided(int[] input){
+        int sum = 0;
+        for(int i : input){
+            sum += i;
+        }
+        System.out.println(sum);
+        if(sum % 2 == 1) return false;
+        
+        return reachtarget(input, 0, 0, sum/2);
+    }
+    
+    public static boolean reachtarget(int[] input, int sum, int idx, int target){
+        if(sum == target) return true;
+        if(idx == input.length) return false;
+        for(int i = idx; i < input.length; i++){
+            int nextsum = sum + input[i];
+            if(reachtarget(input, nextsum, i + 1, target)){ 
+                System.out.println(input[i]);
+                return true;}            
+        }
+        return false;
     }
     
     //78. Subsets
