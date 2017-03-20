@@ -134,4 +134,86 @@ public class airbnb {
         if(result.length()!=degree.size()) return "";
         return result;
     }
+    
+    //68. Text Justification
+    public List<String> fullJustify(String[] words, int L) {
+        List<String> lines = new ArrayList<String>();
+        
+        int index = 0;
+        while (index < words.length) {
+            int count = words[index].length();
+            int last = index + 1;
+            while (last < words.length) {
+                if (words[last].length() + count + 1 > L) break;
+                count += words[last].length() + 1;
+                last++;
+            }
+            
+            StringBuilder builder = new StringBuilder();
+            int diff = last - index - 1;
+            // if last line or number of words in the line is 1, left-justified
+            if (last == words.length || diff == 0) {
+                for (int i = index; i < last; i++) {
+                    builder.append(words[i] + " ");
+                }
+                builder.deleteCharAt(builder.length() - 1);
+                for (int i = builder.length(); i < L; i++) {
+                    builder.append(" ");
+                }
+            } else {
+                // middle justified
+                int spaces = (L - count) / diff;
+                int r = (L - count) % diff;
+                for (int i = index; i < last; i++) {
+                    builder.append(words[i]);
+                    if (i < last - 1) {
+                        for (int j = 0; j <= (spaces + ((i - index) < r ? 1 : 0)); j++) {
+                            builder.append(" ");
+                        }
+                    }
+                }
+            }
+            lines.add(builder.toString());
+            index = last;
+        }
+        
+        
+        return lines;
+    }
+    
+    
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        ArrayList<Integer>[] graph ;
+        boolean[] isVisited;
+        boolean[] courseOK;
+        isVisited = new boolean[numCourses];
+        courseOK = new boolean[numCourses];
+        graph = new ArrayList[numCourses];
+        for(int i = 0; i < numCourses; i++){
+            graph[i] = new ArrayList<>();
+        }
+        for(int i = 0; i < prerequisites.length; i++){
+            graph[prerequisites[i][1]].add(prerequisites[i][0]);
+        }
+        for(int i = 0; i < numCourses; i++){
+            if(!dfs(i, isVisited, courseOK, graph)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean dfs(int course, boolean[] isVisited, boolean[] courseOK, ArrayList<Integer>[] graph){
+        if(courseOK[course]) return true;
+        if(isVisited[course]) return false;        
+        isVisited[course] = true;
+        for(int i = 0; i < graph[course].size(); i++){
+            if(!dfs(graph[course].get(i), isVisited, courseOK, graph)){
+                return false;
+            }
+        }
+        isVisited[course] = false;
+        courseOK[course] = true;
+        return true;
+    }
 }
