@@ -11,9 +11,10 @@ import java.util.*;
  */
 public class x00 {
     public static void main(String[] args){
+        splitArray(new int[]{7, 2, 6, 8, 3, 9}, 3);
         //reconstructQueue(new int[][]{{9,0},{7,0},{1,9},{3,0},{2,7},{5,3},{6,0},{3,4},{6,2},{5,2}});
         //reconstructQueue(new int[][]{{2,4},{3,4},{9,0},{0,6},{7,1},{6,0},{7,3},{2,5},{1,1},{8,0}});
-        reconstructQueue(new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
+        //reconstructQueue(new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
     }
     
     //401. Binary Watch
@@ -254,5 +255,57 @@ public class x00 {
         }
         if(!cSet.isEmpty()) res++;
         return res;
+    }
+    
+    //410. Split Array Largest Sum
+    public static int splitArray(int[] nums, int m) {
+        int L = nums.length;
+        int[] S = new int[L+1];
+        S[0]=0;
+        for(int i=0; i<L; i++)
+            S[i+1] = S[i]+nums[i];
+
+        int[] dp = new int[L];
+        for(int i=0; i<L; i++)
+            dp[i] = S[L]-S[i];
+
+        for(int s=1; s<m; s++)
+        {
+            for(int i=0; i<L-s; i++)
+            {
+                dp[i]=Integer.MAX_VALUE;
+                for(int j=i+1; j<=L-s; j++)
+                {
+                    int t = Math.max(dp[j], S[j]-S[i]);
+                    if(t<=dp[i])
+                        dp[i]=t;
+                    else
+                        break;
+                }
+            }
+        }
+
+        return dp[0];
+    }
+    //411. Minimum Unique Word Abbreviation
+    public String minAbbreviation(String target, String[] dictionary) {
+        return null;
+    }
+    
+    //412. Fizz Buzz
+    public List<String> fizzBuzz(int n) {
+        List<String> retList = new ArrayList<>();
+        for(int i = 1; i <= n; i++){
+            if(i % 15 ==0){
+                retList.add("FizzBuzz");
+            }else if(i % 5 == 0){
+                retList.add("Buzz");
+            }else if(i % 3 == 0){
+                retList.add("Fizz");
+            }else{
+                retList.add(String.valueOf(i));
+            }
+        }
+        return retList;
     }
 }
