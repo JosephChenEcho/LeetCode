@@ -202,7 +202,7 @@ public class x02 {
     }
 
     public String reverseStr(String str){
-        StringBuilder sb= new StringBuilder(str);
+        StringBuilder sb= new StringBuilder(str);        
         return sb.reverse().toString();
     }
 
