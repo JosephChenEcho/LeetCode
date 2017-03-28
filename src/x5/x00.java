@@ -15,6 +15,7 @@ public class x00 {
         //reconstructQueue(new int[][]{{9,0},{7,0},{1,9},{3,0},{2,7},{5,3},{6,0},{3,4},{6,2},{5,2}});
         //reconstructQueue(new int[][]{{2,4},{3,4},{9,0},{0,6},{7,1},{6,0},{7,3},{2,5},{1,1},{8,0}});
         //reconstructQueue(new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
+        System.out.println(removeKdigits("10011001",2));
     }
     
     //401. Binary Watch
@@ -69,7 +70,7 @@ public class x00 {
     }
     
     //402. Remove K Digits
-    public String removeKdigits(String num, int k) {
+    public static String removeKdigits(String num, int k) {
         int digits = num.length() - k;
         char[] stk = new char[num.length()];
         int top = 0;
