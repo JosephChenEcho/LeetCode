@@ -27,6 +27,10 @@ public class LeetCode {
         //System.out.println(dividedBy2(input));
         //System.out.println(maxProfit2(input));
         //System.out.println(maxProfit(3,input));
+        for(int i = 1; i < 20; i++){
+            double res = (double)100/i + i;
+            System.out.println(res + "i = " + i);
+        }
         
     }
     

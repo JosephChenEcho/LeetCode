@@ -101,7 +101,7 @@ public class x06 {
     
     //65. Valid Number
     public boolean isNumber(String s) {
-        for(int i = 0; )
+        //for(int i = 0; )
         return true;
     }
     

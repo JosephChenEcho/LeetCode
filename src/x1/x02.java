@@ -20,7 +20,7 @@ public class x02 {
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if(l1 == null) return l2;
         if(l2 == null) return l1;
-        
+        /*
         ListNode retlist = null;
         ListNode curl1 = l1;
         ListNode curl2 = l2;
@@ -48,7 +48,15 @@ public class x02 {
         }
         
         if(curl1 == null) current.next = curl2;
-        if(curl2 == null) current.next = curl1;
+        if(curl2 == null) current.next = curl1;*/
+        ListNode retlist;
+        if(l1.val < l2.val){
+            retlist = l1;
+            l1.next = mergeTwoLists(l1.next,l2);
+        }else{
+            retlist = l2;
+            l2.next = mergeTwoLists(l2.next, l1);
+        }
         
         return retlist;        
     }
