@@ -99,6 +99,12 @@ public class x06 {
         return grid[grid.length - 1][grid[0].length - 1];
     }
     
+    //65. Valid Number
+    public boolean isNumber(String s) {
+        for(int i = 0; )
+        return true;
+    }
+    
     //66. Plus One
     public static int[] plusOne(int[] digits) {
         int carry = 1;
