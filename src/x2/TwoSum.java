@@ -18,11 +18,18 @@ public class TwoSum {
     
     /** Add the number to an internal data structure.. */
     public void add(int number) {
-        
+        sumMap.put(number, sumMap.containsKey(number) ? sumMap.get(number)+ 1 : 0);
     }
     
     /** Find if there exists any pair of numbers which sum is equal to the value. */
     public boolean find(int value) {
-        return false;
+        for(Map.Entry<Integer, Integer> e : sumMap.entrySet()){
+            int i = e.getKey();
+            int j = value - i;
+            if((i == j && e.getValue() > 0) ||(i != j && sumMap.containsKey(j))){
+                return true;
+            }
+        }
+        return false;        
     }
 }
