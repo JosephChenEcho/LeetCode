@@ -186,6 +186,8 @@ public class x06 {
         return len - left;
     }
     
+    //277. Find the Celebrity
+    
     //278. First Bad Version
     public int firstBadVersion(int n) {
         int left = 0;
