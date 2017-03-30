@@ -237,6 +237,19 @@ public class x04 {
     
     //155. Min Stack
     
+    //156. Binary Tree Upside Down
+    public TreeNode upsideDownBinaryTree(TreeNode root) {
+        if (root == null || root.left == null && root.right == null)
+        return root;
+        
+        TreeNode newRoot = upsideDownBinaryTree(root.left);
+        root.left.left = root.right;
+        root.left.right = root;
+        root.left = null;
+        root.right = null;
+        return newRoot;
+    }
+    
     //160. Intersection of Two Linked Lists
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if(headA == null || headB == null) return null;    
