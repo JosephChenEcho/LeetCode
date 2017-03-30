@@ -89,6 +89,20 @@ public class x06 {
         return total;
     }
     
+    //366. Find Leaves of Binary Tree
+    public List<List<Integer>> findLeaves(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        height(root, res);
+        return res;
+    }
+    private int height(TreeNode node, List<List<Integer>> res){
+        if(null==node)  return -1;
+        int level = 1 + Math.max(height(node.left, res), height(node.right, res));
+        if(res.size()<level+1)  res.add(new ArrayList<>());
+        res.get(level).add(node.val);
+        return level;
+    }
+    
     //373. Find K Pairs with Smallest Sums
     public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         PriorityQueue<int[]> que = new PriorityQueue<>((a,b)->a[0]+a[1]-b[0]-b[1]);
