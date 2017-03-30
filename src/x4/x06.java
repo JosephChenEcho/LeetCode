@@ -59,6 +59,36 @@ public class x06 {
         return num;
     }
     
+    
+    //364. Nested List Weight Sum II
+    public int depthSumInverse(List<NestedInteger> nestedList) {
+        if (nestedList == null) return 0;
+        Queue<NestedInteger> queue = new LinkedList<NestedInteger>();
+        int prev = 0;
+        int total = 0;
+        for (NestedInteger next: nestedList) {
+            queue.offer(next);
+        }
+        
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            int levelSum = 0;
+            for (int i = 0; i < size; i++) {
+                NestedInteger current = queue.poll();
+                if (current.isInteger()) levelSum += current.getInteger();
+                List<NestedInteger> nextList = current.getList();
+                if (nextList != null) {
+                    for (NestedInteger next: nextList) {
+                        queue.offer(next);
+                    }
+                }
+            }
+            prev += levelSum;
+            total += prev;
+        }
+        return total;
+    }
+    
     //373. Find K Pairs with Smallest Sums
     public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         PriorityQueue<int[]> que = new PriorityQueue<>((a,b)->a[0]+a[1]-b[0]-b[1]);
