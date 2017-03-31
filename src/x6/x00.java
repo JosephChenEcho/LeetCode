@@ -14,6 +14,27 @@ public class x00 {
     
     }
     
+    //515. Find Largest Value in Each Tree Row
+    public List<Integer> largestValues(TreeNode root) {
+        Queue<TreeNode> bfs = new LinkedList<>();
+        bfs.add(root);
+        List<Integer> retList = new ArrayList<>();
+        while(!bfs.isEmpty()){
+            int max = Integer.MIN_VALUE;
+            int size = bfs.size();
+            for(int i = 0; i < size; i++){
+                TreeNode tmp = bfs.poll();
+                max = Math.max(max, tmp.val);
+                if(tmp.left != null) bfs.add(tmp.left);
+                if(tmp.right != null) bfs.add(tmp.right);
+            }
+            retList.add(max);
+        }
+        
+        
+        return retList;
+    }
+    
     //516. Longest Palindromic Subsequence
     public int longestPalindromeSubseq(String s) {
         int[][] dp = new int[s.length()][s.length()];
