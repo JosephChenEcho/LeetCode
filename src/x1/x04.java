@@ -385,6 +385,34 @@ public class x04 {
     
     //56. Merge Intervals
     public List<Interval> merge(List<Interval> intervals) {
+        if(intervals.size() <= 1){
+            return intervals;
+        }
+        
+        Comparator<Interval> c = new Comparator<Interval>() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                return o1.start - o2.start;
+            }
+        };
+        intervals.sort(c);
+        int start = intervals.get(0).start;
+        int end = intervals.get(0).end;
+        List<Interval> retList = new ArrayList<>();
+        for(int i = 1; i < intervals.size(); i++){
+            if(intervals.get(i).start > end){
+                retList.add(new Interval(start, end));
+                start = intervals.get(i).start;
+                end = intervals.get(i).end;
+            }else{
+                end = Math.max(end,intervals.get(i).end);
+            }
+        }
+        retList.add(new Interval(start, end));
+        return retList;
+    }
+    /*
+    public List<Interval> merge(List<Interval> intervals) {
         if (intervals.size() <= 1)
         return intervals;
     
@@ -408,7 +436,7 @@ public class x04 {
         // Add the last interval
         result.add(new Interval(start, end));
         return result;
-    }
+    }*/
     
     //57. Insert Interval
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
