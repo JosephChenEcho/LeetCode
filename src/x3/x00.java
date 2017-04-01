@@ -386,7 +386,14 @@ public class x00 {
     //218. The Skyline Problem
     public List<int[]> getSkyline(int[][] buildings) {    
         //buildings [Li, Ri, Hi]
-        for(int i = 0; i < buildings.length; i++){}
+        Comparator<int[]> c = new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        };
+        Arrays.sort(buildings, c);
+        List<int[]> retList = new ArrayList<>();
         return null;
     }
     
