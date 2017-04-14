@@ -34,6 +34,35 @@ public class LeetCode {
         
     }
     
+    public static int countremoveable(int[] input){
+        int count = 0;
+        if(input.length < 2) return 0;
+        for(int i = 1; i < input.length - 1; i++){
+            if(input[i - 1] == 0 && input[i + 1] == 0){
+                count++;
+            }else if(input[i - 1] == 1 && input[i + 1] == 0){
+                if(checkremoveable(input, i - 1)){
+                    count++;
+                }
+            }else if(input[i - 1] == 0 && input[i + 1] == 1){
+                if(checkremoveable(input, i + 1)){
+                    count++;
+                }
+            }else{
+                if(checkremoveable(input, i - 1) && checkremoveable(input, i + 1)){
+                    count++;
+                }
+            }
+        }        
+        return count;
+    }
+    
+    public static boolean checkremoveable(int[] input, int i){
+        if(i == 0 || i == input.length - 1) return false;
+        if(input[i - 1] == 0 && input[i + 1] == 0) return true;        
+        return false;
+    }
+    
     public void setZeroes(int[][] matrix) {
         if(matrix.length == 0 || matrix[0].length == 0) return;
         
