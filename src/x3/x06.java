@@ -146,6 +146,11 @@ public class x06 {
         return ret;
     }
     
+    //273. Integer to English Words
+    public String numberToWords(int num) {
+        return null;
+    }
+    
     //274. H-Index
     public int hIndex(int[] citations) {
         int length = citations.length;
