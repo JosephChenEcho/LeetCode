@@ -309,6 +309,20 @@ public class LeetCode {
         return isSubsetSum (nums, n+1, sum) ||
                isSubsetSum (nums, n+1, sum-nums[n+1]);
     }
+    
+    public void reverseWords(char[] s) {
+        String input = String.valueOf(s);
+        String[] seg = input.split(" ");
+        String output = "";
+        for(int i = seg.length - 1; i >=0; i--){
+            output += seg[i] + " ";
+        }
+        output = output.substring(0,output.length() - 1);
+        char[] s2 = output.toCharArray();
+        for(int i = 0; i < s.length; i++){
+            s[i] = s2[i];
+        }
+    }
 }
 
 
