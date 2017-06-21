@@ -12,7 +12,8 @@ import java.util.*;
 public class x02 {
     
     public static void main(String[] args){
-        characterReplacement("ABAA",0);
+        //characterReplacement("ABAA",0);
+        findAnagrams("abcdefbca","abc");
     }
     
     //422. Valid Word Square
@@ -47,6 +48,54 @@ public class x02 {
     }
     
     //432. All O`one Data Structure
-
+    
+    //438. Find All Anagrams in a String
+    public static List<Integer> findAnagrams(String s, String p) {
+        List<Integer> retList = new ArrayList();
+        HashMap<Character, Integer> cntMap = new HashMap<>();
+        for(char c : p.toCharArray()){
+            if(!cntMap.containsKey(c)){
+                cntMap.put(c, 0);
+            }
+            cntMap.put(c,cntMap.get(c) + 1 );
+        }
+        int start = 0;
+        int end = 0;
+        while(start < s.length() && end < s.length()){
+            if(start < s.length() && !cntMap.containsKey(s.charAt(start))){
+                start++;
+                end = start;
+                continue;
+            }
+            while(end < s.length()){
+                if(end < s.length() && cntMap.containsKey(s.charAt(end))){
+                    if(end - start == p.length() - 1){
+                        HashMap<Character, Integer> chk = (HashMap)cntMap.clone();
+                        int i;
+                        for(i = start; i <= end; i++){
+                            if(chk.get(s.charAt(i)) == 0){
+                                break;
+                            }
+                            chk.put(s.charAt(i), chk.get(s.charAt(i)) - 1);
+                        }
+                        if(i == end + 1){
+                            retList.add(start);
+                        }                        
+                        start++;
+                    }
+                    end++;
+                }
+                else{
+                    end++;
+                    start = end;
+                    break;
+                }
+            }
+            
+        }
+        
+        
+        return retList;
+    }
 }
 
