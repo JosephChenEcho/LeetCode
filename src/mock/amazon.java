@@ -264,10 +264,35 @@ public class amazon {
     public String tree2str(TreeNode t) {
         if(t == null) return "";
         if(t.left == null && t.right == null) return String.valueOf(t.val);
-        if(t.left != null && t.right != null){
-            return String.valueOf(t.val) + "(" + tree2str
+        if(t.right == null){
+            return String.valueOf(t.val) + "(" + tree2str(t.left) + ")";
+        }else{
+            return String.valueOf(t.val) + "("+ tree2str(t.left) + ")" + "(" + tree2str(t.right) + ")";
+        }        
+    }
+    
+    //538. Convert BST to Greater Tree
+    public TreeNode convertBST(TreeNode root) {
+        Stack<TreeNode> tstack = new Stack();
+        if(root == null) return null;
+        int great = 0;
+        TreeNode p = root;
+        while(p != null){
+            tstack.add(p);
+            p = p.right;
+        }
+        while(!tstack.isEmpty()){
+            TreeNode right = tstack.pop();
+            right.val += great;
+            great = right.val;
+            p = right.left;
+            while(p != null){
+                tstack.add(p);
+                p = p.right;
+            }
         }
         
+        return root;
     }
     
 }
