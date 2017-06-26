@@ -11,22 +11,9 @@ import java.util.*;
  */
 public class amazon {
     public static void main(String[] args){
-        //String[][] input = {{"item1","item2"},{"item4","item5"},{"item3","item4"}};
-        //largestItemAssociation(input);
-        List<String> input1 = new ArrayList();
-        //["hot","dot","dog","lot","log","cog"]
-        input1.add("hot");
-        input1.add("dot");
-        input1.add("dog");
-        input1.add("lot");
-        input1.add("log");
-        input1.add("cog");
-        for(List<String> ls: findLadders("hit","cog",input1)){
-            for(String str : ls){
-                System.out.print(str + "->");
-            }
-            System.out.println();
-        }
+        ListNode input1 = new ListNode(1);
+        input1.next = new ListNode(2);
+        reverseList(input1);
     
     }
     
@@ -295,6 +282,35 @@ public class amazon {
         return root;
     }
     
+    //121. Best Time to Buy and Sell Stock
+    public int maxProfit(int[] prices) {
+        int min = Integer.MAX_VALUE;
+        int max = 0;
+        for(int i = 0; i < prices.length; i++){
+            min = Math.min(min, prices[i]);
+            max = Math.max(max, prices[i] - min);
+        }        
+        return max;
+    }
+    
+    //206. Reverse Linked List
+    public static ListNode reverseList(ListNode head){
+        if(head == null) return null;
+        ListNode tail = head;
+        ListNode p = head.next;
+        while(p != null){
+            ListNode tmp = p;
+            p = p.next;
+            tmp.next = tail;
+            tail = tmp;            
+        }        
+        return tail;
+    }
+    //536. Construct Binary Tree from String
+    public TreeNode str2tree(String s) {
+        
+        return null;
+    }
 }
 
 
