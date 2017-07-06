@@ -135,4 +135,19 @@ public class Facebook {
         }
         System.out.println("--------------");
     }
+    
+    //572. Subtree of Another Tree
+    public boolean isSubtree(TreeNode s, TreeNode t) {               
+        if(s == null && t != null) return false;
+        if(isSametree(s,t)) return true;
+        if(isSametree(s.left,t) || isSametree(s.right,t)) return true;        
+        return false;
+    }
+    
+    public boolean isSametree(TreeNode s, TreeNode t){
+        if(s == null && t == null) return true;
+        if(s == null || t == null) return false;
+        if(s.val != t.val) return false;        
+        return isSametree(s.left, t.left) && isSametree(s.right, t.left);
+    }
 }
